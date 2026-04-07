@@ -71,4 +71,5 @@ class BradescoClient implements ApiBancoBoletoInterface
         // implementação de registro de webhook para Banco do Brasil
         return true;
     }
+
 }
