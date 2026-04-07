@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\PaymentMethodInterface;
+use App\Contracts\PaymentMethodInterface;
 
 class CreditCardService implements PaymentMethodInterface
 {

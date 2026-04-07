@@ -35,4 +35,27 @@ return [
         ],
     ],
 
+    'boleto' => [
+        'itau' => [
+            'api_key' => env('ITAU_API_KEY'),
+            'api_secret' => env('ITAU_API_SECRET'),
+            'endpoint' => env('ITAU_API_ENDPOINT'),
+        ],
+        'banco_do_brasil' => [
+            'api_key' => env('BANCO_DO_BRASIL_API_KEY'),
+            'api_secret' => env('BANCO_DO_BRASIL_API_SECRET'),
+            'endpoint' => env('BANCO_DO_BRASIL_API_ENDPOINT'),
+        ],
+        'bradesco' => [
+            'api_key' => env('BRADESCO_API_KEY'),
+            'api_secret' => env('BRADESCO_API_SECRET'),
+            'endpoint' => env('BRADESCO_API_ENDPOINT'),
+        ],
+        'santander' => [
+            'api_key' => env('SANTANDER_API_KEY'),
+            'api_secret' => env('SANTANDER_API_SECRET'),
+            'endpoint' => env('SANTANDER_API_ENDPOINT'),
+        ],
+    ]
+
 ];

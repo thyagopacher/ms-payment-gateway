@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\PaymentMethodInterface;
-use App\QrCodeGenerableInterface;
+use App\Contracts\PaymentMethodInterface;
+use App\Contracts\QrCodeGenerableInterface;
 
 class PixService implements PaymentMethodInterface, QrCodeGenerableInterface
 {
