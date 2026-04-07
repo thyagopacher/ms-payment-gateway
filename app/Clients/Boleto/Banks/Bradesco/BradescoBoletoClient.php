@@ -5,7 +5,7 @@ namespace App\Clients\Banks\Itau;
 use App\Contracts\ApiBancoBoletoInterface;
 use GuzzleHttp\Client;
 
-class SantanderBoletoClient extends SantanderClient implements ApiBancoBoletoInterface
+class ItauBoletoClient extends ItauClient implements ApiBancoBoletoInterface
 {
 
     public function __construct()
@@ -13,11 +13,12 @@ class SantanderBoletoClient extends SantanderClient implements ApiBancoBoletoInt
         parent::__construct();
     }
 
+
     public function createBoleto(array $data): array
     {
         $client = new Client();
 
-        $response = $client->post($this->apiUrl . '/collection_bill_management/v2/workspaces/'.$data['workspace_id'].'/bank_slips', [
+        $response = $client->post($this->apiUrl . '/boleto-hibrido/cobranca-registro/v1/gerarBoleto', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->token,
@@ -50,21 +51,5 @@ class SantanderBoletoClient extends SantanderClient implements ApiBancoBoletoInt
     {
         // implementação de registro de webhook para Banco do Brasil
         return true;
-    }
-
-    public function generateDocument(string $payerDocumentNumber, string $billId): string
-    {
-        $client = new Client();
-        $response = $client->post($this->apiUrl . '/collection_bill_management/v2/bills/'.$billId.'/bank_slips', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $this->token,
-            ],
-            'json' => [
-                'payerDocumentNumber' => $payerDocumentNumber,
-            ]
-        ]);
-
-        return json_decode($response->getBody(), true);
     }
 }
