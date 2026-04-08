@@ -4,5 +4,5 @@ namespace App\Contracts;
 
 interface QrCodeGenerableInterface
 {
-    public function generateQrCode(): string;
+    public function generateQrCode(array $data): string;
 }

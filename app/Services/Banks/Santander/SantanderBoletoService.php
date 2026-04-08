@@ -1,11 +1,20 @@
 <?php
 
-namespace App\Services\Boleto;
+namespace App\Services\Banks\Santander;
 
+use App\Clients\Banks\Santander\SantanderBoletoClient;
 use App\Contracts\BoletoServiceInterface;
 
-class SantanderService implements BoletoServiceInterface
+class SantanderBoletoService implements BoletoServiceInterface
 {
+
+    protected SantanderBoletoClient $apiBanco;
+
+    public function __construct()
+    {
+        $this->apiBanco = new SantanderBoletoClient();
+    }
+
     public function create(array $data): array
     {
         $dadosRetornoBanco = [];

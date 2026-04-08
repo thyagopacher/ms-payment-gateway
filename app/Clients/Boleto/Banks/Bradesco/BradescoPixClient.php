@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Clients\Banks\Itau;
+namespace App\Clients\Banks\Bradesco;
 
 use App\Contracts\PixInterface;
 

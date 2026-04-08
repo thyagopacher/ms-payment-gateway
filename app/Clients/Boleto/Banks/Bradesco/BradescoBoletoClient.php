@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Clients\Banks\Itau;
+namespace App\Clients\Banks\Bradesco;
 
 use App\Contracts\ApiBancoBoletoInterface;
 use GuzzleHttp\Client;
 
-class ItauBoletoClient extends ItauClient implements ApiBancoBoletoInterface
+class BradescoBoletoClient extends BradescoClient implements ApiBancoBoletoInterface
 {
 
     public function __construct()

@@ -1,11 +1,20 @@
 <?php
 
-namespace App\Services\Boleto;
+namespace App\Services\Banks\Itau;
 
+use App\Clients\Banks\Itau\ItauBoletoClient;
 use App\Contracts\BoletoServiceInterface;
 
-class ItauService
+class ItauBoletoService implements BoletoServiceInterface
 {
+
+    protected ItauBoletoClient $apiBanco;
+
+    public function __construct()
+    {
+        $this->apiBanco = new ItauBoletoClient();
+    }
+
     public function create(array $data): array
     {
         $dadosRetornoBanco = [];

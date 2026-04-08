@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Clients\Banks\Itau;
+namespace App\Clients\Banks\BancoDoBrasil;
 
 use App\Clients\BaseAuthApiClient;
 use Illuminate\Support\Facades\Cache;
 
-class BradescoClient extends BaseAuthApiClient
+class BancoDoBrasilClient extends BaseAuthApiClient
 {
 
     protected string $apiUrl = '';

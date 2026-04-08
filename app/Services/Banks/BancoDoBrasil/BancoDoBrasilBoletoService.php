@@ -1,11 +1,20 @@
 <?php
 
-namespace App\Services\Boleto;
+namespace App\Services\Banks\BancoDoBrasil;
 
+use App\Clients\Banks\BancoDoBrasil\BancoDoBrasilBoletoClient;
 use App\Contracts\BoletoServiceInterface;
 
-class BradescoService extends BoletoServiceInterface
+class BancoDoBrasilBoletoService implements BoletoServiceInterface
 {
+
+    protected BancoDoBrasilBoletoClient $apiBanco;
+
+    public function __construct()
+    {
+        $this->apiBanco = new BancoDoBrasilBoletoClient();
+    }
+
     public function create(array $data): array
     {
         $dadosRetornoBanco = [];

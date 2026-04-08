@@ -2,20 +2,15 @@
 
 namespace App\Services;
 
-use App\Contracts\PaymentMethodInterface;
 use App\Contracts\QrCodeGenerableInterface;
+use App\Factories\BankFactory;
 
-class PixService implements PaymentMethodInterface, QrCodeGenerableInterface
+class PixService implements QrCodeGenerableInterface
 {
-    public function pay(): bool
-    {
-        // Implementação do pagamento com cartão de crédito
-        return true; // Retorna true se o pagamento for bem-sucedido
-    }
 
-    public function generateQrCode(): string
+    public function generateQrCode(array $data): string
     {
-        // Implementação da geração do QR Code para o Pix
-        return 'QRCodeString'; // Retorna a string do QR Code gerado
+        $qrcode = BankFactory::make($data['bank'])->pix()->generateQrCode($data);
+        return $qrcode['qrcode'];
     }
 }

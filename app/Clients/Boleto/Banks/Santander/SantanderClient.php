@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Clients\Banks\Itau;
+namespace App\Clients\Banks\Santander;
 
 use App\Clients\BaseAuthApiClient;
 use Illuminate\Support\Facades\Cache;

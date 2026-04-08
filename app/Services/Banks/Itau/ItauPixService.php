@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Clients\Banks\Santander;
+namespace App\Services\Banks\Itau;
 
+use App\Clients\Banks\Itau\ItauPixClient;
 use App\Contracts\PixInterface;
 
-class SantanderPixClient extends SantanderClient implements PixInterface
+class ItauPixService implements PixInterface
 {
+
+    private ItauPixClient $apiBanco;
 
     public function __construct()
     {
-        parent::__construct();
+        $this->apiBanco = new ItauPixClient();
     }
-
 
     public function generateQrCode(array $data): array
     {
-        // implementação de criação de boleto para Banco do Brasil
         $dadosRetornoBanco = [];
         return $dadosRetornoBanco;
     }

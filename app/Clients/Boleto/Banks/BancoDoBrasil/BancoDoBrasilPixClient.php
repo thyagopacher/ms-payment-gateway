@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Clients\Banks\Itau;
+namespace App\Clients\Banks\BancoDoBrasil;
 
 use App\Contracts\PixInterface;
 use GuzzleHttp\Client;
 
-class BradescoPixClient extends BradescoClient implements PixInterface
+class BancoDoBrasilPixClient extends BancoDoBrasilClient implements PixInterface
 {
 
     public function __construct()
