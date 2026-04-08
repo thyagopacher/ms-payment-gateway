@@ -2,10 +2,10 @@
 
 namespace App\Clients\Banks\Santander;
 
-use App\Contracts\ApiBancoBoletoInterface;
+use App\Contracts\ApiBankSlipInterface;
 use GuzzleHttp\Client;
 
-class SantanderBoletoClient extends SantanderClient implements ApiBancoBoletoInterface
+class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterface
 {
 
     public function __construct()

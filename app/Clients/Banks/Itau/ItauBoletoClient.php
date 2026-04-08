@@ -2,9 +2,9 @@
 
 namespace App\Clients\Banks\Itau;
 
-use App\Contracts\ApiBancoBoletoInterface;
+use App\Contracts\ApiBankSlipInterface;
 
-class ItauBoletoClient extends ItauClient implements ApiBancoBoletoInterface
+class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
 {
 
     public function __construct()

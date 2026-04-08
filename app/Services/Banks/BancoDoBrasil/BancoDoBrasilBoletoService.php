@@ -17,8 +17,7 @@ class BancoDoBrasilBoletoService implements BoletoServiceInterface
 
     public function create(array $data): array
     {
-        $dadosRetornoBanco = [];
-        return $dadosRetornoBanco;
+        return $this->apiBanco->createBoleto($data);
     }
 
     public function print(int $boletoId): string

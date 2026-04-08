@@ -2,9 +2,8 @@
 
 namespace App\Contracts;
 
-interface ApiBancoBoletoInterface
+interface ApiBankSlipInterface
 {
-    public function authenticate(): array;
 
     public function createBoleto(array $data): array;
 

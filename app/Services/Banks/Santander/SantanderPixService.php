@@ -17,8 +17,7 @@ class SantanderPixService implements PixInterface
 
     public function generateQrCode(array $data): array
     {
-        $dadosRetornoBanco = [];
-        return $dadosRetornoBanco;
+        return $this->apiBanco->generateQrCode($data);
     }
 
 }

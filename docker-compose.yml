@@ -15,6 +15,16 @@ services:
     container_name: php84
     volumes:
       - ./:/var/www/html
+
+  horizon:
+    build: .
+    container_name: horizon
+    command: php artisan horizon
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - redis
+
   mailhog:
     image: mailhog/mailhog
     ports:
