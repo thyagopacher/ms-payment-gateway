@@ -16,9 +16,9 @@ class BradescoClient extends BaseAuthApiClient
 
     public function __construct()
     {
-        $this->apiUrl = config('services.boleto.bradesco.endpoint');
-        $this->clientId = config('services.boleto.bradesco.api_key');
-        $this->clientSecret = config('services.boleto.bradesco.client_secret');
+        $this->apiUrl = config('services.boleto.banco_do_brasil.endpoint');
+        $this->clientId = config('services.boleto.banco_do_brasil.api_key');
+        $this->clientSecret = config('services.boleto.banco_do_brasil.client_secret');
 
         parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
     }

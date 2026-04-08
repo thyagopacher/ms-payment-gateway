@@ -3,6 +3,7 @@
 namespace App\Clients\Banks\Itau;
 
 use App\Clients\BaseAuthApiClient;
+use Illuminate\Support\Facades\Cache;
 
 class ItauClient extends BaseAuthApiClient
 {
@@ -25,10 +26,23 @@ class ItauClient extends BaseAuthApiClient
 
     public function auth(): array
     {
+        $this->token = Cache::get('token_itau');
+        if (!empty($this->token)) {
+            return [
+                'access_token' => $this->token,
+                'token_type' => '',
+                'expires_in' => $this->expiresIn,
+                'active' => '',
+                'scope' => '',
+            ];
+        }
+
         $body = parent::authenticate('/api/oauth/jwt');
 
         $this->token = $body['access_token'];
         $this->expiresIn = $body['expires_in'];
+
+        Cache::put('token_itau', $this->token, $this->expiresIn);
 
         return [
             'access_token' => $body['access_token'],
