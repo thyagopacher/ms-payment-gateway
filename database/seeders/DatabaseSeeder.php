@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\BankSlip;
 use App\Models\Payment;
+use App\Models\Person;
+use App\Models\Pix;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +27,15 @@ class DatabaseSeeder extends Seeder
 
         Log::info("Criando pagamentos de teste.");
         Payment::factory(20)->create();
+
+        Log::info("Criando boletos de teste.");
+        BankSlip::factory(20)->create();
+
+        Log::info("Criando pix de teste.");
+        Pix::factory(20)->create();
+
+        Log::info("Criando pessoas de teste.");
+        Person::factory(20)->create();
 
         Log::info("Seeding do banco de dados concluído.");
     }

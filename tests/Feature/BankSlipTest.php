@@ -6,14 +6,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class HealthCheck extends TestCase
+class BankSlipTest extends TestCase
 {
     /**
      * A basic feature test example.
      */
-    public function test_health_check(): void
+    public function test_example(): void
     {
-        $response = $this->get('/api/health-check');
+        $response = $this->get('/');
+
         $response->assertStatus(200);
     }
 }
