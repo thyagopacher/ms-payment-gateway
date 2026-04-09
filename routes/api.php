@@ -20,7 +20,7 @@ Route::prefix('payments')->middleware([JwtMiddleware::class])->group(function ()
 
 Route::prefix('bank-slip')->middleware([JwtMiddleware::class])->group(function () {
     Route::post('/create', [BankSlipController::class, 'generateBillingDocument']);
-    Route::get('/print', [BankSlipController::class, 'printBillingDocument']);
+    Route::get('/print/{boletoId}', [BankSlipController::class, 'printBillingDocument']);
 });
 
 Route::prefix('pix')->middleware([JwtMiddleware::class])->group(function () {

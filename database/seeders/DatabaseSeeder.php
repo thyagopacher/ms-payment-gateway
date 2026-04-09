@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bank;
 use App\Models\BankSlip;
 use App\Models\Payment;
 use App\Models\Person;
@@ -21,6 +22,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Log::info("Iniciando o seeding do banco de dados.");
+
+        Log::info("Criando bancos de teste.");
+        Bank::factory(10)->create();
 
         Log::info("Criando usuários de teste.");
         User::factory(10)->create();

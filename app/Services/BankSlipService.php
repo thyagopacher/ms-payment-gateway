@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Services\Bank\Boleto;
+namespace App\Services;
 
 use App\Contracts\BoletoServiceInterface;
 use App\Factories\BankFactory;
+use App\Models\BankSlip;
 
 class BankSlipService implements BoletoServiceInterface
 {
@@ -14,7 +15,10 @@ class BankSlipService implements BoletoServiceInterface
 
     public function print(int $boletoId): string
     {
-        $dadosBoleto = []; // lógica para obter dados do boleto, incluindo o banco
+        $dadosBoleto = BankSlip::find($boletoId);
+        if (empty($dadosBoleto)) {
+            throw new \Exception('Boleto não encontrado.');
+        }
         return BankFactory::make($dadosBoleto['bank'])->boleto()->print($boletoId);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Bank;
 use App\Models\BankSlip;
 use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -33,6 +34,7 @@ class BankSlipFactory extends Factory
             'payment_id' => Payment::factory()->state([
                 'payment_method' => 'bank_slip',
             ]),
+            'bank_id' => Bank::factory(),
         ];
     }
 }

@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class BankSlipTest extends TestCase
 {
+
+    use WithoutMiddleware;
 
     public function test_generate_bank_slip(): void
     {
@@ -20,14 +21,14 @@ class BankSlipTest extends TestCase
                 'email' => 'john.doe@example.com'
             ]
         ];
-        $response = $this->post('/bank-slip/create', $data);
+        $response = $this->post('/api/bank-slip/create', $data);
 
         $response->assertStatus(200);
     }
 
     public function test_print_bank_slip(): void
     {
-        $response = $this->get('/bank-slip/print');
+        $response = $this->get('/api/bank-slip/print/1');
         $response->assertStatus(200);
     }
 }

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('bill_amount', 10, 2);
             $table->date('bill_due_date')->default(now());
             $table->foreignId('payment_id')->constrained('payment')->onDelete('cascade');
+            $table->foreignId('bank_id')->constrained('bank')->onDelete('cascade');
 
             $table->timestamps();
         });

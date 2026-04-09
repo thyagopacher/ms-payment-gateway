@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Bank;
 use App\Models\Pix;
 use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,6 +29,7 @@ class PixFactory extends Factory
             ]),
             'status' => 'pending',
             'amount' => fake()->randomFloat(2, 0.01, 99999.99),
+            'bank_id' => Bank::factory(),
         ];
     }
 }

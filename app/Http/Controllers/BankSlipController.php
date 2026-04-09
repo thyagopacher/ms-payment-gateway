@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BankSlipRequest;
-use App\Services\Bank\Boleto\BankSlipService;
+use App\Services\BankSlipService;
 
 class BankSlipController extends Controller
 {
