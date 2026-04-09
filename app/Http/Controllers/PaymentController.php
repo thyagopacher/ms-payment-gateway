@@ -18,7 +18,11 @@ class PaymentController extends Controller
         $filters = $request->all();
 
         $payments = $this->paymentService->getPayments($filters);
-        return response()->json(['payments' => $payments]);
+        return response()->json([
+            'success' => true,
+            'count' => count($payments),
+            'payments' => $payments
+        ]);
     }
 
 }

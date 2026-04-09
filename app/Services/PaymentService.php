@@ -45,6 +45,10 @@ class PaymentService
             $query->where('person_id', $filters['person_id']);
         }
 
+        if (isset($filters['limit'])) {
+            $query->limit($filters['limit']);
+        }
+
         return $query->get()->toArray();
     }
 
