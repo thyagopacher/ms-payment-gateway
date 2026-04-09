@@ -26,5 +26,6 @@ class PaymentTest extends TestCase
         $this->assertEquals(true, $content['success'] === true, 'Response success field is not true');
         $this->assertEquals(true, is_numeric($content['count']) && $content['count'] >= 0, 'Response count field is not a valid number');
         $this->assertEquals(true, is_array($content['payments']), 'Response payments field is not an array');
+        $this->assertEquals(true, $content['count'] === count($content['payments']), 'Response payments field does not match count');
     }
 }
