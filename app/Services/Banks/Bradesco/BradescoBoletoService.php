@@ -4,6 +4,7 @@ namespace App\Services\Banks\Bradesco;
 
 use App\Clients\Banks\Bradesco\BradescoBoletoClient;
 use App\Contracts\BoletoServiceInterface;
+use App\Services\PdfService;
 
 class BradescoBoletoService implements BoletoServiceInterface
 {
@@ -22,7 +23,15 @@ class BradescoBoletoService implements BoletoServiceInterface
 
     public function print(int $boletoId): string
     {
-        // lógica para imprimir boleto do Banco do Brasil
-        return "Boleto do Banco do Brasil impresso com ID: {$boletoId}";
+        //0 - obter dados do boleto, incluindo o banco
+        $boletoData = [];
+        
+        //1 - gerar HTML do boleto
+        $htmlContent = '';
+
+        //2 - converter HTML para PDF
+        $pdfService = new PdfService();
+        $pdfContent = $pdfService->generatePdf($htmlContent);
+        return $pdfContent;
     }
 }

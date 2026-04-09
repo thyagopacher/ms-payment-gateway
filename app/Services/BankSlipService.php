@@ -5,7 +5,7 @@ namespace App\Services\Bank\Boleto;
 use App\Contracts\BoletoServiceInterface;
 use App\Factories\BankFactory;
 
-class BoletoService implements BoletoServiceInterface
+class BankSlipService implements BoletoServiceInterface
 {
     public function create(array $data): array
     {

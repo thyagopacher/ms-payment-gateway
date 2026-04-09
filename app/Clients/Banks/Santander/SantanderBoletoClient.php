@@ -32,24 +32,30 @@ class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterf
 
     public function cancelBoleto(string $boletoId): bool
     {
-        // implementação de cancelamento de boleto para Banco do Brasil
         return true;
     }
 
     public function getBoleto(string $boletoId): array
     {
-        // implementação de consulta de boleto para Banco do Brasil
         $dadosBoleto = [];
         return $dadosBoleto;
     }
 
     public function registerWebhook(string $url): bool
     {
-        // implementação de registro de webhook para Banco do Brasil
         return true;
     }
 
-    public function generateDocument(string $payerDocumentNumber, string $billId): string
+    /**
+     * generateDocument function
+     *
+     * @param string $payerDocumentNumber
+     * @param string $billId
+     *
+     * @return array [link] URL para download do PDF do boleto
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
+    public function generateDocument(string $payerDocumentNumber, string $billId): array
     {
         $client = new Client();
         $response = $client->post($this->apiUrl . '/collection_bill_management/v2/bills/'.$billId.'/bank_slips', [
