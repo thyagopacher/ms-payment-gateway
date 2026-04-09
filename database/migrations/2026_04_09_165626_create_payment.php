@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('payment', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount', 12, 2);
-            $table->string('status')->default('pending')->index();
+            $table->enum('status', PaymentStatus::values())->default(PaymentStatus::PENDING)->index();
             $table->string('payment_method')->default('credit_card')->index();
 
             $table->foreignId('person_id')->constrained('person')->onDelete('cascade')->index();

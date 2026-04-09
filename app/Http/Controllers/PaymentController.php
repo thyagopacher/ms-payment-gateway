@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BoletoRequest;
-use App\Services\BoletoService;
+use App\Services\PaymentService;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
 
-    public function getPayments()
+    public function __construct(private PaymentService $paymentService)
     {
-        // Lógica para obter os pagamentos
-        return response()->json(['payments' => []]);
+
+    }
+
+    public function getPayments(Request $request)
+    {
+        $filters = $request->all();
+
+        $payments = $this->paymentService->getPayments($filters);
+        return response()->json(['payments' => $payments]);
     }
 
 }
