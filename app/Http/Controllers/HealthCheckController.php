@@ -15,17 +15,13 @@ class HealthCheckController extends Controller
 {
 
     public function __construct(
-        private SantanderClient $santanderClient,
-        private BancoDoBrasilClient $bancoDoBrasilClient,
-        private ItauClient $itauClient,
-        private BradescoClient $bradescoClient
+
     ) {
 
     }
 
     public function getStatus()
     {
-        BankFactory::make('santander')->getStatusConnectionApi();
         $res = [
             'status' => 'healthy',
             'timestamp' => now()->toDateTimeString(),

@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Log::info("Iniciando o seeding do banco de dados.");
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Log::info("Criando usuários de teste.");
+        User::factory(10)->create();
+
+        Log::info("Criando pagamentos de teste.");
+        Payment::factory(20)->create();
+
+        Log::info("Seeding do banco de dados concluído.");
     }
 }

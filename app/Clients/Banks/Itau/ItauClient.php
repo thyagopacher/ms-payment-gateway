@@ -37,7 +37,11 @@ class ItauClient extends BaseAuthApiClient
             ];
         }
 
-        $body = parent::authenticate('/api/oauth/jwt');
+        $certs = [
+            'ssl_key' => [storage_path('certs/certificado.pem'), env('SENHA_CERTIFICADO')],
+        ];
+
+        $body = parent::authenticate('/api/oauth/jwt', $certs);
 
         $this->token = $body['access_token'];
         $this->expiresIn = $body['expires_in'];

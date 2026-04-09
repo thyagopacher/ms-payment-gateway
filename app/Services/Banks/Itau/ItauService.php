@@ -4,6 +4,7 @@ namespace App\Services\Banks\Itau;
 
 use App\Clients\Banks\Itau\ItauClient;
 use App\Contracts\BankInterface;
+use Illuminate\Support\Facades\Log;
 
 class ItauService implements BankInterface
 {
@@ -20,6 +21,7 @@ class ItauService implements BankInterface
             $res = $client->auth();
             return !empty($res) && is_array($res) && isset($res['access_token']);
         } catch (\Throwable $e) {
+            Log::error('Erro ao conectar com API do Itau: ' . $e->getMessage());
             return false;
         }
     }
