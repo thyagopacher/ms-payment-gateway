@@ -3,6 +3,7 @@
 namespace App\Clients;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 abstract class BaseAuthApiClient
 {
@@ -17,9 +18,14 @@ abstract class BaseAuthApiClient
 
     public function authenticate(string $endpoint): array
     {
+        $enderecoUrl = $this->apiUrl . $endpoint;
+        Log::info("Realizando autenticação na API: ".$enderecoUrl);
+
         $client = new Client();
 
-        $response = $client->post($this->apiUrl . $endpoint, [
+        $response = $client->post($enderecoUrl, [
+            'http_errors' => false,
+            'ssl_key' => [storage_path('certs/certificado.pem'), env('SENHA_CERTIFICADO')],
             'headers' => [
                 'Content-Type' => 'application/x-www-form-urlencoded',
             ],
@@ -30,6 +36,13 @@ abstract class BaseAuthApiClient
             ]
         ]);
 
-        return json_decode($response->getBody(), true);
+        $returnJson = json_decode($response->getBody(), true);
+        if ($response->getStatusCode() !== 200) {
+            $msgException = "Erro na autenticação da API: HttpCode " . $response->getStatusCode();
+            Log::error($msgException . " - " . $response->getBody());
+            throw new \Exception($msgException);
+        }
+
+        return $returnJson;
     }
 }

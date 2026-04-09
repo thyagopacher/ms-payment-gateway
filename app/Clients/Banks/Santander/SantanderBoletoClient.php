@@ -20,13 +20,10 @@ class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterf
         $response = $client->post($this->apiUrl . '/collection_bill_management/v2/workspaces/'.$data['workspace_id'].'/bank_slips', [
             'headers' => [
                 'Content-Type' => 'application/json',
+                'X-Application-Key' => $this->clientId,
                 'Authorization' => 'Bearer ' . $this->token,
             ],
-            'json' => [
-                'grant_type' => 'client_credentials',
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-            ]
+            'json' => $data
         ]);
 
         $body = json_decode($response->getBody(), true);

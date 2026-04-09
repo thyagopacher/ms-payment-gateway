@@ -11,7 +11,7 @@ class BankFactory
         return match ($bank) {
             'itau' => new \App\Services\Banks\Itau\ItauService(),
             'bradesco' => new \App\Services\Banks\Bradesco\BradescoService(),
-            'bb' => new \App\Services\Banks\BancoDoBrasil\BancoDoBrasilBoletoService(),
+            'bb' => new \App\Services\Banks\BancoDoBrasil\BancoDoBrasilService(),
             'santander' => new \App\Services\Banks\Santander\SantanderService(),
         };
     }

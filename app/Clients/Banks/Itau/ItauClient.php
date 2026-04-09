@@ -19,14 +19,14 @@ class ItauClient extends BaseAuthApiClient
         // configuração do cliente para Banco do Brasil
         $this->apiUrl = config('services.boleto.itau.endpoint');
         $this->clientId = config('services.boleto.itau.api_key');
-        $this->clientSecret = config('services.boleto.itau.client_secret');
+        $this->clientSecret = config('services.boleto.itau.api_secret');
 
         parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
     }
 
     public function auth(): array
     {
-        $this->token = Cache::get('token_itau');
+        $this->token = Cache::get('token_itau') ?? '';
         if (!empty($this->token)) {
             return [
                 'access_token' => $this->token,

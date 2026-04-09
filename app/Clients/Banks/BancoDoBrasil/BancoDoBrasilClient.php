@@ -18,14 +18,14 @@ class BancoDoBrasilClient extends BaseAuthApiClient
     {
         $this->apiUrl = config('services.boleto.banco_do_brasil.endpoint');
         $this->clientId = config('services.boleto.banco_do_brasil.api_key');
-        $this->clientSecret = config('services.boleto.banco_do_brasil.client_secret');
+        $this->clientSecret = config('services.boleto.banco_do_brasil.api_secret');
 
         parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
     }
 
     public function auth(): array
     {
-        $this->token = Cache::get('token_bradesco');
+        $this->token = Cache::get('token_bradesco') ?? '';
         if (!empty($this->token)) {
             return [
                 'access_token' => $this->token,

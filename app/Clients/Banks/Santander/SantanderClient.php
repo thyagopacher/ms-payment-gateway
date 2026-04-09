@@ -19,14 +19,14 @@ class SantanderClient extends BaseAuthApiClient
         // configuração do cliente para Banco do Brasil
         $this->apiUrl = config('services.boleto.santander.endpoint');
         $this->clientId = config('services.boleto.santander.api_key');
-        $this->clientSecret = config('services.boleto.santander.client_secret');
+        $this->clientSecret = config('services.boleto.santander.api_secret');
 
         parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
     }
 
     public function auth(): array
     {
-        $this->token = Cache::get('token_santander');
+        $this->token = Cache::get('token_santander') ?? '';
         if (!empty($this->token)) {
             return [
                 'access_token' => $this->token,
