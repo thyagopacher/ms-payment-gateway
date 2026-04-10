@@ -2,14 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\Bank;
 use Illuminate\Database\Eloquent\Model;
 
 class BankSlipRepository extends BaseRepository
 {
 
     /**
-     * @var BankSlip
+     * @var \App\Models\BankSlip
      */
     protected Model $model;
 

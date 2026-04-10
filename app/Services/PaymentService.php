@@ -3,11 +3,16 @@
 namespace App\Services;
 
 use App\Enums\PaymentStatus;
-use App\Models\Payment;
 use App\Notifications\InvoicePaid;
+use App\Repositories\PaymentRepository;
 
 class PaymentService
 {
+
+    public function __construct(private PaymentRepository $paymentRepository)
+    {
+
+    }
 
     public function processPayment($paymentData)
     {
@@ -16,7 +21,7 @@ class PaymentService
             throw new \InvalidArgumentException('Dados obrigatórios ausentes.');
         }
 
-        $payment = Payment::create([
+        $payment = $this->paymentRepository->create([
             'amount'         => $paymentData['amount'],
             'payment_method' => $paymentData['payment_method'] ?? 'credit_card',
             'status'         => PaymentStatus::PENDING->value,
@@ -35,21 +40,7 @@ class PaymentService
 
     public function getPayments(array $filters = []): array
     {
-        $query = Payment::query();
-
-        if (isset($filters['status'])) {
-            $query->where('status', $filters['status']);
-        }
-
-        if (isset($filters['person_id'])) {
-            $query->where('person_id', $filters['person_id']);
-        }
-
-        if (isset($filters['limit'])) {
-            $query->limit($filters['limit']);
-        }
-
-        return $query->get()->toArray();
+        return $this->paymentRepository->getPayments($filters);
     }
 
 }

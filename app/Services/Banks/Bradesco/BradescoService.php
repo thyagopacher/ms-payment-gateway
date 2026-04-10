@@ -19,7 +19,7 @@ class BradescoService implements BankInterface
         $client = new BradescoClient();
         try {
             $res = $client->auth();
-            return !empty($res) && is_array($res) && isset($res['access_token']);
+            return !empty($res) && !empty($res['access_token']);
         } catch (\Throwable $e) {
             Log::error('Erro ao conectar com API do Bradesco: ' . $e->getMessage());
             return false;

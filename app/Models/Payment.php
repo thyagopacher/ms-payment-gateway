@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $person_id
+ * @property float $amount
+ * @property PaymentStatus $status
+ * @property string $payment_method
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 #[UseFactory(PaymentFactory::class)]
 class Payment extends Model
 {

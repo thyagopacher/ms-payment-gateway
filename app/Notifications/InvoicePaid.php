@@ -36,8 +36,8 @@ class InvoicePaid extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         $name = $notifiable->name
-            ?? $notifiable->person?->name
-            ?? $this->payment->person?->name
+            ?? $notifiable->person->name
+            ?? $this->payment->person->name
             ?? 'Cliente';
 
         return (new MailMessage)
@@ -45,7 +45,7 @@ class InvoicePaid extends Notification implements ShouldQueue
             ->greeting('Olá, ' . $name)
             ->line('Seu pagamento foi confirmado com sucesso!')
             ->line('**Valor:** R$ ' . number_format($this->payment->amount, 2, ',', '.'))
-            ->line('**Método:** ' . $this->payment->payment_method_label ?? ucfirst($this->payment->payment_method))
+            ->line('**Método:** ' . ucfirst($this->payment->payment_method))
             ->line('**Data do pagamento:** ' . $this->payment->updated_at->format('d/m/Y H:i'))
             ->action('Ver Detalhes do Pagamento', url('/payments/' . $this->payment->id))
             ->line('Obrigado por escolher nossa empresa!');

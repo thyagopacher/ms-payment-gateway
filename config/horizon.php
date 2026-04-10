@@ -251,4 +251,6 @@ return [
         'composer.json',
         '.env',
     ],
+
+    'emails_access' => explode(',', env('HORIZON_EMAILS_ACCESS', '')),
 ];

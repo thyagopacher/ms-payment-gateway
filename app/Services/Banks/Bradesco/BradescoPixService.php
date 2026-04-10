@@ -17,7 +17,7 @@ class BradescoPixService implements PixInterface
 
     public function generateQrCode(array $data): array
     {
-        $dadosRetornoBanco = [];
+        $dadosRetornoBanco = $this->apiBanco->generateQrCode($data);
         return $dadosRetornoBanco;
     }
 

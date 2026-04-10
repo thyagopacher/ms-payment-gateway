@@ -15,22 +15,22 @@ abstract class BaseRepository
 
     public function all(array $columns = ['*'])
     {
-        return $this->model->get($columns);
+        return $this->model->newQuery()->get($columns);
     }
 
     public function find(int $id)
     {
-        return $this->model->find($id);
+        return $this->model->newQuery()->find($id);
     }
 
     public function findOrFail(int $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->newQuery()->findOrFail($id);
     }
 
     public function create(array $data)
     {
-        return $this->model->create($data);
+        return $this->model->newQuery()->create($data);
     }
 
     public function update(int $id, array $data)
