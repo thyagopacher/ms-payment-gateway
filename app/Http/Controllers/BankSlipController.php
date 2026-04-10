@@ -23,9 +23,17 @@ class BankSlipController extends Controller
 
     public function printBillingDocument(int $boletoId)
     {
-        $pdfContent = $this->bankSlipService->print($boletoId);
-        return response($pdfContent, 200)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="boleto.pdf"');
+        try {
+            $pdfContent = $this->bankSlipService->print($boletoId);
+            return response($pdfContent, 200)
+                ->header('Content-Type', 'application/pdf')
+                ->header('Content-Disposition', 'inline; filename="boleto.pdf"');
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ], 500);
+        }
     }
 }

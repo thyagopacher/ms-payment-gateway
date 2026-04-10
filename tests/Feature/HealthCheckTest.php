@@ -39,6 +39,13 @@ class HealthCheckTest extends TestCase
     }
 
     #[Depends('test_health_check_access_route')]
+    public function test_health_check_kafka_ok(string $jsonContent): void
+    {
+        $json = json_decode($jsonContent, true);
+        $this->assertEquals(true, $json['services']['kafka'] === 'connected', 'Kafka service is not healthy');
+    }
+
+    #[Depends('test_health_check_access_route')]
     public function test_health_check_itau_ok(string $jsonContent): void
     {
         $json = json_decode($jsonContent, true);

@@ -26,7 +26,12 @@ class BankSlipRepository extends BaseRepository
             throw new \Exception('Boleto não encontrado.');
         }
 
-        $data['bank'] = $bankSlip->bank()->code;
+        $bank = $bankSlip->bank()->first();
+        if (empty($bank->code)) {
+            throw new \Exception('Banco do boleto não encontrado.');
+        }
+
+        $data['bank'] = $bank->code;
         return $data;
     }
 }
