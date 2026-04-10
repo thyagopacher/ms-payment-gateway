@@ -15,3 +15,7 @@ Built with focus on:
 - Event-driven design
 - Asynchronous processing
 - Resilience and scalability
+
+## Kafka
+Referência de conteúdo:
+https://laravel-news.com/laravel-kafka-package

@@ -14,7 +14,7 @@ class PaymentService
 
     }
 
-    public function processPayment($paymentData)
+    public function createPayment(array $paymentData)
     {
         // Validação básica (pode ser feita antes com Form Request)
         if (empty($paymentData['amount']) || empty($paymentData['person_id'])) {
@@ -33,7 +33,7 @@ class PaymentService
 
         return [
             'status'  => 'success',
-            'message' => 'Pagamento processado com sucesso!',
+            'message' => 'Pagamento criado com sucesso!',
             'data'    => $payment->only(['id', 'amount', 'status', 'payment_method'])
         ];
     }
