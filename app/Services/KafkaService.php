@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
 use Junges\Kafka\Facades\Kafka;
 
 class KafkaService
@@ -10,6 +11,20 @@ class KafkaService
     public function __construct()
     {
 
+    }
+
+    public function healthCheck(): bool
+    {
+        try {
+            $res = Kafka::publish()
+                ->onTopic('health-check')
+                ->withBodyKey('ping', now()->timestamp)
+                ->send();
+            return $res;
+        } catch (\Exception $e) {
+            Log::error('Kafka health check failed: ' . $e->getMessage());
+            return false;
+        }
     }
 
     public function publish(string $topic, array $data): bool

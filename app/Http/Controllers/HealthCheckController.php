@@ -7,6 +7,7 @@ use App\Clients\Banks\Bradesco\BradescoClient;
 use App\Clients\Banks\Itau\ItauClient;
 use App\Clients\Banks\Santander\SantanderClient;
 use App\Factories\BankFactory;
+use App\Services\KafkaService;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -27,7 +28,8 @@ class HealthCheckController extends Controller
             'timestamp' => now()->toDateTimeString(),
             'services' => [
                 'database' => app()->make('db')->connection()->getPdo() ? 'connected' : 'disconnected',
-                'redis' => app()->make('redis')->ping()
+                'redis' => app()->make('redis')->ping(),
+                'kafka' => (new KafkaService())->healthCheck() ? 'connected' : 'disconnected',
             ],
             'integrations' => [
                 'banks' => [

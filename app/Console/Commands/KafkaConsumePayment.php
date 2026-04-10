@@ -9,10 +9,13 @@ use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-#[Signature('app:kafka-consume-payment')]
+#[Signature('kafka:consume-payments')]
 #[Description('Kafka consumer para processar mensagens de pagamento aprovado')]
 class KafkaConsumePayment extends Command
 {
+
+    protected $signature = 'kafka:consume-payments';
+
     /**
      * Execute the console command.
      */

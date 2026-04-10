@@ -2,17 +2,18 @@
 
 namespace App\Services;
 
+use App\Services\KafkaService;
 use App\Enums\PaymentStatus;
-use App\Jobs\SendPaymentApprovedEmailJob;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
-use Junges\Kafka\Facades\Kafka;
 
 class PaymentService
 {
 
-    public function __construct(private PaymentRepository $paymentRepository)
-    {
+    public function __construct(
+        private PaymentRepository $paymentRepository,
+        private KafkaService $kafkaService
+    ) {
 
     }
 
@@ -40,7 +41,7 @@ class PaymentService
         ];
     }
 
-    public function paidPayment(int $paymentId)
+    public function approvePayment(int $paymentId)
     {
         $payment = $this->paymentRepository->find($paymentId);
         if (!$payment) {
@@ -50,13 +51,7 @@ class PaymentService
         $payment->status = PaymentStatus::PAID->value;
         $payment->save();
 
-        // Dispara a notificação
-        SendPaymentApprovedEmailJob::dispatch(
-            $payment->person()->email,
-            $payment->toArray()
-        );
-        $kafkaService = new KafkaService();
-        $kafkaService->publish('payment-approved', [
+        $this->kafkaService->publish('payment-approved', [
             'payment_id' => $payment->id,
             'amount' => $payment->amount,
             'person_id' => $payment->person_id,
