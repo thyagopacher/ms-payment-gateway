@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Enums\PaymentStatus;
+use App\Jobs\SendPaymentApprovedEmailJob;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
+use Junges\Kafka\Facades\Kafka;
 
 class PaymentService
 {
@@ -34,6 +36,36 @@ class PaymentService
         return [
             'status'  => 'success',
             'message' => 'Pagamento criado com sucesso!',
+            'data'    => $payment->only(['id', 'amount', 'status', 'payment_method'])
+        ];
+    }
+
+    public function paidPayment(int $paymentId)
+    {
+        $payment = $this->paymentRepository->find($paymentId);
+        if (!$payment) {
+            throw new \Exception('Pagamento não encontrado.');
+        }
+
+        $payment->status = PaymentStatus::PAID->value;
+        $payment->save();
+
+        // Dispara a notificação
+        SendPaymentApprovedEmailJob::dispatch(
+            $payment->person()->email,
+            $payment->toArray()
+        );
+        $kafkaService = new KafkaService();
+        $kafkaService->publish('payment-approved', [
+            'payment_id' => $payment->id,
+            'amount' => $payment->amount,
+            'person_id' => $payment->person_id,
+            'status' => $payment->status,
+        ]);
+
+        return [
+            'status'  => 'success',
+            'message' => 'Pagamento aprovado com sucesso!',
             'data'    => $payment->only(['id', 'amount', 'status', 'payment_method'])
         ];
     }
