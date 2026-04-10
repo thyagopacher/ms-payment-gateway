@@ -1,5 +1,17 @@
-# MS Gateway de pagamento
+# Payment Gateway Microservice (Laravel)
 
-Integração com banco Itaú, Bradesco, Banco do Brasil e Santander 
+A scalable payment gateway microservice integrating:
+- Pix
+- Boleto
 
-** em fase de implantação 
+Supporting multiple banks:
+- Banco do Brasil
+- Itaú
+- Bradesco
+- Santander
+
+Built with focus on:
+- Clean Architecture
+- Event-driven design
+- Asynchronous processing
+- Resilience and scalability
