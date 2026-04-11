@@ -13,13 +13,15 @@ class BankSlipTest extends TestCase
     public function test_generate_bank_slip(): void
     {
         $data = [
-            'amount' => 100.50,
-            'due_date' => '2024-12-31',
-            'payer' => [
-                'name' => 'John Doe',
-                'cpf' => '12345678900',
-                'email' => 'john.doe@example.com'
-            ]
+            'person_name' => 'João da Silva',
+            'person_city' => 'Curitiba',
+            'person_uf' => 'PR',
+            'person_cpf_cnpj' => '12345678901',
+            'person_address' => 'Rua das Flores 123',
+            'person_zipcode' => '80000000',
+            'bill_amount' => 150.75,
+            'bill_due_date' => '2026-04-20',
+            'bank' => 'itau'
         ];
         $response = $this->post('/api/bank-slip/create', $data);
 

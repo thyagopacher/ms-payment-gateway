@@ -3,10 +3,10 @@
 namespace App\Services\Banks\Bradesco;
 
 use App\Clients\Banks\Bradesco\BradescoBoletoClient;
-use App\Contracts\BoletoServiceInterface;
+use App\Contracts\BankSlipServiceInterface;
 use App\Services\PdfService;
 
-class BradescoBoletoService implements BoletoServiceInterface
+class BradescoBoletoService implements BankSlipServiceInterface
 {
 
     protected BradescoBoletoClient $apiBanco;
@@ -25,7 +25,7 @@ class BradescoBoletoService implements BoletoServiceInterface
     {
         //0 - obter dados do boleto, incluindo o banco
         $boletoData = [];
-        
+
         //1 - gerar HTML do boleto
         $htmlContent = '';
 

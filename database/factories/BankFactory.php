@@ -24,7 +24,7 @@ class BankFactory extends Factory
     {
         return [
             'name' => fake()->company(),
-            'code' => fake()->unique()->regexify('[A-Z]{3}'),
+            'code' => fake()->randomElement(['santander', 'bradesco', 'itau', 'bb']),
         ];
     }
 }

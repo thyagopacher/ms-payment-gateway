@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bank', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code')->unique();
+            $table->string('code', 15)->index();
             $table->timestamps();
         });
     }

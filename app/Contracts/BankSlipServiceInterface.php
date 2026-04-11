@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface BoletoServiceInterface
+interface BankSlipServiceInterface
 {
     public function create(array $data): array;
 

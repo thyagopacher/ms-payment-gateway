@@ -11,7 +11,7 @@ class ItauService implements BankInterface
 
     public function getBankCode(): string
     {
-        return 'bb';
+        return 'itau';
     }
 
     public function getStatusConnectionApi(): bool

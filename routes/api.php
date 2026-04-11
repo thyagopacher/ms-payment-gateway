@@ -6,8 +6,6 @@ use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PixController;
 use App\Http\Middleware\JwtMiddleware;
-use App\Models\BankSlip;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/auth', [AuthController::class, 'auth']);

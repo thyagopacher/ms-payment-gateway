@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Contracts\BoletoServiceInterface;
+use App\Contracts\BankSlipServiceInterface;
 use App\Factories\BankFactory;
 use App\Repositories\BankSlipRepository;
 
-class BankSlipService implements BoletoServiceInterface
+class BankSlipService implements BankSlipServiceInterface
 {
 
     public function __construct(private BankSlipRepository $bankSlipRepository)
@@ -16,6 +16,9 @@ class BankSlipService implements BoletoServiceInterface
 
     public function create(array $data): array
     {
+        if (empty($data['bank'])) {
+            throw new \Exception('Banco é obrigatório para criar o boleto.');
+        }
         return BankFactory::make($data['bank'])->boleto()->create($data);
     }
 

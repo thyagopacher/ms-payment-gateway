@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         Log::info("Iniciando o seeding do banco de dados.");
 
         Log::info("Criando bancos de teste.");
-        Bank::factory(10)->create();
+        Bank::factory(4)->create();
 
         Log::info("Criando usuários de teste.");
         User::factory(10)->create();

@@ -8,7 +8,7 @@ interface BankInterface
 
     public function getStatusConnectionApi(): bool;
 
-    public function boleto(): BoletoServiceInterface;
+    public function boleto(): BankSlipServiceInterface;
 
     public function pix(): PixInterface;
 }

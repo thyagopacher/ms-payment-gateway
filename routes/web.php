@@ -3,5 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return "MS Payment Gateway API";
+    return json_encode([
+        'name' => config('app.name'),
+        'version' => '1.0.0',
+        'status' => 'running'
+    ]);
 });

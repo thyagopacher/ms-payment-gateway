@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Factories\BankFactory;
 use App\Services\KafkaService;
+use Illuminate\Support\Facades\Log;
 
 class HealthCheckController extends Controller
 {
@@ -17,8 +18,10 @@ class HealthCheckController extends Controller
     private function getStatusRedis(): bool
     {
         try {
-            return app()->make('redis')->ping() === 'PONG';
+            $res = app()->make('redis')->ping();
+            return $res;
         } catch (\Exception $e) {
+            Log::error('Redis health check failed: ' . $e->getMessage());
             return false;
         }
     }

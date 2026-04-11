@@ -3,9 +3,9 @@
 namespace App\Services\Banks\BancoDoBrasil;
 
 use App\Clients\Banks\BancoDoBrasil\BancoDoBrasilBoletoClient;
-use App\Contracts\BoletoServiceInterface;
+use App\Contracts\BankSlipServiceInterface;
 
-class BancoDoBrasilBoletoService implements BoletoServiceInterface
+class BancoDoBrasilBoletoService implements BankSlipServiceInterface
 {
 
     protected BancoDoBrasilBoletoClient $apiBanco;

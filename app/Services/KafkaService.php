@@ -21,7 +21,7 @@ class KafkaService
                 ->withBodyKey('ping', now()->timestamp)
                 ->send();
             return $res;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error('Kafka health check failed: ' . $e->getMessage());
             return false;
         }

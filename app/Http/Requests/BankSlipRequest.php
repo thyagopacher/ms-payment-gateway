@@ -12,7 +12,7 @@ class BankSlipRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,8 @@ class BankSlipRequest extends FormRequest
             'person_address' => 'required|string|min:5|max:255',
             'person_zipcode' => 'required|string|min:8|max:8',
             'bill_amount' => 'required|numeric|min:0.01|max:99999999.99',
-            'bill_due_date' => 'required|date_format:Y-m-d|min:today'
+            'bill_due_date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'bank' => 'string|in:itau,santander,bradesco,bb'
         ];
     }
 }

@@ -19,13 +19,21 @@ class JwtMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $route = $request->route();
+        Log::info('Middleware JWTMiddleware:', [
+            'uri' => $request->getRequestUri(),
+            'method' => $request->getMethod(),
+            'route' => $route ? $route->getName() : 'N/A',
+            'action' => $route ? $route->getActionName() : 'N/A',
+        ]);
         $key = config('jwt.secret');
 
-        if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
+        $authHeader = $request->header('Authorization');
+        if (empty($authHeader)) {
             return response()->json(['error' => 'Token não fornecido', 'success' => false], 401);
         }
 
-        $jwt = $_SERVER['HTTP_AUTHORIZATION'];
+        $jwt = $authHeader;
         $jwt = str_replace("Bearer ", "", $jwt);
 
         try {
@@ -35,6 +43,7 @@ class JwtMiddleware
             return response()->json(['error' => 'Token inválido', 'success' => false], 401);
         }
 
-        return $next($request);
+        $resNext = $next($request);
+        return $resNext;
     }
 }
