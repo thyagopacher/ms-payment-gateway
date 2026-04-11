@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-payment-gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: laravel
+  template:
+    metadata:
+      labels:
+        app: laravel
+    spec:
+      containers:
+      - name: laravel-app
+        image: seu-repositorio/laravel-gateway:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: KAFKA_BROKERS
+          value: "kafka-service:9092"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: password
