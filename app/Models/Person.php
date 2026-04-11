@@ -13,7 +13,7 @@ class Person extends Model
     protected $table = 'person';
 
     protected $fillable = [
-        'name', 'document'
+        'name', 'document', 'email', 'phone'
     ];
 
     public function scopeByDocument($query, $document)

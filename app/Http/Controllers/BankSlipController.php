@@ -37,11 +37,12 @@ class BankSlipController extends Controller
                 ->header('Content-Type', 'application/pdf')
                 ->header('Content-Disposition', 'inline; filename="boleto.pdf"');
         } catch (\Exception $e) {
-
+            $code = $e->getCode() ?: 500;
+            $code = ($code < 400 || $code >= 600) ? 500 : $code; // Garantir que o código seja um status HTTP válido
             return response()->json([
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
-            ], 500);
+            ], $code);
         }
     }
 }

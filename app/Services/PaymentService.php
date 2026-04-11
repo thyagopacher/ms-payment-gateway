@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Services\KafkaService;
 use App\Enums\PaymentStatus;
+use App\Exceptions\NotFoundException;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
+use Illuminate\Support\Facades\Log;
 
 class PaymentService
 {
@@ -41,15 +43,26 @@ class PaymentService
         ];
     }
 
-    public function approvePayment(int $paymentId)
+    public function approvePayment(int $paymentId): bool
     {
         $payment = $this->paymentRepository->find($paymentId);
         if (!$payment) {
-            throw new \Exception('Pagamento não encontrado.');
+            throw new NotFoundException('Pagamento não encontrado.');
         }
 
-        $payment->status = PaymentStatus::PAID->value;
+        if ($payment->status->isPaid()) {
+            Log::info("Pagamento ID {$payment->id} já estava aprovado.");
+            return true;  // Já está pago
+        }
+
+        $payment->status = PaymentStatus::PAID;
         $payment->save();
+
+        Log::info("Pagamento ID aprovado.", [
+            'payment_id' => $payment->id,
+            'amount' => $payment->amount,
+            'person_id' => $payment->person_id
+        ]);
 
         $this->kafkaService->publish('payment-approved', [
             'payment_id' => $payment->id,
@@ -58,11 +71,9 @@ class PaymentService
             'status' => $payment->status,
         ]);
 
-        return [
-            'status'  => 'success',
-            'message' => 'Pagamento aprovado com sucesso!',
-            'data'    => $payment->only(['id', 'amount', 'status', 'payment_method'])
-        ];
+        Log::info("Mensagem de pagamento aprovado publicada no Kafka para pagamento ID {$payment->id}.");
+
+        return true;
     }
 
     public function getPayments(array $filters = []): array

@@ -6,12 +6,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class InvalidBankException extends NotFoundHttpException
+class InvalidArgumentException extends NotFoundHttpException
 {
     public function __construct(
-        string $message = 'Banco inválido.',
+        string $message = 'Argumento inválido.',
         ?\Throwable $previous = null,
-        int $code = 0,
+        int $code = 400,
         array $headers = []
     ) {
         parent::__construct($message, $previous, $code, $headers);
@@ -20,7 +20,7 @@ class InvalidBankException extends NotFoundHttpException
     public function render(Request $request): JsonResponse
     {
         return response()->json([
-            'error' => 'invalid_bank',
+            'error' => 'invalid_argument',
             'message' => $this->getMessage(),
             'status' => 500,
         ], 500);

@@ -9,12 +9,10 @@ use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-#[Signature('kafka:consume-payments')]
+#[Signature('kafka:payments-consumer')]
 #[Description('Kafka consumer para processar mensagens de pagamento aprovado')]
-class KafkaConsumePayment extends Command
+class KafkaPaymentsConsumer extends Command
 {
-
-    protected $signature = 'kafka:consume-payments';
 
     /**
      * Execute the console command.
@@ -23,7 +21,13 @@ class KafkaConsumePayment extends Command
     {
         $kafkaService->startConsumer('payment-approved', function ($message) {
             $payload = $message->getBody();
-            Log::info('Received Kafka message:', $payload);
+            
+            Log::info('Payment approved message received', [
+                'payment_id' => $payload['payment_id'] ?? null,
+                'email' => $payload['email'] ?? null,
+                'amount' => $payload['amount'] ?? null,
+                'timestamp' => now()
+            ]);
 
             // Dispatch a job to send the email notification
             SendPaymentApprovedEmailJob::dispatch($payload['email'], $payload);

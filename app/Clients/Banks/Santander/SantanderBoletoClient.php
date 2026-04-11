@@ -3,6 +3,7 @@
 namespace App\Clients\Banks\Santander;
 
 use App\Contracts\ApiBankSlipInterface;
+use App\Exceptions\InvalidArgumentException;
 use GuzzleHttp\Client;
 
 class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterface
@@ -57,6 +58,16 @@ class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterf
      */
     public function generateDocument(string $payerDocumentNumber, string $billId): array
     {
+        if (empty($payerDocumentNumber) || empty($billId)) {
+            throw new InvalidArgumentException('Número do documento do pagador e ID da cobrança são obrigatórios.');
+        }
+        if (strlen($payerDocumentNumber) < 11 || strlen($payerDocumentNumber) > 14) {
+            throw new InvalidArgumentException('Número do documento do pagador inválido.');
+        }
+        if (strlen($billId) < 8 || strlen($billId) > 64) {
+            throw new InvalidArgumentException('ID da cobrança é inválido.');
+        }
+
         $client = new Client();
         $response = $client->post($this->apiUrl . '/collection_bill_management/v2/bills/'.$billId.'/bank_slips', [
             'headers' => [

@@ -27,7 +27,7 @@ class PixFactory extends Factory
             'payment_id' => Payment::factory()->state([
                 'payment_method' => 'pix',
             ]),
-            'status' => 'pending',
+            'status' => fake()->randomElement(['pending', 'paid', 'failed', 'reversed']),
             'amount' => fake()->randomFloat(2, 0.01, 99999.99),
             'bank_id' => Bank::factory(),
         ];

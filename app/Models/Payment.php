@@ -34,8 +34,4 @@ class Payment extends Model
         return $this->belongsTo(Person::class);
     }
 
-    public function isPaid()
-    {
-        return $this->status === PaymentStatus::PAID;
-    }
 }
