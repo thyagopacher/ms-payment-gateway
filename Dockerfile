@@ -1,6 +1,8 @@
 FROM php:8.4-fpm-alpine
 
 RUN apk add --no-cache $PHPIZE_DEPS\
+    git \
+    tar \
     icu-dev \
     libpng-dev \
     libjpeg-turbo-dev \
