@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\KafkaService;
 use App\Enums\PaymentStatus;
 use App\Exceptions\NotFoundException;
+use App\Factories\PaymentMethodFactory;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
 use Illuminate\Support\Facades\Log;
@@ -21,10 +22,6 @@ class PaymentService
 
     public function createPayment(array $paymentData)
     {
-        // Validação básica (pode ser feita antes com Form Request)
-        if (empty($paymentData['amount']) || empty($paymentData['person_id'])) {
-            throw new \InvalidArgumentException('Dados obrigatórios ausentes.');
-        }
 
         $payment = $this->paymentRepository->create([
             'amount'         => $paymentData['amount'],

@@ -19,3 +19,8 @@ Built with focus on:
 ## Kafka
 Referência de conteúdo:
 https://laravel-news.com/laravel-kafka-package
+
+
+## Observalidade
+1 - Newrelic
+2 - Sentry

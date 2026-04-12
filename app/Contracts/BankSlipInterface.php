@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface BankSlipServiceInterface
+interface BankSlipInterface
 {
     public function create(array $data): array;
 

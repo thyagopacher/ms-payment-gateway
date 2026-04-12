@@ -3,9 +3,9 @@
 namespace App\Services\Banks\Itau;
 
 use App\Clients\Banks\Itau\ItauBoletoClient;
-use App\Contracts\BankSlipServiceInterface;
+use App\Contracts\BankSlipInterface;
 
-class ItauBoletoService implements BankSlipServiceInterface
+class ItauBoletoService implements BankSlipInterface
 {
 
     protected ItauBoletoClient $apiBanco;

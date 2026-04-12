@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
-use App\Contracts\BankSlipServiceInterface;
+use App\Contracts\BankSlipInterface;
+use App\Contracts\PaymentMethodInterface;
 use App\Factories\BankFactory;
 use App\Repositories\BankSlipRepository;
 
-class BankSlipService implements BankSlipServiceInterface
+class BankSlipService implements BankSlipInterface, PaymentMethodInterface
 {
 
     public function __construct(private BankSlipRepository $bankSlipRepository)
@@ -20,6 +21,24 @@ class BankSlipService implements BankSlipServiceInterface
             throw new \Exception('Banco é obrigatório para criar o boleto.');
         }
         return BankFactory::make($data['bank'])->boleto()->create($data);
+    }
+
+    public function getStatus(array $filters): array
+    {
+        // Implementação da obtenção do status do pagamento com cartão de crédito
+        return ['status' => 'pending']; // Retorna um array com o status do pagamento
+    }
+
+    public function cancel(array $data): bool
+    {
+        // Implementação do cancelamento do pagamento com cartão de crédito
+        return true; // Retorna true se o cancelamento for bem-sucedido
+    }
+
+    public function refund(array $data): bool
+    {
+        // Implementação do reembolso do pagamento com cartão de crédito
+        return true; // Retorna true se o reembolso for bem-sucedido
     }
 
     public function print(int $boletoId): string

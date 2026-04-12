@@ -3,9 +3,9 @@
 namespace App\Services\Banks\Santander;
 
 use App\Clients\Banks\Santander\SantanderBoletoClient;
-use App\Contracts\BankSlipServiceInterface;
+use App\Contracts\BankSlipInterface;
 
-class SantanderBoletoService implements BankSlipServiceInterface
+class SantanderBoletoService implements BankSlipInterface
 {
 
     protected SantanderBoletoClient $apiBanco;

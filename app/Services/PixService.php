@@ -2,11 +2,37 @@
 
 namespace App\Services;
 
-use App\Contracts\QrCodeGenerableInterface;
+use App\Contracts\PaymentMethodInterface;
 use App\Factories\BankFactory;
 
-class PixService implements QrCodeGenerableInterface
+class PixService implements PaymentMethodInterface
 {
+
+    public function create(array $data): array
+    {
+        if (empty($data['bank'])) {
+            throw new \Exception('Banco é obrigatório para criar o pagamento pix.');
+        }
+        return BankFactory::make($data['bank'])->pix()->generateQrCode($data);
+    }
+
+    public function getStatus(array $filters): array
+    {
+        // Implementação da obtenção do status do pagamento com cartão de crédito
+        return ['status' => 'pending']; // Retorna um array com o status do pagamento
+    }
+
+    public function cancel(array $data): bool
+    {
+        // Implementação do cancelamento do pagamento com cartão de crédito
+        return true; // Retorna true se o cancelamento for bem-sucedido
+    }
+
+    public function refund(array $data): bool
+    {
+        // Implementação do reembolso do pagamento com cartão de crédito
+        return true; // Retorna true se o reembolso for bem-sucedido
+    }
 
     public function generateQrCode(array $data): string
     {

@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return json_encode([
-        'name' => config('app.name'),
-        'version' => '1.0.0',
-        'status' => 'running'
+        'service' => config('app.name'),
+        'description' => 'Payment Gateway API',
+        'version' => config('app.version', '1.0.0'),
+        'environment' => app()->environment(),
+        'documentation' => url('/docs'),
+        'status' => 'online',
+        'timestamp' => now()->toISOString(),
     ]);
 });
