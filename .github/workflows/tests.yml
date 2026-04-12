@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: apk add --no-cache git && composer install
 
+      - name: Build da imagem
+        run: docker compose up -d
+
       - name: Rodar Testes
         env:
           KAFKA_BROKERS: localhost:9092
