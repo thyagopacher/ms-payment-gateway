@@ -17,7 +17,7 @@ Built with focus on:
 - Resilience and scalability
 
 ## CI / CD
-CI -Aplicado com Github actions e realiza testes unitários com PHPUnit
+CI - Aplicado com Github actions e realiza testes unitários com PHPUnit, arquivos na pasta .github/workflows e no arquivo é separado as etapas de andamento 
 
 ## Kafka
 Referência de conteúdo:
