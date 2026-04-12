@@ -16,6 +16,9 @@ Built with focus on:
 - Asynchronous processing
 - Resilience and scalability
 
+## CI / CD
+CI -Aplicado com Github actions e realiza testes unitários com PHPUnit
+
 ## Kafka
 Referência de conteúdo:
 https://laravel-news.com/laravel-kafka-package
