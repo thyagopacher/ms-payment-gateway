@@ -22,5 +22,5 @@ https://laravel-news.com/laravel-kafka-package
 
 
 ## Observalidade
-1 - Newrelic
-2 - Sentry
+- Newrelic
+- Sentry

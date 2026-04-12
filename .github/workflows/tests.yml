@@ -1,0 +1,32 @@
+name: Testes com Kafka
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+          image: php:8.4-alpine
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: rdkafka # Essencial para o driver do Kafka
+
+      - name: Rodar Kafka KRaft (Para testes de integração)
+        uses: spicyparrot/kafka-kraft-action@v1.1.0
+        with:
+          kafka-version: "3.7.0"
+          kafka-topics: "meu-topico,1" # Nome do tópico e número de partições
+
+      - name: Install dependencies
+        run: apk add --no-cache git && composer install
+
+      - name: Rodar Testes
+        env:
+          KAFKA_BROKERS: localhost:9092
+        run: php artisan test

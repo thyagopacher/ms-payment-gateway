@@ -21,7 +21,8 @@ class PersonController extends Controller
         $res = $this->personService->create($data);
         return response()->json([
             'success' => true,
-            'msg' => $res ? 'Criado com sucesso' : 'Erro ao criar'
+            'msg' => $res ? 'Criado com sucesso' : 'Erro ao criar',
+            'id' => $res
         ]);
     }
 
