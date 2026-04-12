@@ -16,14 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->append(\App\Http\Middleware\NewRelicTransactionMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
 
-        $exceptions->dontReport([
+        $dontReportExceptions = [
             \Illuminate\Validation\ValidationException::class,
             \Illuminate\Auth\AuthenticationException::class,
-        ]);
+        ];
+        $exceptions->dontReport($dontReportExceptions);
 
         $exceptions->report(function (Throwable $e) {
             if (extension_loaded('newrelic')) {
