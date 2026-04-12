@@ -8,6 +8,9 @@ jobs:
     container:
           image: php:8.4-alpine
     steps:
+      - name: Instalar dependências básicas do runner
+        run: apk add --no-cache git tar bash
+
       - name: Checkout code
         uses: actions/checkout@v4
 
