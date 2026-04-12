@@ -11,7 +11,8 @@ RUN apk add --no-cache $PHPIZE_DEPS\
     librdkafka-dev \
     cyrus-sasl-dev \
     openssl-dev \
-    bash
+    bash \
+    nano
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
@@ -40,6 +41,11 @@ RUN curl -Ls https://download.newrelic.com/php_agent/release/ | \
 
 RUN NR_INSTALL_USE_CP_NOT_LN=1 NR_INSTALL_SILENT=1 \
     /tmp/newrelic-php5-*/newrelic-install install
+
+RUN echo "extension=newrelic.so" > /usr/local/etc/php/conf.d/newrelic.ini \
+ && echo "newrelic.enabled = true" >> /usr/local/etc/php/conf.d/newrelic.ini \
+ && echo "newrelic.license = \${NEW_RELIC_LICENSE_KEY}" >> /usr/local/etc/php/conf.d/newrelic.ini \
+ && echo "newrelic.appname = \${NEW_RELIC_APP_NAME}" >> /usr/local/etc/php/conf.d/newrelic.ini
 
 RUN rm -rf /tmp/newrelic-php5-*
 

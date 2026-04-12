@@ -26,6 +26,10 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $exceptions->report(function (Throwable $e) {
+            if (extension_loaded('newrelic')) {
+                newrelic_notice_error($e);
+            }
+
             if ($e instanceof NotFoundHttpException ||
                 $e instanceof NotFoundException) {
                 return false; // não envia para o Sentry
