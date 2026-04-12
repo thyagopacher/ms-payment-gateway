@@ -5,34 +5,45 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-          image: php:8.4-alpine
-    steps:
-      - name: Instalar dependências básicas do runner
-        run: apk add --no-cache git tar bash
 
+    # Define o Kafka como um serviço que roda ao lado do seu job
+    services:
+      kafka:
+        image: apache/kafka:latest
+        ports:
+          - 9092:9092
+        env:
+          KAFKA_NODE_ID: 1
+          KAFKA_PROCESS_ROLES: broker,controller
+          KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+          KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+          KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
-          extensions: rdkafka # Essencial para o driver do Kafka
-
-      - name: Rodar Kafka KRaft (Para testes de integração)
-        uses: spicyparrot/kafka-kraft-action@v1.1.0
-        with:
-          kafka-version: "3.7.0"
-          kafka-topics: "meu-topico,1" # Nome do tópico e número de partições
+          php-version: '8.4'
+          extensions: rdkafka, mbstring, pdo_mysql
 
       - name: Install dependencies
-        run: apk add --no-cache git && composer install
+        run: composer install --prefer-dist
 
-      - name: Build da imagem
-        run: docker compose up -d
+      - name: Preparar ambiente de teste
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+          # Opcional: roda migrations se necessário
+          php artisan migrate --force
 
-      - name: Rodar Testes
+      - name: Rodar Testes Feature
         env:
-          KAFKA_BROKERS: localhost:9092
-        run: php artisan test
+          KAFKA_BROKERS: 127.0.0.1:9092
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan test --testsuite=Feature

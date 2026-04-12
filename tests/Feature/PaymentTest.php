@@ -11,6 +11,11 @@ class PaymentTest extends TestCase
 
     use WithoutMiddleware;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_get_payments_return_httpcode(): array
     {
         $response = $this->get('/api/payments?limit=3');
