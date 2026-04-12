@@ -28,12 +28,12 @@ abstract class BaseRepository
         return $this->model->newQuery()->findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(array $data): model
     {
         return $this->model->newQuery()->create($data);
     }
 
-    public function update(int $id, array $data)
+    public function update(int $id, array $data): model
     {
         $model = $this->findOrFail($id);
         $model->update($data);

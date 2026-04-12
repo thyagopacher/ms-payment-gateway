@@ -7,6 +7,7 @@ use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * @property int $id
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
 
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'payment';
 

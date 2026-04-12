@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Person extends Model
 {
 
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'person';
 
     protected $fillable = [
-        'name', 'document', 'email', 'phone'
+        'name', 'document', 'mail', 'phone'
     ];
 
     public function scopeByDocument($query, $document)

@@ -26,8 +26,9 @@ class PersonFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->phoneNumber()
+            'mail' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
+            'document' => fake()->numerify('###########'),
         ];
     }
 

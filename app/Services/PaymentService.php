@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\KafkaService;
 use App\Enums\PaymentStatus;
+use App\Events\PaymentApproved;
 use App\Exceptions\NotFoundException;
 use App\Factories\PaymentMethodFactory;
 use App\Notifications\InvoicePaid;
@@ -61,12 +62,7 @@ class PaymentService
             'person_id' => $payment->person_id
         ]);
 
-        $this->kafkaService->publish('payment-approved', [
-            'payment_id' => $payment->id,
-            'amount' => $payment->amount,
-            'person_id' => $payment->person_id,
-            'status' => $payment->status,
-        ]);
+        event(new PaymentApproved($payment));
 
         Log::info("Mensagem de pagamento aprovado publicada no Kafka para pagamento ID {$payment->id}.");
 
