@@ -1,4 +1,4 @@
-name: Testes com Kafka
+name: CI Projeto
 
 on: [push, pull_request]
 
