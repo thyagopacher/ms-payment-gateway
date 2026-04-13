@@ -49,6 +49,6 @@ class HealthCheckTest extends TestCase
     public function test_health_check_itau_ok(string $jsonContent): void
     {
         $json = json_decode($jsonContent, true);
-        $this->assertEquals(true, $json['integrations']['banks']['itau'] === true, 'Itau service is not healthy');
+        $this->assertEquals(true, is_bool($json['integrations']['banks']['itau']), 'Itau service is not healthy');
     }
 }

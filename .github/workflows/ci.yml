@@ -1,4 +1,4 @@
-name: CI Projeto
+name: ci_projeto
 
 on: [push, pull_request]
 
@@ -34,7 +34,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: rdkafka, redis, mbstring, pdo_mysql
+          extensions: rdkafka, redis, mbstring, pdo_sqlite
 
       - name: Install dependencies
         run: composer install --prefer-dist
@@ -43,8 +43,13 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-          # Opcional: roda migrations se necessário
-          php artisan migrate --force
+          chmod 755 database/database.sqlite
+
+      - name: Rodar Migrations
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --force
 
       - name: Rodar Testes Feature
         env:

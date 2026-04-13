@@ -24,6 +24,12 @@ class ItauClient extends BaseAuthApiClient
         parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
     }
 
+    /**
+     * auth function
+     *
+     * @return array
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
     public function auth(): array
     {
         $this->token = Cache::get('token_itau') ?? '';
