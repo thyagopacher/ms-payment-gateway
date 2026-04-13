@@ -21,6 +21,11 @@ jobs:
           KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
           KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
 
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,7 +34,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: rdkafka, mbstring, pdo_mysql
+          extensions: rdkafka, redis, mbstring, pdo_mysql
 
       - name: Install dependencies
         run: composer install --prefer-dist
@@ -44,6 +49,11 @@ jobs:
       - name: Rodar Testes Feature
         env:
           KAFKA_BROKERS: 127.0.0.1:9092
+
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+          CACHE_DRIVER: redis
+
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
 
