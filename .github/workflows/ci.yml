@@ -46,4 +46,20 @@ jobs:
           KAFKA_BROKERS: 127.0.0.1:9092
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
+
+          ITAU_API_KEY: ""
+          ITAU_API_SECRET: ""
+          ITAU_API_ENDPOINT: "https://sandbox.devportal.itau.com.br"
+
+          SANTANDER_API_KEY: ""
+          SANTANDER_API_SECRET: ""
+          SANTANDER_API_ENDPOINT: "https://trust-sandbox.api.santander.com.br"
+
+          BRADESCO_API_KEY: ""
+          BRADESCO_API_SECRET: ""
+          BRADESCO_API_ENDPOINT: "https://openapisandbox.prebanco.com.br"
+
+          BANCO_DO_BRASIL_API_KEY: ""
+          BANCO_DO_BRASIL_API_SECRET: ""
+          BANCO_DO_BRASIL_API_ENDPOINT: "https://sandbox.api.bb.com.br"
         run: php artisan test --testsuite=Feature
