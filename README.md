@@ -1,6 +1,6 @@
 ![PHP](https://img.shields.io/badge/PHP-8.4-blue)
-![Laravel](https://img.shields.io/badge/Laravel-12-red)
-![CI](https://github.com/SEU_USER/SEU_REPO/actions/workflows/ci.yml/badge.svg)
+![Laravel](https://img.shields.io/badge/Laravel-13-red)
+![CI](https://github.com/thyagopacher/ms-payment-gateway/actions/workflows/ci.yml/badge.svg)
 
 # Payment Gateway Microservice (Laravel)
 
