@@ -43,8 +43,13 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-          # Opcional: roda migrations se necessário
-          php artisan migrate --force
+          chmod 755 database/database.sqlite
+
+      - name: Rodar Migrations
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --force
 
       - name: Rodar Testes Feature
         env:
