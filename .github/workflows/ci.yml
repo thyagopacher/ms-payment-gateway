@@ -1,4 +1,4 @@
-name: CI Projeto
+name: ci_projeto
 
 on: [push, pull_request]
 
