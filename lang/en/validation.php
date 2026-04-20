@@ -195,6 +195,19 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'person_name' => 'name',
+        'person_document' => 'document',
+        'person_city' => 'city',
+        'person_uf' => 'state',
+        'person_address' => 'address',
+        'person_zipcode' => 'zipcode',
+        'bill_amount' => 'bill amount',
+        'bill_due_date' => 'due date',
+        'bill_paid_at' => 'paid at',
+        'bank' => 'bank',
+        'person_mail' => 'email',
+        'person_phone' => 'phone'
+    ],
 
 ];

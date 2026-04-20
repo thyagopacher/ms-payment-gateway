@@ -15,7 +15,9 @@ class PaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->header('Authorization') != '';
+        $auth = $this->header('Authorization');
+
+        return !empty($auth) && str_starts_with($auth, 'Bearer ');
     }
 
     /**
@@ -26,7 +28,7 @@ class PaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => ['required', 'numeric', 'min:0.01', 'max:9999999999.99'],
+            'bill_amount' => ['required', 'numeric', 'min:0.01', 'max:9999999999.99'],
 
             'status' => [
                 'sometimes',
@@ -38,22 +40,38 @@ class PaymentRequest extends FormRequest
                 Rule::in(PaymentMethod::values())
             ],
 
-            'paid_at' => [
+            'bill_paid_at' => [
                 'nullable',
                 'date',
-                'after_or_equal:due_date'
+                'after_or_equal:bill_due_date'
             ],
 
-            'due_date' => [
+            'bill_due_date' => [
                 'required',
                 'date',
                 'after_or_equal:today'
             ],
 
-            'person_id' => [
+            'person_document' => [
                 'required',
-                'exists:person,id'
+                'exists:person,document'
             ],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'person_name' => __('validation.attributes.person_name'),
+            'person_city' => __('validation.attributes.person_city'),
+            'person_uf' => __('validation.attributes.person_uf'),
+            'person_document' => __('validation.attributes.person_document'),
+            'person_address' => __('validation.attributes.person_address'),
+            'person_zipcode' => __('validation.attributes.person_zipcode'),
+            'bill_amount' => __('validation.attributes.bill_amount'),
+            'bill_due_date' => __('validation.attributes.bill_due_date'),
+            'bill_paid_at' => __('validation.attributes.bill_paid_at'),
+            'bank' => __('validation.attributes.bank'),
         ];
     }
 }

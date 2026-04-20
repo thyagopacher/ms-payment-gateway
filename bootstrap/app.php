@@ -40,7 +40,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (Throwable $e, $request) {
-            if ($request->expectsJson()) {
+            if ($request->expectsJson() || str_starts_with($request->path(), 'api/')) {
                 $status = $e->getCode();
 
                 if ($status < 400 || $status >= 600) {
