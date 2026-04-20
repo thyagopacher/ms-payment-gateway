@@ -21,7 +21,7 @@ class PersonController extends Controller
         $res = $this->personService->create($data);
         return response()->json([
             'success' => true,
-            'msg' => $res ? 'Criado com sucesso' : 'Erro ao criar',
+            'msg' => $res ? __('api.created_success') : __('api.created_error'),
             'id' => $res
         ]);
     }
@@ -33,7 +33,7 @@ class PersonController extends Controller
         $res = $this->personService->update($data, $id);
         return response()->json([
             'success' => true,
-            'msg' => $res ? 'Atualizado com sucesso' : 'Erro ao atualizar'
+            'msg' => $res ? __('api.updated_success') : __('api.updated_error')
         ]);
     }
 
@@ -43,7 +43,7 @@ class PersonController extends Controller
         $res = $this->personService->delete($id);
         return response()->json([
             'success' => true,
-            'msg' => $res ? 'Excluido com sucesso' : 'Erro ao excluir'
+            'msg' => $res ? __('api.deleted_success') : __('api.deleted_error')
         ]);
     }
 
