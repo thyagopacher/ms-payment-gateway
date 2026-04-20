@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BankSlipRequest;
 use App\Services\BankSlipService;
-use Illuminate\Support\Facades\Log;
 
 class BankSlipController extends Controller
 {

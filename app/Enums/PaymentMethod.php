@@ -4,12 +4,10 @@ namespace App\Enums;
 
 enum PaymentMethod: string
 {
-    //'pix', 'bank_slip', 'credit_card'
     case PIX = 'pix';
     case BANK_SLIP = 'bank_slip';
     case CREDIT_CARD = 'credit_card';
 
-    // Métodos úteis (opcional, mas muito recomendado)
     public function isFinal(): bool
     {
         return in_array($this, [self::PIX, self::BANK_SLIP, self::CREDIT_CARD]);
