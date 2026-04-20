@@ -11,6 +11,8 @@ class BancoDoBrasilBoletoClient extends BancoDoBrasilClient implements ApiBankSl
     public function __construct()
     {
         parent::__construct();
+
+        $this->headersAuth['Authorization'] = 'Bearer ' . $this->getToken();
     }
 
 

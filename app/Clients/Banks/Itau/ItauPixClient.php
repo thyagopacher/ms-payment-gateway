@@ -11,17 +11,19 @@ class ItauPixClient extends ItauClient implements PixInterface
     public function __construct()
     {
         parent::__construct();
+
+        $this->headersAuth['Authorization'] = 'Bearer ' . $this->getToken();
     }
 
     public function generateBilling(array $data): array
     {
         $client = new Client();
 
+        $headers = array_merge($this->headersAuth, [
+            'Content-Type' => 'application/json',
+        ]);
         $response = $client->post($this->apiUrl . '/cob', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $this->token,
-            ],
+            'headers' => $headers,
             'json' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => $this->clientId,
@@ -46,11 +48,11 @@ class ItauPixClient extends ItauClient implements PixInterface
     {
         $client = new Client();
 
+        $headers = array_merge($this->headersAuth, [
+            'Content-Type' => 'application/json',
+        ]);
         $response = $client->post($this->apiUrl . '/qrcode-pix-automatico/v1/cobrancas', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $this->token,
-            ],
+            'headers' => $headers,
             'json' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => $this->clientId,
@@ -75,11 +77,11 @@ class ItauPixClient extends ItauClient implements PixInterface
     {
         $client = new Client();
 
+        $headers = array_merge($this->headersAuth, [
+            'Content-Type' => 'application/json',
+        ]);
         $response = $client->patch($this->apiUrl . '/qrcode-pix-automatico/v1/cobrancas/' . $data['cobrancaId'], [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $this->token,
-            ],
+            'headers' => $headers,
             'json' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => $this->clientId,
