@@ -10,9 +10,6 @@ class PixService implements PaymentMethodInterface
 
     public function create(array $data): array
     {
-        if (empty($data['bank'])) {
-            throw new \Exception('Banco é obrigatório para criar o pagamento pix.');
-        }
         return BankFactory::make($data['bank'])->pix()->generateQrCode($data);
     }
 

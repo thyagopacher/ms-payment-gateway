@@ -7,6 +7,7 @@ use App\Enums\PaymentStatus;
 use App\Events\PaymentApproved;
 use App\Exceptions\NotFoundException;
 use App\Factories\PaymentMethodFactory;
+use App\Models\Payment;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
 use Illuminate\Support\Facades\Log;
@@ -15,13 +16,12 @@ class PaymentService
 {
 
     public function __construct(
-        private PaymentRepository $paymentRepository,
-        private KafkaService $kafkaService
+        private PaymentRepository $paymentRepository
     ) {
 
     }
 
-    public function createPayment(array $paymentData)
+    public function createPayment(array $paymentData): Payment
     {
 
         $payment = $this->paymentRepository->create([
@@ -34,18 +34,14 @@ class PaymentService
         // Dispara a notificação
         $payment->notify(new InvoicePaid($payment));
 
-        return [
-            'status'  => 'success',
-            'message' => 'Pagamento criado com sucesso!',
-            'data'    => $payment->only(['id', 'amount', 'status', 'payment_method'])
-        ];
+        return $payment;
     }
 
     public function approvePayment(int $paymentId): bool
     {
         $payment = $this->paymentRepository->find($paymentId);
         if (!$payment) {
-            throw new NotFoundException('Pagamento não encontrado.');
+            throw new NotFoundException(__('api.select_not_found'));
         }
 
         if ($payment->status->isPaid()) {
@@ -53,8 +49,9 @@ class PaymentService
             return true;  // Já está pago
         }
 
-        $payment->status = PaymentStatus::PAID;
-        $payment->save();
+        $this->paymentRepository->update($paymentId, [
+            'status' => PaymentStatus::PAID->value
+        ]);
 
         Log::info("Pagamento ID aprovado.", [
             'payment_id' => $payment->id,
