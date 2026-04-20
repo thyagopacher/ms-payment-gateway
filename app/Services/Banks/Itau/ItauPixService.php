@@ -15,10 +15,20 @@ class ItauPixService implements PixInterface
         $this->apiBanco = new ItauPixClient();
     }
 
-    public function generateQrCode(array $data): array
+    public function generateBilling(array $data): array
     {
-        $dadosRetornoBanco = $this->apiBanco->generateQrCode($data);
-        return $dadosRetornoBanco;
+        return $this->apiBanco->generateBilling($data);
     }
+
+    public function recurrenceBilling(array $data): array
+    {
+        return $this->apiBanco->recurrenceBilling($data);
+    }
+
+    public function cancelRecurrenceBilling(array $data): array
+    {
+        return $this->apiBanco->cancelRecurrenceBilling($data);
+    }
+
 
 }

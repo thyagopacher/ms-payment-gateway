@@ -8,20 +8,22 @@ use Illuminate\Support\Facades\Cache;
 class SantanderClient extends BaseAuthApiClient
 {
 
-    protected string $apiUrl = '';
-    protected string $clientId = '';
-    protected string $clientSecret = '';
-    protected string $token = '';
-    protected int $expiresIn = 0;
-
     public function __construct()
     {
-        // configuração do cliente para Banco do Brasil
         $this->apiUrl = config('services.boleto.santander.endpoint');
         $this->clientId = config('services.boleto.santander.api_key');
         $this->clientSecret = config('services.boleto.santander.api_secret');
 
-        parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
+        parent::__construct();
+    }
+
+    public function getToken(): string
+    {
+        if (!$this->token) {
+            $this->auth();
+        }
+
+        return $this->token;
     }
 
     public function auth(): array

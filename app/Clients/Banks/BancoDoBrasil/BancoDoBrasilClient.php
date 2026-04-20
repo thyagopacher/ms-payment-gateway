@@ -8,19 +8,22 @@ use Illuminate\Support\Facades\Cache;
 class BancoDoBrasilClient extends BaseAuthApiClient
 {
 
-    protected string $apiUrl = '';
-    protected string $clientId = '';
-    protected string $clientSecret = '';
-    protected string $token = '';
-    protected int $expiresIn = 0;
-
     public function __construct()
     {
         $this->apiUrl = config('services.boleto.banco_do_brasil.endpoint');
         $this->clientId = config('services.boleto.banco_do_brasil.api_key');
         $this->clientSecret = config('services.boleto.banco_do_brasil.api_secret');
 
-        parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
+        parent::__construct();
+    }
+
+    public function getToken(): string
+    {
+        if (!$this->token) {
+            $this->auth();
+        }
+
+        return $this->token;
     }
 
     public function auth(): array
