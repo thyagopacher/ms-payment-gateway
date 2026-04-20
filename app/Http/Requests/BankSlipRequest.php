@@ -13,7 +13,6 @@ class BankSlipRequest extends FormRequest
     public function authorize(): bool
     {
         $auth = $this->header('Authorization');
-
         return !empty($auth) && str_starts_with($auth, 'Bearer ');
     }
 
