@@ -12,19 +12,29 @@ class PersonTest extends TestCase
 
     use WithoutMiddleware;
 
-    /**
-     * A basic feature test example.
-     */
     public function test_create(): void
     {
         $data = [
-            'name' => fake()->name(),
-            'mail' => fake()->email(),
-            'phone' => '41999998888',
-            'document' => fake()->numerify('###########'),
+            'person_name' => fake()->name(),
+            'person_mail' => fake()->email(),
+            'person_phone' => '41999998888',
+            'person_document' => fake()->numerify('###########'),
         ];
         $response = $this->post('/api/person', $data);
 
         $response->assertStatus(200);
+    }
+
+    public function test_create_fail_attribute(): void
+    {
+        $data = [
+            'person_name' => fake()->name(),
+            'person_mail' => fake()->email(),
+            'person_phone' => '41999998888',
+            'document' => fake()->numerify('###########'),
+        ];
+        $response = $this->post('/api/person', $data);
+
+        $response->assertStatus(422);
     }
 }

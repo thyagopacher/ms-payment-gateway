@@ -24,6 +24,7 @@ return [
     'any_of' => 'O campo :attribute é inválido.',
     'array' => 'O campo :attribute deve ser um array.',
     'ascii' => 'O campo :attribute deve conter apenas caracteres alfanuméricos de um byte e símbolos.',
+
     'before' => 'O campo :attribute deve ser uma data antes de :date.',
     'before_or_equal' => 'O campo :attribute deve ser uma data antes ou igual a :date.',
     'between' => [
@@ -195,6 +196,19 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'person_name' => 'nome',
+        'person_document' => 'documento',
+        'person_city' => 'cidade',
+        'person_uf' => 'estado',
+        'person_address' => 'endereco',
+        'person_zipcode' => 'CEP',
+        'bill_amount' => 'valor',
+        'bill_due_date' => 'data de vencimento',
+        'bill_paid_at' => 'pago em',
+        'bank' => 'banco',
+        'person_mail' => 'email',
+        'person_phone' => 'telefone',
+    ],
 
 ];

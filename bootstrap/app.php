@@ -40,7 +40,23 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (Throwable $e, $request) {
-            if ($request->expectsJson()) {
+            if ($request->expectsJson() || str_starts_with($request->path(), 'api/')) {
+                if ($e instanceof \Illuminate\Validation\ValidationException) {
+                    return response()->json([
+                        'message' => 'Os dados fornecidos são inválidos.',
+                        'errors'  => $e->errors(),           // ← campos com erros
+                        'status'  => 422,
+                    ], 422);
+                }
+
+                if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
+                    $status = $e->getStatusCode();
+                    return response()->json([
+                        'message' => $e->getMessage() ?: 'Erro HTTP',
+                        'status'  => $status,
+                    ], $status);
+                }
+
                 $status = $e->getCode();
 
                 if ($status < 400 || $status >= 600) {

@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Log;
 abstract class BaseAuthApiClient
 {
 
-    public function __construct(
-        private string $apiUrl,
-        private string $clientId,
-        private string $clientSecret
-    ) {
+    protected string $apiUrl = '';
+    protected string $clientId = '';
+    protected string $clientSecret = '';
+    protected string $token = '';
+    protected int $expiresIn = 0;
+    protected array $headersAuth = [];
+
+    public function __construct() {
 
     }
 

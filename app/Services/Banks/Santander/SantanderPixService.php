@@ -15,9 +15,19 @@ class SantanderPixService implements PixInterface
         $this->apiBanco = new SantanderPixClient();
     }
 
-    public function generateQrCode(array $data): array
+    public function generateBilling(array $data): array
     {
-        return $this->apiBanco->generateQrCode($data);
+        return $this->apiBanco->generateBilling($data);
+    }
+
+    public function recurrenceBilling(array $data): array
+    {
+        return $this->apiBanco->recurrenceBilling($data);
+    }
+
+    public function cancelRecurrenceBilling(array $data): array
+    {
+        return $this->apiBanco->cancelRecurrenceBilling($data);
     }
 
 }

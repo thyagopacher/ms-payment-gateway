@@ -23,9 +23,12 @@ class BankSlipTest extends TestCase
             'bill_due_date' => '2026-04-20',
             'bank' => 'itau'
         ];
-        $response = $this->post('/api/bank-slip/create', $data);
+        $response = $this->post('/api/bank-slip/create', $data, [
+            'Authorization' => 'Bearer test-token',
+        ]);
 
-        $response->assertStatus(200);
+        $jsonContent = json_decode($response->getContent(), true);
+        $this->assertEquals(true, $jsonContent['success'], $response->getContent());
     }
 
     public function test_print_bank_slip(): void

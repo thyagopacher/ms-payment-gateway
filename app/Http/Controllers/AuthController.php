@@ -18,11 +18,12 @@ class AuthController extends Controller
         $key = config('jwt.secret');
         $expiresIn = config('jwt.ttl');
         $expiresInTimestamp = time() + $expiresIn;
+        $timeStampCreated = time();
 
         $payload = [
-            "iss" => config('app.name'),     // quem emitiu
-            "iat" => time(),            // criado em
-            "exp" => $expiresInTimestamp   // expira em 1 hora
+            "iss" => config('app.name'),
+            "iat" => $timeStampCreated,
+            "exp" => $expiresInTimestamp
         ];
 
         $jwt = JWT::encode($payload, $key, 'HS256');

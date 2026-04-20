@@ -11,7 +11,6 @@ enum PaymentStatus: string
     case CANCELLED = 'cancelled';
     case REVERSED  = 'reversed';
 
-    // Métodos úteis (opcional, mas muito recomendado)
     public function isFinal(): bool
     {
         return in_array($this, [self::PAID, self::FAILED, self::CANCELLED, self::EXPIRED, self::REVERSED]);

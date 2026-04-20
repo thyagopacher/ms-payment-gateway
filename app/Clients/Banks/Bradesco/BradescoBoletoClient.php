@@ -11,6 +11,8 @@ class BradescoBoletoClient extends BradescoClient implements ApiBankSlipInterfac
     public function __construct()
     {
         parent::__construct();
+
+        $this->headersAuth['Authorization'] = 'Bearer ' . $this->getToken();
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable;
 
 class Person extends Model
@@ -14,11 +15,11 @@ class Person extends Model
     protected $table = 'person';
 
     protected $fillable = [
-        'name', 'document', 'mail', 'phone'
+        'person_name', 'person_document', 'person_mail', 'person_phone'
     ];
 
-    public function scopeByDocument($query, $document)
+    public function scopeByDocument(Builder $query, string $document)
     {
-        return $query->where('document', $document);
+        return $query->where('person_document', $document);
     }
 }

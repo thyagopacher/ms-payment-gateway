@@ -12,7 +12,13 @@ class BankSlipRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->header('Authorization') != '';
+        $auth = $this->header('Authorization');
+        return !empty($auth) && str_starts_with($auth, 'Bearer ');
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->headers->set('Accept', 'application/json');
     }
 
     /**
@@ -71,6 +77,21 @@ class BankSlipRequest extends FormRequest
             'bill_due_date.after_or_equal' => 'A data de vencimento deve ser hoje ou uma data futura.',
             'bank.string' => 'O banco deve ser uma string.',
             'bank.in' => 'O banco deve ser um dos seguintes: itau, santander, bradesco, bb.'
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'person_name' => __('validation.attributes.person_name'),
+            'person_city' => __('validation.attributes.person_city'),
+            'person_uf' => __('validation.attributes.person_uf'),
+            'person_cpf_cnpj' => __('validation.attributes.person_cpf_cnpj'),
+            'person_address' => __('validation.attributes.person_address'),
+            'person_zipcode' => __('validation.attributes.person_zipcode'),
+            'bill_amount' => __('validation.attributes.bill_amount'),
+            'bill_due_date' => __('validation.attributes.bill_due_date'),
+            'bank' => __('validation.attributes.bank'),
         ];
     }
 }

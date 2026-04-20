@@ -18,10 +18,7 @@ class PersonService
 
     public function create(array $personData): int
     {
-
         $person = $this->personRepository->create($personData);
-
-        // Dispara a notificação
         $person->notify(new PersonCreated($person));
 
         return $person->id;

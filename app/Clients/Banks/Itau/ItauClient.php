@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\Cache;
 class ItauClient extends BaseAuthApiClient
 {
 
-    protected string $apiUrl = '';
-    protected string $clientId = '';
-    protected string $clientSecret = '';
-    protected string $token = '';
-    protected int $expiresIn = 0;
-
     public function __construct()
     {
         // configuração do cliente para Banco do Brasil
@@ -21,7 +15,18 @@ class ItauClient extends BaseAuthApiClient
         $this->clientId = config('services.boleto.itau.api_key');
         $this->clientSecret = config('services.boleto.itau.api_secret');
 
-        parent::__construct($this->apiUrl, $this->clientId, $this->clientSecret);
+        $this->headersAuth['x-itau-apikey'] = $this->clientId;
+
+        parent::__construct();
+    }
+
+    public function getToken(): string
+    {
+        if (!$this->token) {
+            $this->auth();
+        }
+
+        return $this->token;
     }
 
     /**
