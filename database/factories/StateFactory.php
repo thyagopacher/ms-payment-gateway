@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Bank;
+use App\Models\BankSlip;
+use App\Models\Payment;
 use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,16 +23,13 @@ class StateFactory extends Factory
      */
     public function definition(): array
     {
-        $estados = $this->getStates();
-
-        // Pega um estado aleatório (útil para testes genéricos)
-        $estado = $this->faker->randomElement($estados);
-
+        $state = $this->faker->randomElement($this->getStates());
         return [
-            'name'  => $estado['name'],
-            'abbreviation' => $estado['abbreviation'],
+            'name' => $state['name'],
+            'abbreviation' => $state['abbreviation'],
         ];
     }
+
 
     private function getStates(): array
     {

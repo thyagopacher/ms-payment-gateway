@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Bank;
 use App\Models\BankSlip;
+use App\Models\City;
 use App\Models\Payment;
 use App\Models\Person;
 use App\Models\Pix;
@@ -44,6 +45,9 @@ class DatabaseSeeder extends Seeder
 
         Log::info("Criando estados de teste.");
         State::factory(28)->create();
+
+        Log::info("Criando cidades de teste.");
+        City::factory(28)->create();
 
         Log::info("Seeding do banco de dados concluído.");
     }
