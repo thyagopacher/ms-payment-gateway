@@ -207,7 +207,8 @@ return [
         'bill_paid_at' => 'paid at',
         'bank' => 'bank',
         'person_mail' => 'email',
-        'person_phone' => 'phone'
+        'person_phone' => 'phone',
+        'today' => 'today',
     ],
 
 ];

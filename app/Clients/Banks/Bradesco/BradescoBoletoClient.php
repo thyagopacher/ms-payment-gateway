@@ -16,7 +16,7 @@ class BradescoBoletoClient extends BradescoClient implements ApiBankSlipInterfac
     }
 
 
-    public function createBoleto(array $data): array
+    public function createBankSlip(array $data): array
     {
         $client = new Client();
 
@@ -36,22 +36,89 @@ class BradescoBoletoClient extends BradescoClient implements ApiBankSlipInterfac
         return $body;
     }
 
-    public function cancelBoleto(string $boletoId): bool
+    /**
+     * cancelBankSlip function
+     *
+     * @param string $boletoId
+     * @return boolean
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
+    public function cancelBankSlip (array $data): array
     {
-        // implementação de cancelamento de boleto para Banco do Brasil
-        return true;
+        $client = new Client();
+
+        $response = $client->post($this->apiUrl . '/boleto/cobranca-baixa/v1/baixar', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer ' . $this->token,
+            ],
+            'json' => array_merge([
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+            ], $data)
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+        return $body;
     }
 
-    public function getBoleto(string $boletoId): array
+    public function getBankSlip(array $filters): array
     {
-        // implementação de consulta de boleto para Banco do Brasil
-        $dadosBoleto = [];
-        return $dadosBoleto;
+        $client = new Client();
+
+        $response = $client->post($this->apiUrl . '/boleto-hibrido/cobranca-consulta-titulo/v1/consultar', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer ' . $this->token,
+            ],
+            'json' => array_merge([
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+            ], $filters)
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+        return $body;
     }
 
-    public function registerWebhook(string $url): bool
+    /**
+     * registerWebhook function
+     * Exemplo:
+     * {
+     *   "tipoAviso": 0,
+     *   "documento": {
+     *     "filial": "9999",
+     *     "cpfCnpj": "999999999",
+     *     "controle": "99"
+     *   },
+     *   "utilizaWebhook": "S",
+     *   "tipoCadastro": "I",
+     *   "versaoLayout": "1",
+     *   "urlEnvio": "https://dominio.com.br/webhook"
+     * }
+     * @param array $data
+     * @return array
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
+    public function registerWebhook (array $data): array
     {
-        // implementação de registro de webhook para Banco do Brasil
-        return true;
+        $client = new Client();
+
+        $response = $client->post($this->apiUrl . '/boleto/cobranca-webhook/v1/cadastrar', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer ' . $this->token,
+            ],
+            'json' => array_merge([
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+            ], $data)
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+        return $body;
     }
 }

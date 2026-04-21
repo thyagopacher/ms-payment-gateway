@@ -23,6 +23,7 @@ class BankSlipController extends Controller
             return $this->success(__('created_success'), $res);
         } catch (\Exception $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
             ], 500);

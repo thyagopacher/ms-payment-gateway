@@ -209,6 +209,7 @@ return [
         'bank' => 'banco',
         'person_mail' => 'email',
         'person_phone' => 'telefone',
+        'today' => 'hoje',
     ],
 
 ];

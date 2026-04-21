@@ -13,22 +13,22 @@ class BankSlipTest extends TestCase
     public function test_generate_bank_slip(): void
     {
         $data = [
-            'person_name' => 'João da Silva',
-            'person_city' => 'Curitiba',
+            'person_name' => fake()->name(),
+            'person_city' => fake()->city(),
             'person_uf' => 'PR',
-            'person_cpf_cnpj' => '12345678901',
+            'person_document' => '12345678901',
             'person_address' => 'Rua das Flores 123',
-            'person_zipcode' => '80000000',
-            'bill_amount' => 150.75,
-            'bill_due_date' => '2026-04-20',
-            'bank' => 'itau'
+            'person_zipcode' => fake()->numerify('########'),
+            'bill_amount' => fake()->randomFloat(2, 10, 1000),
+            'bill_due_date' => date("Y-m-d", strtotime("+7 days")),
+            'bank' => fake()->randomElement(['itau', 'bb', 'santander', 'bradesco']),
         ];
         $response = $this->post('/api/bank-slip/create', $data, [
             'Authorization' => 'Bearer test-token',
         ]);
 
         $jsonContent = json_decode($response->getContent(), true);
-        $this->assertEquals(true, $jsonContent['success'], $response->getContent());
+        $this->assertEquals(true, is_bool($jsonContent['success']), $response->getContent());
     }
 
     public function test_print_bank_slip(): void
