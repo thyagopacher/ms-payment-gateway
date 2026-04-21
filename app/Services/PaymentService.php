@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
-use App\DTO\PaymentoDTO;
-use App\Services\KafkaService;
+use App\Dto\PaymentoDTO;
 use App\Enums\PaymentStatus;
 use App\Events\PaymentApproved;
 use App\Exceptions\NotFoundException;
-use App\Factories\PaymentMethodFactory;
 use App\Models\Payment;
 use App\Models\Person;
 use App\Notifications\InvoicePaid;

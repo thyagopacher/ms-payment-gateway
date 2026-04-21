@@ -31,7 +31,7 @@ class BankSlipRequest extends FormRequest
         return [
             'person_name' => 'required|string|min:3|max:255',
             'person_city' => 'required|string|min:3|max:255',
-            'person_uf' => 'required|string|min:2|max:2|exists:state,abbreviation',
+            'person_uf' => 'required|string|min:2|max:2',
             'person_document' => 'required|string|min:11|max:14',
             'person_address' => 'required|string|min:5|max:255',
             'person_zipcode' => 'required|string|min:8|max:8',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\PaymentoDTO;
+use App\Dto\PaymentoDTO;
 use App\Http\Requests\PaymentRequest;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
