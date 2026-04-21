@@ -18,15 +18,10 @@ class CreditCardService implements PaymentMethodInterface
         return ['status' => 'pending']; // Retorna um array com o status do pagamento
     }
 
-    public function cancel(array $data): bool
+    public function cancel(array $data): array
     {
         // Implementação do cancelamento do pagamento com cartão de crédito
-        return true; // Retorna true se o cancelamento for bem-sucedido
+        return ['status' => 'cancelled']; // Retorna um array com o status do cancelamento
     }
 
-    public function refund(array $data): bool
-    {
-        // Implementação do reembolso do pagamento com cartão de crédito
-        return true; // Retorna true se o reembolso for bem-sucedido
-    }
 }

@@ -70,7 +70,7 @@ class BradescoPixClient extends BradescoClient implements PixInterface
      *
      * Ex: https://recebimentos-pix.api.itau.com/qrcode-pix-automatico/v1/cobrancas/{cobrancaId}
      *
-     * @param string $billingId
+     * @param array $data
      * @return array
      * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
      */

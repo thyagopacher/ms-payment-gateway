@@ -20,32 +20,30 @@ class BankSlipService implements BankSlipInterface, PaymentMethodInterface
         if (empty($data['bank'])) {
             throw new \Exception('Banco é obrigatório para criar o boleto.');
         }
-        return BankFactory::make($data['bank'])->boleto()->create($data);
+
+        $boleto = BankFactory::make($data['bank'])->boleto();
+        return $boleto->create($data);
     }
 
-    public function getStatus(array $filters): array
+    public function cancel(array $data): array
     {
-        // Implementação da obtenção do status do pagamento com cartão de crédito
-        return ['status' => 'pending']; // Retorna um array com o status do pagamento
+        $boleto = BankFactory::make($data['bank'])->boleto();
+        $data = $boleto->cancel($data);
+        return $data;
     }
 
-    public function cancel(array $data): bool
+    public function getBankSlip(array $data): array
     {
-        // Implementação do cancelamento do pagamento com cartão de crédito
-        return true; // Retorna true se o cancelamento for bem-sucedido
-    }
-
-    public function refund(array $data): bool
-    {
-        // Implementação do reembolso do pagamento com cartão de crédito
-        return true; // Retorna true se o reembolso for bem-sucedido
+        $boleto = BankFactory::make($data['bank'])->boleto();
+        $data = $boleto->getBankSlip($data);
+        return $data;
     }
 
     public function print(int $boletoId): string
     {
         $dadosBoleto = $this->bankSlipRepository->findBankSlipById($boletoId);
         if (empty($dadosBoleto)) {
-            throw new \Exception('Boleto não encontrado.');
+            throw new \Exception(__('select_not_found'), 404);
         }
         return BankFactory::make($dadosBoleto['bank'])->boleto()->print($boletoId);
     }

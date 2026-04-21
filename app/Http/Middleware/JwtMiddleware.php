@@ -19,12 +19,10 @@ class JwtMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $route = $request->route();
         Log::info('Middleware JWTMiddleware:', [
             'uri' => $request->getRequestUri(),
             'method' => $request->getMethod(),
-            'route' => $route ? $route->getName() : 'N/A',
-            'action' => $route ? $route->getActionName() : 'N/A',
+            'route' => $request->route()->getName() ?? 'N/A'
         ]);
         $key = config('jwt.secret');
 

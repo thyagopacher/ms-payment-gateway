@@ -16,7 +16,7 @@ class NewRelicTransactionMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $route = $request->route();
-        $endpointTransaction = $route ? $route->uri() : $request->path();
+        $endpointTransaction = $route->uri();
         $nameTransaction = $request->method() . $endpointTransaction;
 
         newrelic_name_transaction($nameTransaction);

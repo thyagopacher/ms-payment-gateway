@@ -23,7 +23,7 @@ Route::prefix('bank-slip')->middleware(['throttle:60,1', JwtMiddleware::class])-
 });
 
 Route::prefix('pix')->middleware([JwtMiddleware::class])->group(function () {
-    Route::post('/qrcode', [PixController::class, 'generateQrCode']);
+    Route::post('/qrcode', [PixController::class, 'create']);
 });
 
 Route::prefix('person')->middleware([JwtMiddleware::class])->group(function () {

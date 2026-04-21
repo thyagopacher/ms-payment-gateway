@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use App\Exceptions\NotFoundException;
+use App\Models\Person;
 use App\Notifications\PersonCreated;
 use App\Repositories\PersonRepository;
-use Illuminate\Support\Facades\Log;
 
 class PersonService
 {
@@ -18,6 +17,10 @@ class PersonService
 
     public function create(array $personData): int
     {
+
+        /**
+         * @var Person $person
+         */
         $person = $this->personRepository->create($personData);
         $person->notify(new PersonCreated($person));
 

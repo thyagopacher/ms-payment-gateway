@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Person class
+ *
+ * @property int $id
+ * @property string $person_name
+ *
+ * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+ */
 class Person extends Model
 {
 

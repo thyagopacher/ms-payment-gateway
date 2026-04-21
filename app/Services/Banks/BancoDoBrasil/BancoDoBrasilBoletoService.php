@@ -17,7 +17,17 @@ class BancoDoBrasilBoletoService implements BankSlipInterface
 
     public function create(array $data): array
     {
-        return $this->apiBanco->createBoleto($data);
+        return $this->apiBanco->createBankSlip($data);
+    }
+
+    public function cancel(array $data): array
+    {
+        return $this->apiBanco->cancelBankSlip($data);
+    }
+
+    public function getBankSlip(array $filters): array
+    {
+        return $this->apiBanco->getBankSlip($filters);
     }
 
     public function print(int $boletoId): string

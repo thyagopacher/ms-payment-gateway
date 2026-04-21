@@ -14,10 +14,10 @@ class PixController extends Controller
 
     }
 
-    public function generateQrCode(PixRequest $request)
+    public function create(PixRequest $request)
     {
         $data = $request->validated();
-        $res = $this->pixService->generateQrCode($data);
+        $res = $this->pixService->create($data);
         return response()->json($res);
     }
 
