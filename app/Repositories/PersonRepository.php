@@ -17,4 +17,8 @@ class PersonRepository extends BaseRepository
         parent::__construct(app('App\Models\Person'));
     }
 
+    public function findByDocument(string $document): ?Model
+    {
+        return $this->model->newQuery()->where('document', $document)->first();
+    }
 }

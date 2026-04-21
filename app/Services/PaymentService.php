@@ -2,14 +2,17 @@
 
 namespace App\Services;
 
+use App\DTO\PaymentoDTO;
 use App\Services\KafkaService;
 use App\Enums\PaymentStatus;
 use App\Events\PaymentApproved;
 use App\Exceptions\NotFoundException;
 use App\Factories\PaymentMethodFactory;
 use App\Models\Payment;
+use App\Models\Person;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
+use App\Repositories\PersonRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
@@ -17,22 +20,28 @@ class PaymentService
 {
 
     public function __construct(
-        private PaymentRepository $paymentRepository
+        private PaymentRepository $paymentRepository,
+        private PersonRepository $personRepository,
     ) {
 
     }
 
-    public function createPayment(array $paymentData): Model
+    public function createPayment(PaymentoDTO $paymentDto): Model
     {
+
+        /**
+         * @var Person $person
+         */
+        $person = $this->personRepository->findByDocument($paymentDto->document);
 
         /**
          * @var Payment $payment
          */
         $payment = $this->paymentRepository->create([
-            'amount'         => $paymentData['amount'],
-            'payment_method' => $paymentData['payment_method'] ?? 'credit_card',
+            'amount'         => $paymentDto->amount,
+            'payment_method' => $paymentDto->payment_method ?? 'credit_card',
             'status'         => PaymentStatus::PENDING->value,
-            'person_id'      => $paymentData['person_id'],
+            'person_id'      => $person->id,
         ]);
 
 
