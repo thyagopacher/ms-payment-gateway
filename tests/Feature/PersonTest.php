@@ -17,7 +17,7 @@ class PersonTest extends TestCase
         $data = [
             'person_name' => fake()->name(),
             'person_mail' => fake()->email(),
-            'person_phone' => '41999998888',
+            'person_phone' => fake()->phoneNumber(),
             'person_document' => fake()->numerify('###########'),
         ];
         $response = $this->post('/api/person', $data);
