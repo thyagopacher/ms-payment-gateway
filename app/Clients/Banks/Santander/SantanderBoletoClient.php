@@ -14,7 +14,7 @@ class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterf
         parent::__construct();
     }
 
-    public function createBoleto(array $data): array
+    public function createBankSlip(array $data): array
     {
         $client = new Client();
 
@@ -31,20 +31,20 @@ class SantanderBoletoClient extends SantanderClient implements ApiBankSlipInterf
         return $body;
     }
 
-    public function cancelBoleto(string $boletoId): bool
+    public function cancelBankSlip(array $data): array
     {
-        return true;
+        return [];
     }
 
-    public function getBoleto(string $boletoId): array
+    public function getBankSlip(array $filters): array
     {
         $dadosBoleto = [];
         return $dadosBoleto;
     }
 
-    public function registerWebhook(string $url): bool
+    public function registerWebhook(array $data): array
     {
-        return true;
+        return [];
     }
 
     /**
