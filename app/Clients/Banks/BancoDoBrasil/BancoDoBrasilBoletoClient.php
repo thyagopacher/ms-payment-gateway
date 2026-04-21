@@ -16,7 +16,7 @@ class BancoDoBrasilBoletoClient extends BancoDoBrasilClient implements ApiBankSl
     }
 
 
-    public function createBoleto(array $data): array
+    public function createBankSlip(array $data): array
     {
         $client = new Client();
 
@@ -36,22 +36,21 @@ class BancoDoBrasilBoletoClient extends BancoDoBrasilClient implements ApiBankSl
         return $body;
     }
 
-    public function cancelBoleto(string $boletoId): bool
+    public function cancelBankSlip(array $data): array
     {
         // implementação de cancelamento de boleto para Banco do Brasil
-        return true;
+        return [];
     }
 
-    public function getBoleto(string $boletoId): array
+    public function getBankSlip(array $filters): array
     {
-        // implementação de consulta de boleto para Banco do Brasil
         $dadosBoleto = [];
         return $dadosBoleto;
     }
 
-    public function registerWebhook(string $url): bool
+    public function registerWebhook (array $data): array
     {
         // implementação de registro de webhook para Banco do Brasil
-        return true;
+        return [];
     }
 }

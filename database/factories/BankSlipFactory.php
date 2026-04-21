@@ -26,7 +26,7 @@ class BankSlipFactory extends Factory
             'person_name' => fake()->name(),
             'person_city' => fake()->city(),
             'person_uf' => fake()->stateAbbr(),
-            'person_cpf_cnpj' => fake()->numerify('###########'),
+            'person_document' => fake()->numerify('###########'),
             'person_address' => fake()->streetAddress(),
             'person_zipcode' => fake()->postcode(),
             'bill_amount' => fake()->randomFloat(2, 0.01, 99999999.99),

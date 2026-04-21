@@ -46,7 +46,7 @@ abstract class BaseAuthApiClient
 
         $returnJson = json_decode($response->getBody(), true);
         if ($response->getStatusCode() !== 200) {
-            $msgException = "Erro na autenticação da API: HttpCode " . $response->getStatusCode();
+            $msgException = "Erro na autenticação da API - HttpCode " . $response->getStatusCode();
             Log::error($msgException . " - " . $response->getBody());
             throw new \Exception($msgException);
         }

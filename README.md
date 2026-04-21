@@ -69,9 +69,9 @@ Workflow files are located in:
 
 Start the containers:
 
-
+```shell
 docker-compose up -d
-
+```
 
 Install dependencies:
 
@@ -81,9 +81,9 @@ composer install
 
 Run database migrations:
 
-
+```shell
 php artisan migrate
-
+```
 
 ## Running Tests
 
@@ -103,9 +103,9 @@ Payments are processed asynchronously using **Kafka** consumers.
 
 Example consumer command:
 
-
+```shell
 php artisan kafka:consume-payments
-
+```
 
 ## Project Structure
 

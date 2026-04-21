@@ -17,7 +17,7 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
 
 
     /**
-     * createBoleto
+     * createBankSlip function
      *
      * Ex: https://pix-pj.api.itau.com/recebimentos-pix/v1/boletos-pix
      *
@@ -25,7 +25,7 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
      * @return array
      * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
      */
-    public function createBoleto(array $data): array
+    public function createBankSlip(array $data): array
     {
         $client = new Client();
 
@@ -34,11 +34,9 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
         ]);
         $response = $client->post($this->apiUrl . '/recebimentos-pix/v1/boletos-pix', [
             'headers' => $headers,
-            'json' => [
+            'json' => array_merge([
                 'grant_type' => 'client_credentials',
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-            ]
+            ], $data)
         ]);
 
         $body = json_decode($response->getBody(), true);
@@ -46,28 +44,26 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
     }
 
     /**
-     * cancelBoleto function
+     * cancelBankSlip function
      *
      * Ex: https://api.itau.com.br/cash_management/v2/boletos/{id_boleto}/baixa
      *
-     * @param string $boletoId
-     * @return boolean
+     * @param array $data
+     * @return array
      * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
      */
-    public function cancelBoleto(string $boletoId): bool
+    public function cancelBankSlip(array $data): array
     {
         $client = new Client();
 
         $headers = array_merge($this->headersAuth, [
             'Content-Type' => 'application/json',
         ]);
-        $response = $client->patch($this->apiUrl . '/cash_management/v2/boletos/' . $boletoId . '/baixa', [
+        $response = $client->patch($this->apiUrl . '/cash_management/v2/boletos/' . $data['boletoId'] . '/baixa', [
             'headers' => $headers,
-            'json' => [
+            'json' => array_merge([
                 'grant_type' => 'client_credentials',
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-            ]
+            ], $data)
         ]);
 
         $body = json_decode($response->getBody(), true);
@@ -78,10 +74,10 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
      * getBoleto function
      * Ex: https://boleto.api.itau.com/boleto/v1/boletos
      *
-     * @param string $boletoId
+     * @param array $filters
      * @return array
      */
-    public function getBoleto(string $boletoId): array
+    public function getBankSlip(array $filters): array
     {
         // implementação de consulta de boleto para Banco do Brasil
         $dadosBoleto = [];
@@ -89,15 +85,15 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
     }
 
     /**
-     * Undocumented function
+     * registerWebhook function
      *
      * Ex: https://boletos.cloud.itau.com.br/boletos/v3/notificacoes_boletos
      *
-     * @param string $url
-     * @return boolean
+     * @param array $data
+     * @return array
      * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
      */
-    public function registerWebhook(string $url): bool
+    public function registerWebhook(array $data): array
     {
         $client = new Client();
 
@@ -106,11 +102,9 @@ class ItauBoletoClient extends ItauClient implements ApiBankSlipInterface
         ]);
         $response = $client->post($this->apiUrl . '/boletos/v3/notificacoes_boletos', [
             'headers' => $headers,
-            'json' => [
+            'json' => array_merge([
                 'grant_type' => 'client_credentials',
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-            ]
+            ], $data)
         ]);
 
         $body = json_decode($response->getBody(), true);

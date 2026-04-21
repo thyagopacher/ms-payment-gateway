@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('person_name', 255);
             $table->string('person_city', 255);
             $table->string('person_uf', 2);
-            $table->string('person_cpf_cnpj', 14);
+            $table->string('person_document', 14);
             $table->string('person_address', 255);
             $table->string('person_zipcode', 8);
 
