@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Bank;
-use App\Models\BankSlip;
-use App\Models\Payment;
+use App\Models\Country;
 use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,6 +14,8 @@ class StateFactory extends Factory
 
     protected $model = State::class;
 
+    private static $countryId;
+
     /**
      * Define the model's default state.
      *
@@ -23,10 +23,15 @@ class StateFactory extends Factory
      */
     public function definition(): array
     {
-        $state = $this->faker->randomElement($this->getStates());
+        if (!self::$countryId) {
+            self::$countryId = Country::where('abbreviation', 'BR')->firstOrFail()->id;
+        }
+
+        $state = $this->faker->unique()->randomElement($this->getStates());
         return [
             'name' => $state['name'],
             'abbreviation' => $state['abbreviation'],
+            'country_id' => self::$countryId,
         ];
     }
 

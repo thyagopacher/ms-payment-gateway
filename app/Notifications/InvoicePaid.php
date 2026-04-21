@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class InvoicePaid extends Notification implements ShouldQueue
 {
@@ -53,7 +54,8 @@ class InvoicePaid extends Notification implements ShouldQueue
 
     public function shouldSend(object $notifiable, string $channel): bool
     {
-        return $this->payment->isPaid();
+        Log::info("Verificando se deve enviar notificação para pagamento #{$this->payment->id} via {$channel}");
+        return $this->payment->status->isPaid();
     }
 
     public function tags(): array

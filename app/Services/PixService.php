@@ -8,9 +8,15 @@ use App\Factories\BankFactory;
 class PixService implements PaymentMethodInterface
 {
 
+    public function __construct()
+    {
+        //
+    }
+
     public function create(array $data): array
     {
-        return BankFactory::make($data['bank'])->pix()->generateQrCode($data);
+        $pixMethod = BankFactory::make($data['bank'])->pix();
+        return $pixMethod->generateBilling($data);
     }
 
     public function getStatus(array $filters): array
@@ -19,21 +25,11 @@ class PixService implements PaymentMethodInterface
         return ['status' => 'pending']; // Retorna um array com o status do pagamento
     }
 
-    public function cancel(array $data): bool
+    public function cancel(array $data): array
     {
-        // Implementação do cancelamento do pagamento com cartão de crédito
-        return true; // Retorna true se o cancelamento for bem-sucedido
-    }
+        $pixMethod = BankFactory::make($data['bank'])->pix();
+        $data = $pixMethod->cancelRecurrenceBilling($data);
 
-    public function refund(array $data): bool
-    {
-        // Implementação do reembolso do pagamento com cartão de crédito
-        return true; // Retorna true se o reembolso for bem-sucedido
-    }
-
-    public function generateQrCode(array $data): string
-    {
-        $qrcode = BankFactory::make($data['bank'])->pix()->generateQrCode($data);
-        return $qrcode['qrcode'];
+        return $data;
     }
 }

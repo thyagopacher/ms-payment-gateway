@@ -10,6 +10,7 @@ use App\Factories\PaymentMethodFactory;
 use App\Models\Payment;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
 class PaymentService
@@ -21,15 +22,19 @@ class PaymentService
 
     }
 
-    public function createPayment(array $paymentData): Payment
+    public function createPayment(array $paymentData): Model
     {
 
+        /**
+         * @var Payment $payment
+         */
         $payment = $this->paymentRepository->create([
             'amount'         => $paymentData['amount'],
             'payment_method' => $paymentData['payment_method'] ?? 'credit_card',
             'status'         => PaymentStatus::PENDING->value,
             'person_id'      => $paymentData['person_id'],
         ]);
+
 
         // Dispara a notificação
         $payment->notify(new InvoicePaid($payment));

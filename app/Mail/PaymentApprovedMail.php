@@ -29,7 +29,7 @@ class PaymentApprovedMail extends Mailable
     {
         return new Envelope(
             subject: 'Payment Approved Mail',
-            to: $this->email
+            to: [$this->email]
         );
     }
 

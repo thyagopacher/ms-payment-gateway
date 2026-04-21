@@ -39,8 +39,8 @@ class BradescoBoletoClient extends BradescoClient implements ApiBankSlipInterfac
     /**
      * cancelBankSlip function
      *
-     * @param string $boletoId
-     * @return boolean
+     * @param array $data
+     * @return array
      * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
      */
     public function cancelBankSlip (array $data): array
