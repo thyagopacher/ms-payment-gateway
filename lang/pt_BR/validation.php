@@ -200,7 +200,7 @@ return [
         'person_name' => 'nome',
         'person_document' => 'documento',
         'person_city' => 'cidade',
-        'person_uf' => 'estado',
+        'person_state' => 'estado',
         'person_address' => 'endereco',
         'person_zipcode' => 'CEP',
         'bill_amount' => 'valor',

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankSlipController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PersonController;
@@ -31,4 +32,9 @@ Route::prefix('person')->middleware([JwtMiddleware::class])->group(function () {
     Route::put('/update', [PersonController::class, 'update']);
     Route::delete('/delete', [PersonController::class, 'delete']);
     Route::get('/find', [PersonController::class, 'find']);
+});
+
+Route::prefix('city')->middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
+    Route::post('/create', [CityController::class, 'create']);
+    Route::get('/list', [CityController::class, 'getCities']);
 });

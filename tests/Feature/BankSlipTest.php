@@ -15,7 +15,7 @@ class BankSlipTest extends TestCase
         $data = [
             'person_name' => fake()->name(),
             'person_city' => fake()->city(),
-            'person_uf' => fake()->randomElements(['SP', 'RJ', 'MG', 'RS', 'BA', 'PR', 'AM'])[0],
+            'person_state' => fake()->randomElements(['SP', 'RJ', 'MG', 'RS', 'BA', 'PR', 'AM'])[0],
             'person_document' => '12345678901',
             'person_address' => fake()->streetAddress(),
             'person_zipcode' => fake()->numerify('########'),

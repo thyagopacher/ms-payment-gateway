@@ -64,7 +64,7 @@ class PaymentRequest extends FormRequest
         return [
             'person_name' => __('validation.attributes.person_name'),
             'person_city' => __('validation.attributes.person_city'),
-            'person_uf' => __('validation.attributes.person_uf'),
+            'person_state' => __('validation.attributes.person_state'),
             'person_document' => __('validation.attributes.person_document'),
             'person_address' => __('validation.attributes.person_address'),
             'person_zipcode' => __('validation.attributes.person_zipcode'),

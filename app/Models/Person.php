@@ -22,6 +22,8 @@ class Person extends Model
 
     protected $table = 'person';
 
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'person_name', 'person_document', 'person_mail', 'person_phone'
     ];

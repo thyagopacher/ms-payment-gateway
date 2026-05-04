@@ -199,7 +199,7 @@ return [
         'person_name' => 'name',
         'person_document' => 'document',
         'person_city' => 'city',
-        'person_uf' => 'state',
+        'person_state' => 'state',
         'person_address' => 'address',
         'person_zipcode' => 'zipcode',
         'bill_amount' => 'bill amount',

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\ValueObject\Document;
 use Illuminate\Database\Eloquent\Model;
 
 class PersonRepository extends BaseRepository
@@ -17,7 +18,7 @@ class PersonRepository extends BaseRepository
         parent::__construct(app('App\Models\Person'));
     }
 
-    public function findByDocument(string $document): ?Model
+    public function findByDocument(Document $document): ?Model
     {
         return $this->model->newQuery()->where('document', $document)->first();
     }
