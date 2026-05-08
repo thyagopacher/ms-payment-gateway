@@ -14,7 +14,7 @@ class PersonController extends Controller
 
     }
 
-    public function create(PersonRequest $request)
+    public function store(PersonRequest $request)
     {
         $data = $request->validated();
 
@@ -26,6 +26,16 @@ class PersonController extends Controller
         ]);
     }
 
+    /**
+     * update function
+     *
+     * method PUT
+     *
+     * @param PersonRequest $request
+     * @param integer $id
+     * @return void
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
     public function update(PersonRequest $request, int $id)
     {
         $data = $request->validated();
@@ -47,12 +57,21 @@ class PersonController extends Controller
         ]);
     }
 
-    public function find(int $id)
+    public function show(int $id)
     {
         $person = $this->personService->find($id);
         return response()->json([
             'success' => true,
             'data' => $person
+        ]);
+    }
+
+    public function index()
+    {
+        $persons = $this->personService->findAll();
+        return response()->json([
+            'success' => true,
+            'data' => $persons  
         ]);
     }
 

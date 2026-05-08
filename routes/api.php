@@ -14,27 +14,23 @@ Route::post('/auth', [AuthController::class, 'auth']);
 
 Route::get('/health-check', [HealthCheckController::class, 'getStatus']);
 
-Route::prefix('payments')->middleware([JwtMiddleware::class])->group(function () {
-    Route::get('/', [PaymentController::class, 'getPayments']);
-});
+Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
 
-Route::prefix('bank-slip')->middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
-    Route::post('/create', [BankSlipController::class, 'generateBillingDocument']);
-    Route::get('/print/{boletoId}', [BankSlipController::class, 'printBillingDocument']);
-});
+    Route::prefix('payments')->group(function () {
+        Route::get('/', [PaymentController::class, 'getPayments']);
+    });
 
-Route::prefix('pix')->middleware([JwtMiddleware::class])->group(function () {
-    Route::post('/qrcode', [PixController::class, 'create']);
-});
+    Route::prefix('bank-slip')->group(function () {
+        Route::post('/create', [BankSlipController::class, 'generateBillingDocument']);
+        Route::get('/print/{boletoId}', [BankSlipController::class, 'printBillingDocument']);
+    });
 
-Route::prefix('person')->middleware([JwtMiddleware::class])->group(function () {
-    Route::post('/', [PersonController::class, 'create']);
-    Route::put('/update', [PersonController::class, 'update']);
-    Route::delete('/delete', [PersonController::class, 'delete']);
-    Route::get('/find', [PersonController::class, 'find']);
-});
+    Route::resource('person', PersonController::class);
 
-Route::prefix('city')->middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
-    Route::post('/create', [CityController::class, 'create']);
-    Route::get('/list', [CityController::class, 'getCities']);
+    Route::prefix('pix')->group(function () {
+        Route::post('/qrcode', [PixController::class, 'create']);
+    });
+
+    Route::resource('city', CityController::class);
+
 });
