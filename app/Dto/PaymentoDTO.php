@@ -27,4 +27,15 @@ class PaymentoDTO
             document: new Document($data['document'] ?? ''),
         );
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'status' => $this->status->value,
+            'amount' => $this->amount->getValue(),
+            'payment_method' => $this->payment_method->value,
+            'document' => $this->document->getValue()
+        ];
+    }
 }

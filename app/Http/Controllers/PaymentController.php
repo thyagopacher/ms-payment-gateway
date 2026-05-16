@@ -19,6 +19,7 @@ class PaymentController extends Controller
     {
         $paymentDto = PaymentoDTO::fromArray($request->validated());
         $payment = $this->paymentService->createPayment($paymentDto);
+        
         return response()->json([
             'success' => true,
             'payment' => $payment

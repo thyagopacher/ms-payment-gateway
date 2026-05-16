@@ -6,6 +6,7 @@ use App\Dto\PaymentoDTO;
 use App\Enums\PaymentStatus;
 use App\Events\PaymentApproved;
 use App\Exceptions\NotFoundException;
+use App\Factories\PaymentMethodFactory;
 use App\Models\Payment;
 use App\Models\Person;
 use App\Notifications\InvoicePaid;
@@ -24,7 +25,7 @@ class PaymentService
 
     }
 
-    public function createPayment(PaymentoDTO $paymentDto): Model
+    public function createPayment(PaymentoDTO $paymentDto): array
     {
 
         /**
@@ -42,11 +43,14 @@ class PaymentService
             'person_id'      => $person->id,
         ]);
 
+        //identifica qual a service relacionada ao método de pgto e efetiva o pgto no banco
+        $paymentMethodService = PaymentMethodFactory::make($paymentDto->payment_method->value);
+        $paymentRegistered = $paymentMethodService->create($paymentDto->toArray());
 
         // Dispara a notificação
         $payment->notify(new InvoicePaid($payment));
 
-        return $payment;
+        return $paymentRegistered;
     }
 
     public function approvePayment(int $paymentId): bool
