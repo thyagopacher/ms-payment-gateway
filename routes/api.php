@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BankSlipController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\HealthCheckController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Payment\BankSlipController;
+use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Payment\PixController;
 use App\Http\Controllers\PersonController;
-use App\Http\Controllers\PixController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Support\Facades\Route;
 

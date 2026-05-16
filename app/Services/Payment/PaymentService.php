@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Payment;
 
 use App\Dto\PaymentoDTO;
 use App\Enums\PaymentStatus;
@@ -12,7 +12,6 @@ use App\Models\Person;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
 use App\Repositories\PersonRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
 class PaymentService
