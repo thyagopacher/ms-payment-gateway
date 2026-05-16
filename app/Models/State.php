@@ -27,12 +27,12 @@ class State extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function scopeByAbbreviation($query, $abbreviation)
+    public function scopeByAbbreviation($query, string $abbreviation)
     {
         return $query->where('abbreviation', $abbreviation);
     }
 
-    public function scopeByCountry($query, $countryId)
+    public function scopeByCountry($query, int $countryId)
     {
         return $query->where('country_id', $countryId);
     }
