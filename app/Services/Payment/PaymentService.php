@@ -31,15 +31,20 @@ class PaymentService
          * @var Person $person
          */
         $person = $this->personRepository->findByDocument($paymentDto->document);
+        if (empty($person->id)) {
+            throw new NotFoundException(__('api.select_not_found'));
+        }
 
         /**
          * @var Payment $payment
          */
         $payment = $this->paymentRepository->create([
-            'amount'         => $paymentDto->amount,
+            'amount'         => $paymentDto->amount->getValue(),
             'payment_method' => $paymentDto->payment_method ?? 'credit_card',
             'status'         => PaymentStatus::PENDING->value,
-            'person_id'      => $person->id,
+            'due_date'       => $paymentDto->dueDate,
+            'paid_at'        => $paymentDto->paidAt,
+            'person_id'      => $person->id ?? 0,
         ]);
 
         //identifica qual a service relacionada ao método de pgto e efetiva o pgto no banco

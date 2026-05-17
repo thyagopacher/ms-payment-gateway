@@ -15,9 +15,7 @@ class PaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $auth = $this->header('Authorization');
-
-        return !empty($auth) && str_starts_with($auth, 'Bearer ');
+        return true;
     }
 
     /**
@@ -54,7 +52,8 @@ class PaymentRequest extends FormRequest
 
             'person_document' => [
                 'required',
-                'exists:person,document'
+                'min:11',
+                'max:14'
             ],
         ];
     }

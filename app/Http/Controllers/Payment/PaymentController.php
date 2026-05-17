@@ -18,7 +18,8 @@ class PaymentController extends Controller
 
     public function createPayment(PaymentRequest $request)
     {
-        $paymentDto = PaymentoDTO::fromArray($request->validated());
+        $data = $request->validated();
+        $paymentDto = PaymentoDTO::fromArray($data);
         $payment = $this->paymentService->createPayment($paymentDto);
 
         return response()->json([

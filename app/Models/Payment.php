@@ -31,6 +31,8 @@ class Payment extends Model
         'amount',
         'status',
         'payment_method',
+        'due_date',
+        'paid_at'
     ];
 
     protected $table = 'payment';

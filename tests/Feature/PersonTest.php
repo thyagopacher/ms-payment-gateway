@@ -34,7 +34,8 @@ class PersonTest extends TestCase
             'document' => fake()->numerify('###########'),
         ];
         $response = $this->post('/api/person', $data);
+        $jsonContent = $response->json();
 
-        $response->assertStatus(422);
+        $this->assertEquals(true, $jsonContent['code'] === 422, 'Http code invalid');
     }
 }

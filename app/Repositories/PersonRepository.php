@@ -20,6 +20,6 @@ class PersonRepository extends BaseRepository
 
     public function findByDocument(Document $document): ?Model
     {
-        return $this->model->newQuery()->where('document', $document)->first();
+        return $this->model->newQuery()->where('document', $document->getValue())->first();
     }
 }

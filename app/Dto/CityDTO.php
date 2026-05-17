@@ -18,4 +18,12 @@ class CityDTO
             state: State::fromString(strtoupper($data['state'])),
         );
     }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'state' => $this->state->getValue()
+        ];
+    }
 }

@@ -17,12 +17,4 @@ class NotFoundException extends NotFoundHttpException
         parent::__construct($message, $previous, $code, $headers);
     }
 
-    public function render(Request $request): JsonResponse
-    {
-        return response()->json([
-            'error' => 'not_found',
-            'message' => $this->getMessage(),
-            'status' => 404,
-        ], 404);
-    }
 }

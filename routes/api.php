@@ -18,6 +18,7 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
 
     Route::prefix('payments')->group(function () {
         Route::get('/', [PaymentController::class, 'getPayments']);
+        Route::post('/', [PaymentController::class, 'createPayment']);
     });
 
     Route::prefix('bank-slip')->group(function () {

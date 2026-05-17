@@ -129,6 +129,7 @@ return [
         'symbols' => 'O campo :attribute deve conter pelo menos um símbolo.',
         'uncompromised' => 'O :attribute fornecido apareceu em uma vazamento de dados. Por favor, escolha um :attribute diferente.',
     ],
+    'person_document' => 'O campo documento deve ser válido.',
     'present' => 'O campo :attribute deve estar presente.',
     'present_if' => 'O campo :attribute deve estar presente quando :other é :value.',
     'present_unless' => 'O campo :attribute deve estar presente a menos que :other seja :value.',
