@@ -19,6 +19,8 @@ class PersonTest extends TestCase
             'person_mail' => fake()->email(),
             'person_phone' => fake()->phoneNumber(),
             'person_document' => fake()->numerify('###########'),
+            'person_city' => fake()->city(),
+            'person_state' => fake()->randomElement(['SP', 'RJ', 'MG', 'ES', 'PR']),
         ];
         $response = $this->post('/api/person', $data);
 
