@@ -25,7 +25,7 @@ class Person extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'person_name', 'person_document', 'person_mail', 'person_phone'
+        'person_name', 'person_document', 'person_mail', 'person_phone', 'person_city', 'person_state'
     ];
 
     public function scopeByDocument(Builder $query, string $document)
