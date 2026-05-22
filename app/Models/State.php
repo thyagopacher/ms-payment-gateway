@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 class State extends Model
 {
@@ -27,12 +28,12 @@ class State extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function scopeByAbbreviation($query, string $abbreviation)
+    public function scopeByAbbreviation(Builder $query, string $abbreviation)
     {
         return $query->where('abbreviation', $abbreviation);
     }
 
-    public function scopeByCountry($query, int $countryId)
+    public function scopeByCountry(Builder $query, int $countryId)
     {
         return $query->where('country_id', $countryId);
     }

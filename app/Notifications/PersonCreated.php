@@ -6,6 +6,7 @@ use App\Models\Person;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class PersonCreated extends Notification
 {
@@ -16,7 +17,7 @@ class PersonCreated extends Notification
      */
     public function __construct(private readonly Person $person)
     {
-        //
+        Log::info("Criando notificação de pessoa criada para pessoa ID: {$this->person->id}");
     }
 
     /**

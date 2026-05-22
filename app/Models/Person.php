@@ -32,4 +32,14 @@ class Person extends Model
     {
         return $query->where('person_document', $document);
     }
+
+    public function scopeByCity(Builder $query, string $city)
+    {
+        return $query->where('person_city', $city);
+    }
+
+    public function scopeByState(Builder $query, string $state)
+    {
+        return $query->where('person_state', $state);
+    }
 }
