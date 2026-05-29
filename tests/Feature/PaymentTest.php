@@ -29,7 +29,7 @@ class PaymentTest extends TestCase
             'bill_due_date' => date($paymentDate, strtotime("+7 days")),
             'person_document' => '05820810929',
         ];
-        $response = $this->post('/api/payments', $data);
+        $response = $this->post('/api/payment', $data);
         $jsonContent = $response->json();
 
         $this->assertEquals(true, is_bool($jsonContent['success']), json_encode($jsonContent));
@@ -37,7 +37,7 @@ class PaymentTest extends TestCase
 
     public function test_get_payments_return_httpcode(): array
     {
-        $response = $this->get('/api/payments?limit=3');
+        $response = $this->get('/api/payment?limit=3');
         $response->assertStatus(200);
 
         $jsonContent = $response->json();

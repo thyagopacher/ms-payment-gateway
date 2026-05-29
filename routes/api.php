@@ -17,11 +17,6 @@ Route::get('/health-check', [HealthCheckController::class, 'getStatus']);
 
 Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
 
-    Route::prefix('payments')->group(function () {
-        Route::get('/', [PaymentController::class, 'getPayments']);
-        Route::post('/', [PaymentController::class, 'createPayment']);
-    });
-
     Route::prefix('bank-slip')->group(function () {
         Route::post('/create', [BankSlipController::class, 'generateBillingDocument']);
         Route::get('/print/{boletoId}', [BankSlipController::class, 'printBillingDocument']);
@@ -33,6 +28,8 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
         Route::post('/qrcode', [PixController::class, 'create']);
     });
 
+    Route::resource('payment', PaymentController::class);
+    
     Route::resource('city', CityController::class);
 
     Route::resource('state', StateController::class);
