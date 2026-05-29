@@ -40,7 +40,7 @@ class SantanderClient extends BaseAuthApiClient
         }
 
         $certs = [
-            'ssl_key' => [storage_path('certs/certificado.pem'), env('SENHA_CERTIFICADO')],
+            'ssl_key' => [storage_path('certs/certificado.pem'), config('services.boleto.cert_pass')],
         ];
 
         $body = parent::authenticate('/auth/oauth/v2/token', $certs);

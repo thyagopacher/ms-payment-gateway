@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
+/**
+ * City class
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $city_state
+ * @property State $state
+ *
+ * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+ */
 class City extends Model
 {
 

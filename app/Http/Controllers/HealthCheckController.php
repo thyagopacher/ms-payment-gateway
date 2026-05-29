@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Factories\BankFactory;
 use App\Services\KafkaService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class HealthCheckController extends Controller
@@ -26,13 +27,28 @@ class HealthCheckController extends Controller
         }
     }
 
+    private function getStatusDatabase(): bool
+    {
+        try {
+            DB::select('SELECT 1');
+
+            return true;
+        } catch (\Throwable $e) {
+            Log::error('Database health check failed', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return false;
+        }
+    }
+
     public function getStatus()
     {
         $res = [
             'status' => 'healthy',
             'timestamp' => now()->toDateTimeString(),
             'services' => [
-                'database' => app()->make('db')->connection()->getPdo() ? 'connected' : 'disconnected',
+                'database' => $this->getStatusDatabase(),
                 'redis' => $this->getStatusRedis(),
                 'kafka' => (new KafkaService())->healthCheck() ? 'connected' : 'disconnected',
             ],

@@ -36,6 +36,7 @@ return [
     ],
 
     'boleto' => [
+        'cert_pass' => env('SENHA_CERTIFICADO'),
         'itau' => [
             'api_key' => env('ITAU_API_KEY'),
             'api_secret' => env('ITAU_API_SECRET'),
