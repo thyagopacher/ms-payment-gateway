@@ -10,6 +10,16 @@ class Bank extends Model
 
     use HasFactory;
 
+    protected $primaryKey = 'id';
+
     protected $table = 'bank';
 
+    protected $fillable = [
+        'name', 'code'
+    ];
+
+    public function scopeByCode($query, $code)
+    {
+        return $query->where('code', $code);
+    }
 }

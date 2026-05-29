@@ -22,7 +22,7 @@ class InvalidArgumentException extends NotFoundHttpException
         return response()->json([
             'error' => 'invalid_argument',
             'message' => $this->getMessage(),
-            'status' => 500,
-        ], 500);
+            'status' => 422,
+        ], 422);
     }
 }

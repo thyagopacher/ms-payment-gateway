@@ -22,7 +22,7 @@ class CityFactory extends Factory
     {
         return [
             'name' => $this->faker->city(),
-            'state' => $this->faker->stateAbbr(),
+            'city_state' => $this->faker->randomElement(['SP', 'RJ', 'MG', 'ES', 'RS', 'SC', 'PR', 'BA', 'PE'])
         ];
     }
 

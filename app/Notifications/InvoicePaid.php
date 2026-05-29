@@ -18,6 +18,7 @@ class InvoicePaid extends Notification implements ShouldQueue
      */
     public function __construct(private readonly Payment $payment)
     {
+        Log::info("Criando notificação de pagamento confirmado para pagamento ID: {$this->payment->id}");
         $this->afterCommit();
     }
 

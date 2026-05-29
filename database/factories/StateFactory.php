@@ -32,6 +32,7 @@ class StateFactory extends Factory
             'name' => $state['name'],
             'abbreviation' => $state['abbreviation'],
             'country_id' => self::$countryId,
+            'country_abbreviation' => 'BR',
         ];
     }
 

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payment;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PixRequest;
-use App\Services\PixService;
+use App\Services\Payment\PixService;
 
 class PixController extends Controller
 {

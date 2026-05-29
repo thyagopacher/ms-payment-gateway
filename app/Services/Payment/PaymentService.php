@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Payment;
 
 use App\Dto\PaymentoDTO;
 use App\Enums\PaymentStatus;
 use App\Events\PaymentApproved;
 use App\Exceptions\NotFoundException;
+use App\Factories\PaymentMethodFactory;
 use App\Models\Payment;
 use App\Models\Person;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
 use App\Repositories\PersonRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
 class PaymentService
@@ -24,29 +24,37 @@ class PaymentService
 
     }
 
-    public function createPayment(PaymentoDTO $paymentDto): Model
+    public function createPayment(PaymentoDTO $paymentDto): array
     {
 
         /**
          * @var Person $person
          */
         $person = $this->personRepository->findByDocument($paymentDto->document);
+        if (empty($person->id)) {
+            throw new NotFoundException(__('api.select_not_found'));
+        }
 
         /**
          * @var Payment $payment
          */
         $payment = $this->paymentRepository->create([
-            'amount'         => $paymentDto->amount,
+            'amount'         => $paymentDto->amount->getValue(),
             'payment_method' => $paymentDto->payment_method ?? 'credit_card',
             'status'         => PaymentStatus::PENDING->value,
-            'person_id'      => $person->id,
+            'due_date'       => $paymentDto->dueDate,
+            'paid_at'        => $paymentDto->paidAt,
+            'person_id'      => $person->id ?? 0,
         ]);
 
+        //identifica qual a service relacionada ao método de pgto e efetiva o pgto no banco
+        $paymentMethodService = PaymentMethodFactory::make($paymentDto->payment_method->value);
+        $paymentRegistered = $paymentMethodService->create($paymentDto->toArray());
 
         // Dispara a notificação
         $payment->notify(new InvoicePaid($payment));
 
-        return $payment;
+        return $paymentRegistered;
     }
 
     public function approvePayment(int $paymentId): bool

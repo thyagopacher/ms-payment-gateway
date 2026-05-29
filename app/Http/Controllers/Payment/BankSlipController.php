@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payment;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\BankSlipRequest;
-use App\Services\BankSlipService;
+use App\Services\Payment\BankSlipService;
 
 class BankSlipController extends Controller
 {

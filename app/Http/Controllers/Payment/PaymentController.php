@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payment;
 
 use App\Dto\PaymentoDTO;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
-use App\Services\PaymentService;
+use App\Services\Payment\PaymentService;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -17,8 +18,10 @@ class PaymentController extends Controller
 
     public function createPayment(PaymentRequest $request)
     {
-        $paymentDto = PaymentoDTO::fromArray($request->validated());
+        $data = $request->validated();
+        $paymentDto = PaymentoDTO::fromArray($data);
         $payment = $this->paymentService->createPayment($paymentDto);
+
         return response()->json([
             'success' => true,
             'payment' => $payment

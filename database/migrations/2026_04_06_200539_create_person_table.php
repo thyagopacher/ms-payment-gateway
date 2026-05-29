@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('person_mail', 255)->unique();
             $table->string('person_phone', 20)->nullable(true);
             $table->string('person_document', 14)->unique()->nullable(false);
+            $table->string('person_city', 255)->nullable(false);
+            $table->string('person_state', 2)->nullable(false)->default('PR');
             $table->timestamps();
         });
     }

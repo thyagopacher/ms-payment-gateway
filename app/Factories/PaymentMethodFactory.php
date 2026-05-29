@@ -12,9 +12,9 @@ class PaymentMethodFactory
         Log::info("Creating payment method service for: ". $paymentMethod);
 
         return match ($paymentMethod) {
-            'pix' => app(\App\Services\PixService::class),
-            'bank_slip' => app(\App\Services\BankSlipService::class),
-            'credit_card' => app(\App\Services\CreditCardService::class),
+            'pix' => app(\App\Services\Payment\PixService::class),
+            'bank_slip' => app(\App\Services\Payment\BankSlipService::class),
+            'credit_card' => app(\App\Services\Payment\CreditCardService::class),
             default => throw new \InvalidArgumentException("Payment method {$paymentMethod} not implemented"),
         };
     }

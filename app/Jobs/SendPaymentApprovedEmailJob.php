@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Mail\PaymentApprovedMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendPaymentApprovedEmailJob implements ShouldQueue
@@ -21,6 +22,7 @@ class SendPaymentApprovedEmailJob implements ShouldQueue
 
     public function handle(): void
     {
+        Log::info("Enviando email de pagamento aprovado para {$this->email} com dados: ", $this->payment);
         Mail::to($this->email)
             ->send(new PaymentApprovedMail($this->email, $this->payment));
     }

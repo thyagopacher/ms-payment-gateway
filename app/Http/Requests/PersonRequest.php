@@ -33,6 +33,8 @@ class PersonRequest extends FormRequest
             'person_mail' => 'required|string|min:3|max:255',
             'person_phone' => 'required|string|min:10|max:30',
             'person_document' => 'required|string|min:11|max:14|unique:person,document',
+            'person_city' => 'required|string|min:3|max:255',
+            'person_state' => 'nullable|string|min:2|max:2',
         ];
     }
 

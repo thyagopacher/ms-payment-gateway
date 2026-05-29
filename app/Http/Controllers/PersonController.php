@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PersonRequest;
+use App\Http\Resources\PersonResource;
 use App\Services\PersonService;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class PersonController extends Controller
 
     }
 
-    public function create(PersonRequest $request)
+    public function store(PersonRequest $request)
     {
         $data = $request->validated();
 
@@ -26,6 +27,16 @@ class PersonController extends Controller
         ]);
     }
 
+    /**
+     * update function
+     *
+     * method PUT
+     *
+     * @param PersonRequest $request
+     * @param integer $id
+     * @return void
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
     public function update(PersonRequest $request, int $id)
     {
         $data = $request->validated();
@@ -47,13 +58,15 @@ class PersonController extends Controller
         ]);
     }
 
-    public function find(int $id)
+    public function show(int $id)
     {
         $person = $this->personService->find($id);
-        return response()->json([
-            'success' => true,
-            'data' => $person
-        ]);
+        return new PersonResource($person);
+    }
+
+    public function index()
+    {
+        return PersonResource::collection($this->personService->findAll());
     }
 
 }

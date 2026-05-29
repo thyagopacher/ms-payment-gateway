@@ -15,9 +15,7 @@ class PaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $auth = $this->header('Authorization');
-
-        return !empty($auth) && str_starts_with($auth, 'Bearer ');
+        return true;
     }
 
     /**
@@ -54,7 +52,8 @@ class PaymentRequest extends FormRequest
 
             'person_document' => [
                 'required',
-                'exists:person,document'
+                'min:11',
+                'max:14'
             ],
         ];
     }
@@ -64,7 +63,7 @@ class PaymentRequest extends FormRequest
         return [
             'person_name' => __('validation.attributes.person_name'),
             'person_city' => __('validation.attributes.person_city'),
-            'person_uf' => __('validation.attributes.person_uf'),
+            'person_state' => __('validation.attributes.person_state'),
             'person_document' => __('validation.attributes.person_document'),
             'person_address' => __('validation.attributes.person_address'),
             'person_zipcode' => __('validation.attributes.person_zipcode'),

@@ -24,11 +24,24 @@ class Payment extends Model
 
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'person_id',
+        'amount',
+        'status',
+        'payment_method',
+        'due_date',
+        'paid_at'
+    ];
+
     protected $table = 'payment';
 
     protected $casts = [
         'status' => PaymentStatus::class,
     ];
+
+    protected $with = ['person:id,name'];
 
     public function person()
     {

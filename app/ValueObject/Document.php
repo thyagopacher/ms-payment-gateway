@@ -7,22 +7,20 @@ use InvalidArgumentException;
 class Document
 {
 
-    private string $value;
-
     public function __construct(
-        private string $document
+        private string $value
     )
     {
-        $document = $this->sanitize($document);
+        $document = $this->sanitize($value);
 
         if (!$this->isValid($document)) {
-            throw new InvalidArgumentException(__('validation.document'));
+            throw new InvalidArgumentException(__('validation.person_document'). ' - '. $document, 422);
         }
 
         $this->value = $document;
     }
 
-    public function getValue(): float
+    public function getValue(): string
     {
         return $this->value;
     }

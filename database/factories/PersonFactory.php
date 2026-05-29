@@ -29,6 +29,8 @@ class PersonFactory extends Factory
             'person_mail' => fake()->unique()->safeEmail(),
             'person_phone' => fake()->phoneNumber(),
             'person_document' => fake()->numerify('###########'),
+            'person_city' => fake()->city(),
+            'person_state' => fake()->randomElement(['SP', 'PR', 'RJ', 'AM', 'SC']),
         ];
     }
 

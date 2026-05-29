@@ -45,4 +45,10 @@ class PersonService
         return $person;
     }
 
+    public function findAll()
+    {
+        $persons = $this->personRepository->all();
+        return $persons;
+    }
+
 }

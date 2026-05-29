@@ -40,33 +40,35 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (Throwable $e, $request) {
+
             if ($request->expectsJson() || str_starts_with($request->path(), 'api/')) {
+
+                $code = $e->getCode();
+
+                if ($code < 400 || $code >= 600) {
+                    $code = 500;
+                }
+
+                $res = [
+                    'message' => $e->getMessage(),
+                    'code' => $code,
+                    'success' => false
+                ];
+
                 if ($e instanceof \Illuminate\Validation\ValidationException) {
-                    return response()->json([
-                        'message' => 'Os dados fornecidos são inválidos.',
-                        'errors'  => $e->errors(),           // ← campos com erros
-                        'status'  => 422,
-                    ], 422);
+                    $res['code'] = 422;
+                    $res['message'] = 'Invalid fields';
                 }
 
                 if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
-                    $status = $e->getStatusCode();
-                    return response()->json([
-                        'message' => $e->getMessage() ?: 'Erro HTTP',
-                        'status'  => $status,
-                    ], $status);
+                    $res['code'] =$e->getStatusCode();
                 }
 
-                $status = $e->getCode();
-
-                if ($status < 400 || $status >= 600) {
-                    $status = 500;
+                if (config('app.debug')) {
+                    $res['line'] = $e->getLine();
+                    $res['file'] = $e->getFile();
                 }
-
-                return response()->json([
-                    'message' => $e->getMessage(),
-                    'status' => $status,
-                ], $status);
+                return response()->json($res, $code);
             }
         });
         Integration::handles($exceptions);
