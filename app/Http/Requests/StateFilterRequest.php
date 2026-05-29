@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CityFilterRequest extends FormRequest
+class StateFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,8 @@ class CityFilterRequest extends FormRequest
     {
         return [
             'name' => 'optional|string|min:3|max:255',
-            'state' => 'optional|string|min:2|max:2',
+            'abbreviation' => 'optional|string|min:2|max:2',
+            'country_id' => 'optional|integer|exists:country,id',
         ];
     }
 

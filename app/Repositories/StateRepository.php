@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\State;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
@@ -44,4 +45,23 @@ class StateRepository extends BaseRepository
             return $this->model->all();
         });
     }
+
+    public function getStates(array $filters): Collection
+    {
+        $query = $this->model->newQuery();
+
+        if (!empty($filters['name'])) {
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        }
+
+        if (!empty($filters['abbreviation'])) {
+            $query->where('abbreviation', $filters['abbreviation']);
+        }
+        if (!empty($filters['abbreviation'])) {
+            $query->where('abbreviation', $filters['abbreviation']);
+        }
+
+        return $query->get();
+    }
+
 }

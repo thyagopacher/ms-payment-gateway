@@ -7,6 +7,7 @@ use App\Http\Controllers\Payment\BankSlipController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\PixController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\StateController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -33,5 +34,7 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
     });
 
     Route::resource('city', CityController::class);
+
+    Route::resource('state', StateController::class);
 
 });

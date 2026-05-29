@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PersonRequest;
+use App\Http\Resources\PersonResource;
 use App\Services\PersonService;
 use Illuminate\Http\Request;
 
@@ -60,19 +61,12 @@ class PersonController extends Controller
     public function show(int $id)
     {
         $person = $this->personService->find($id);
-        return response()->json([
-            'success' => true,
-            'data' => $person
-        ]);
+        return new PersonResource($person);
     }
 
     public function index()
     {
-        $persons = $this->personService->findAll();
-        return response()->json([
-            'success' => true,
-            'data' => $persons  
-        ]);
+        return PersonResource::collection($this->personService->findAll());
     }
 
 }

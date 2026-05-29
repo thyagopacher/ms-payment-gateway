@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\CityRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class CityService
@@ -48,7 +49,7 @@ class CityService
         return $city;
     }
 
-    public function getCities(array $filters): array
+    public function getCities(array $filters): Collection
     {
         $cities = $this->cityRepository->getCities($filters);
         return $cities;

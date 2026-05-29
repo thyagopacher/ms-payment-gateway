@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable;
+use Override;
 
 /**
  * Person class
@@ -27,6 +29,13 @@ class Person extends Model
     protected $fillable = [
         'person_name', 'person_document', 'person_mail', 'person_phone', 'person_city', 'person_state'
     ];
+
+    protected $with = ['state:id,name,abbreviation,country_id'];
+
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class, 'person_state', 'abbreviation');
+    }
 
     public function scopeByDocument(Builder $query, string $document)
     {

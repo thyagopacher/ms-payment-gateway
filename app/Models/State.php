@@ -14,14 +14,14 @@ class State extends Model
     protected $table = 'state';
 
     protected $fillable = [
-        'name', 'abbreviation', 'country_id'
+        'name', 'abbreviation', 'country_id', 'country_abbreviation'
     ];
 
     protected $hidden = [
         'created_at', 'updated_at', 'country_id'
     ];
 
-    protected $with = ['country:id,name'];
+    protected $with = ['country:id,name,abbreviation'];
 
     public function country()
     {

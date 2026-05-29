@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255)->unique();
             $table->string('abbreviation', 2)->unique();
+            $table->string('country_abbreviation', 2)->default('BR');
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('country')->onDelete('cascade');
             $table->timestamps();

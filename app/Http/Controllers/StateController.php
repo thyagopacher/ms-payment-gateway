@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CityRequest;
-use App\Http\Requests\CityFilterRequest;
-use App\Http\Resources\CityResource;
-use App\Services\CityService;
+use App\Http\Requests\StateRequest;
+use App\Http\Requests\StateFilterRequest;
+use App\Http\Resources\StateResource;
+use App\Services\StateService;
 
-class CityController extends Controller
+class StateController extends Controller
 {
 
     public function __construct(
-        private CityService $service
+        private StateService $service
     ) {
 
     }
 
-    public function store(CityRequest $request)
+    public function store(StateRequest $request)
     {
         $data = $request->validated();
         $res = $this->service->create($data);
@@ -24,7 +24,7 @@ class CityController extends Controller
         return response()->json($res);
     }
 
-    public function update(CityRequest $request, int $id)
+    public function update(StateRequest $request, int $id)
     {
         $data = $request->validated();
         $res = $this->service->update($data, $id);
@@ -47,16 +47,15 @@ class CityController extends Controller
 
     public function show(int $id)
     {
-        $res = $this->service->getCity($id);
-        return new CityResource($res);
+        $res = $this->service->getState($id);
+        return new StateResource($res);
     }
 
-    public function index(CityFilterRequest $request)
+    public function index(StateFilterRequest $request)
     {
         $filters = $request->validated();
-        $data = $this->service->getCities($filters);
-
-        return CityResource::collection($data);
+        $data = $this->service->getStates($filters);
+        return StateResource::collection($data);
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Exceptions\NotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
@@ -45,7 +46,7 @@ class CityRepository extends BaseRepository
         return $res;
     }
 
-    public function getCities(array $filters): array
+    public function getCities(array $filters): Collection
     {
         $query = $this->model->newQuery();
 
@@ -57,7 +58,7 @@ class CityRepository extends BaseRepository
             $query->where('state', $filters['state']);
         }
 
-        return $query->get()->toArray();
+        return $query->get();
     }
 
     public function getCitiesByState(string $state): array
