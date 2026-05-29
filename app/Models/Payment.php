@@ -41,7 +41,7 @@ class Payment extends Model
         'status' => PaymentStatus::class,
     ];
 
-    protected $with = ['person:id,name'];
+    protected $with = ['person:id,person_name,person_document'];
 
     public function person()
     {

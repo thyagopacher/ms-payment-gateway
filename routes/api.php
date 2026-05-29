@@ -22,16 +22,15 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
         Route::get('/print/{boletoId}', [BankSlipController::class, 'printBillingDocument']);
     });
 
-    Route::resource('person', PersonController::class);
-
     Route::prefix('pix')->group(function () {
         Route::post('/qrcode', [PixController::class, 'create']);
     });
 
+    Route::resource('person', PersonController::class);
+
     Route::resource('payment', PaymentController::class);
-    
+
     Route::resource('city', CityController::class);
 
     Route::resource('state', StateController::class);
-
 });
