@@ -12,6 +12,7 @@ use App\Models\Person;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
 use App\Repositories\PersonRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
@@ -110,7 +111,7 @@ class PaymentService
         return $city;
     }
 
-    public function getPayments(array $filters = []): array
+    public function getPayments(array $filters = []): Collection
     {
         return $this->paymentRepository->getPayments($filters);
     }
