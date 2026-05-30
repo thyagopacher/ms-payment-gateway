@@ -30,7 +30,7 @@ class PaymentRepository extends BaseRepository
         return $data;
     }
 
-    public function getPayments(array $filters = []): array
+    public function getPayments(array $filters = []): \Illuminate\Database\Eloquent\Collection
     {
         $query = $this->model->newQuery();
 
@@ -46,6 +46,6 @@ class PaymentRepository extends BaseRepository
             $query->limit($filters['limit']);
         }
 
-        return $query->get()->toArray();
+        return $query->get();
     }
 }

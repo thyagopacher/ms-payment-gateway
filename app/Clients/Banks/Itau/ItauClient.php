@@ -49,7 +49,7 @@ class ItauClient extends BaseAuthApiClient
         }
 
         $certs = [
-            'ssl_key' => [storage_path('certs/certificado.pem'), env('SENHA_CERTIFICADO')],
+            'ssl_key' => [storage_path('certs/certificado.pem'), config('services.boleto.cert_pass')],
         ];
 
         $body = parent::authenticate('/api/oauth/jwt', $certs);

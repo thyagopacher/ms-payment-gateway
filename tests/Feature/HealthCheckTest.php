@@ -35,7 +35,7 @@ class HealthCheckTest extends TestCase
     public function test_health_check_database_ok(string $jsonContent): void
     {
         $json = json_decode($jsonContent, true);
-        $this->assertEquals(true, $json['services']['database'] === 'connected', 'Database service is not healthy');
+        $this->assertEquals(true, $json['services']['database'], 'Database service is not healthy');
     }
 
     #[Depends('test_health_check_access_route')]

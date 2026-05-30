@@ -28,10 +28,11 @@ class CityController extends Controller
     {
         $data = $request->validated();
         $res = $this->service->update($data, $id);
+        $success = !empty($res->id);
 
         return response()->json([
-            'success' => $res,
-            'msg' => $res ? __('api.updated_success') : __('api.updated_error')
+            'success' => $success,
+            'msg' => $success ? __('api.updated_success') : __('api.updated_error')
         ]);
     }
 

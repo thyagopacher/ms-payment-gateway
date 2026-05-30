@@ -2,9 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * CityResource class
+ *
+ * @mixin City
+ *
+ * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+ */
 class CityResource extends JsonResource
 {
     /**
@@ -20,8 +28,8 @@ class CityResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'state' => $state->name .' - '. $state->abbreviation ?? '',
-            'country' => $state->country->name . ' - ' . $state->country->abbreviation ?? ''
+            'state' => $state->name .' - '. $state->abbreviation,
+            'country' => $state->country->name . ' - ' . $state->country->abbreviation
         ];
     }
 }

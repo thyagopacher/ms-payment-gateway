@@ -14,6 +14,14 @@ use Override;
  *
  * @property int $id
  * @property string $person_name
+ * @property string $person_document
+ * @property string $person_mail
+ * @property string $person_phone
+ * @property string $person_city
+ * @property string $person_state
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property State $state
  *
  * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
  */

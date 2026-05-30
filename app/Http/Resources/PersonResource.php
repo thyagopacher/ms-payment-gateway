@@ -2,9 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * PersonResource class
+ *
+ * @mixin Person
+ *
+ * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+ */
 class PersonResource extends JsonResource
 {
     /**
@@ -14,6 +22,7 @@ class PersonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $state = $this->state;
 
         return [
             'id' => $this->id,
@@ -22,8 +31,8 @@ class PersonResource extends JsonResource
             'mail' => $this->person_mail,
             'phone' => $this->person_phone,
             'city' => $this->person_city,
-            'state' => $this->state->name .' - '. $this->state->abbreviation ?? '',
-            'country' => $this->state->country->name ?? ''
+            'state' => $state->name .' - '. $state->abbreviation,
+            'country' => $state->country->name ?? ''
         ];
     }
 }

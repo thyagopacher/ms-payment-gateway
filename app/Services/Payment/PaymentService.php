@@ -12,6 +12,8 @@ use App\Models\Person;
 use App\Notifications\InvoicePaid;
 use App\Repositories\PaymentRepository;
 use App\Repositories\PersonRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
 class PaymentService
@@ -57,6 +59,23 @@ class PaymentService
         return $paymentRegistered;
     }
 
+    public function update(array $cityData, int $id): Model
+    {
+
+        $payment = $this->paymentRepository->update($id, [
+            'name'         => $cityData['name'],
+            'state' => $cityData['state'],
+        ]);
+
+        return $payment;
+    }
+
+    public function delete(int $id): bool
+     {
+        $res = $this->paymentRepository->delete($id);
+        return $res;
+    }
+
     public function approvePayment(int $paymentId): bool
     {
         $payment = $this->paymentRepository->find($paymentId);
@@ -86,7 +105,13 @@ class PaymentService
         return true;
     }
 
-    public function getPayments(array $filters = []): array
+    public function getPayment(int $id): Model
+    {
+        $city = $this->paymentRepository->find($id);
+        return $city;
+    }
+
+    public function getPayments(array $filters = []): Collection
     {
         return $this->paymentRepository->getPayments($filters);
     }

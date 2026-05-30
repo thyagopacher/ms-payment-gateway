@@ -34,18 +34,21 @@ class PersonController extends Controller
      *
      * @param PersonRequest $request
      * @param integer $id
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
      */
-    public function update(PersonRequest $request, int $id)
+    public function update(PersonRequest $request, int $id): \Illuminate\Http\JsonResponse
     {
         $data = $request->validated();
 
         $res = $this->personService->update($data, $id);
+        $success = !empty($res->id);
+
         return response()->json([
-            'success' => true,
-            'msg' => $res ? __('api.updated_success') : __('api.updated_error')
+            'success' => $success,
+            'msg' => $success ? __('api.updated_success') : __('api.updated_error')
         ]);
+
     }
 
     public function delete(int $id)

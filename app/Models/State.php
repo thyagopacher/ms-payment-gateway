@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
+/**
+ * State class
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $abbreviation
+ * @property int $country_id
+ * @property string $country_abbreviation
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Country $country
+ *
+ * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+ */
 class State extends Model
 {
 
