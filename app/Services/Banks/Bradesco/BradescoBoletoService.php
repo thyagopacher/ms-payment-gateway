@@ -4,7 +4,7 @@ namespace App\Services\Banks\Bradesco;
 
 use App\Clients\Banks\Bradesco\BradescoBoletoClient;
 use App\Contracts\BankSlipInterface;
-use App\Services\Reports\PdfService;
+use App\Services\PdfService;
 
 class BradescoBoletoService implements BankSlipInterface
 {

@@ -3,6 +3,7 @@
 namespace App\Services\Reports;
 
 use App\Repositories\PaymentRepository;
+use App\Services\PdfService;
 use Illuminate\Database\Eloquent\Collection;
 
 class OrderPdfReport

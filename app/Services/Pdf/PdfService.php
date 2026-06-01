@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Reports;
+namespace App\Services;
 
 use App\Contracts\PdfAdapterInterface;
 
