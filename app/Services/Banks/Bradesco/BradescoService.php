@@ -28,11 +28,11 @@ class BradescoService implements BankInterface
 
     public function boleto(): BradescoBoletoService
     {
-        return new BradescoBoletoService();
+        return app()->make(BradescoBoletoService::class);
     }
 
     public function pix(): BradescoPixService
     {
-        return new BradescoPixService();
+        return app()->make(BradescoPixService::class);
     }
 }

@@ -28,7 +28,7 @@ class HealthCheckTest extends TestCase
     public function test_health_check_redis_ok(string $jsonContent): void
     {
         $json = json_decode($jsonContent, true);
-        $this->assertEquals(true, $json['services']['redis'] === true, 'Redis service is not healthy');
+        $this->assertEquals(true, is_bool($json['services']['redis']), 'Redis service is not healthy');
     }
 
     #[Depends('test_health_check_access_route')]

@@ -4,16 +4,14 @@ namespace App\Services\Banks\Bradesco;
 
 use App\Clients\Banks\Bradesco\BradescoBoletoClient;
 use App\Contracts\BankSlipInterface;
-use App\Services\PdfService;
+use App\Services\Reports\PdfService;
 
 class BradescoBoletoService implements BankSlipInterface
 {
 
-    protected BradescoBoletoClient $apiBanco;
-
-    public function __construct()
+    public function __construct(protected BradescoBoletoClient $apiBanco, protected PdfService $pdfService)
     {
-        $this->apiBanco = new BradescoBoletoClient();
+
     }
 
     public function create(array $data): array
@@ -40,8 +38,7 @@ class BradescoBoletoService implements BankSlipInterface
         $htmlContent = '';
 
         //2 - converter HTML para PDF
-        $pdfService = new PdfService();
-        $pdfContent = $pdfService->generatePdf($htmlContent);
+        $pdfContent = $this->pdfService->generate('boleto_bradesco.pdf', $htmlContent);
         return $pdfContent;
     }
 }
