@@ -6,6 +6,7 @@ use App\Dto\PersonDTO;
 use App\Models\Person;
 use App\Notifications\PersonCreated;
 use App\Repositories\PersonRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class PersonService
 {
@@ -41,14 +42,12 @@ class PersonService
 
     public function find(int $id)
     {
-        $person = $this->personRepository->find($id);
-        return $person;
+        return $this->personRepository->find($id);
     }
 
-    public function findAll()
+    public function findAll(): Collection
     {
-        $persons = $this->personRepository->all();
-        return $persons;
+        return $this->personRepository->all();
     }
 
 }
