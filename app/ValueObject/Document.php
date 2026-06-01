@@ -20,6 +20,11 @@ class Document
         $this->value = $document;
     }
 
+    public static function from(string $value): self
+    {
+        return new self($value);
+    }
+
     public function getValue(): string
     {
         return $this->value;

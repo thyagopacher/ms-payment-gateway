@@ -4,18 +4,16 @@ namespace App\ValueObject;
 
 use InvalidArgumentException;
 
-class State
+class Email
 {
 
     public function __construct(
         private string $value
     )
     {
-        if (strlen($value) !== 2) {
-            throw new InvalidArgumentException(__('validation.person_state'));
+        if (!$this->isValid($value)) {
+            throw new InvalidArgumentException(__('validation.person_mail'). ' - '. $value, 422);
         }
-
-        $this->value = $value;
     }
 
     public static function from(string $value): self
@@ -28,4 +26,8 @@ class State
         return $this->value;
     }
 
+    private function isValid(string $value): bool
+    {
+        return FILTER_VAR($value, FILTER_VALIDATE_EMAIL) !== false;
+    }
 }

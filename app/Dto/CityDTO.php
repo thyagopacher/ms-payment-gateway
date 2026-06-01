@@ -15,7 +15,7 @@ class CityDTO
     {
         return new self(
             name: $data['name'],
-            state: State::fromString(strtoupper($data['state'])),
+            state: State::from(strtoupper($data['state'])),
         );
     }
 

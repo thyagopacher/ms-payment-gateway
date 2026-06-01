@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\PersonDTO;
 use App\Http\Requests\PersonRequest;
 use App\Http\Resources\PersonResource;
 use App\Services\PersonService;
@@ -18,8 +19,7 @@ class PersonController extends Controller
     public function store(PersonRequest $request)
     {
         $data = $request->validated();
-
-        $res = $this->personService->create($data);
+        $res = $this->personService->create(PersonDTO::fromArray($data));
         return response()->json([
             'success' => true,
             'msg' => $res ? __('api.created_success') : __('api.created_error'),
@@ -41,7 +41,7 @@ class PersonController extends Controller
     {
         $data = $request->validated();
 
-        $res = $this->personService->update($data, $id);
+        $res = $this->personService->update(PersonDTO::fromArray($data), $id);
         $success = !empty($res->id);
 
         return response()->json([

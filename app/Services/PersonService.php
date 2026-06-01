@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Dto\PersonDTO;
 use App\Models\Person;
 use App\Notifications\PersonCreated;
 use App\Repositories\PersonRepository;
@@ -15,22 +16,21 @@ class PersonService
 
     }
 
-    public function create(array $personData): int
+    public function create(PersonDTO $personData): int
     {
 
         /**
          * @var Person $person
          */
-        $person = $this->personRepository->create($personData);
+        $person = $this->personRepository->create($personData->toArray());
         $person->notify(new PersonCreated($person));
 
         return $person->id;
     }
 
-    public function update(array $data, int $id)
+    public function update(PersonDTO $data, int $id)
     {
-        $res = $this->personRepository->update($id, $data);
-        return $res;
+        return $this->personRepository->update($id, $data->toArray());
     }
 
     public function delete(int $id)
