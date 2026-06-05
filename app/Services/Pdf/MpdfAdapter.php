@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Reports;
+namespace App\Services\Pdf;
 
 use App\Contracts\PdfAdapterInterface;
 
@@ -8,6 +8,12 @@ class MpdfAdapter implements PdfAdapterInterface
 {
     public function generate(string $filename, string $content, array $options = []): string
     {
+        $options['tempDir'] = $options['tempDir'] ?? storage_path('app/mpdf');
+        if (!is_dir($options['tempDir'])) {
+            mkdir($options['tempDir'], 0775, true);
+            chown($options['tempDir'], 'www-data'); // ajuste se necessário
+        }
+
         $mpdf = new \Mpdf\Mpdf($options);
         $mpdf->WriteHTML($content);
 

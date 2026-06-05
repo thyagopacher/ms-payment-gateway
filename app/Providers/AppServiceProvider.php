@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Contracts\PdfAdapter;
 use App\Contracts\PdfAdapterInterface;
-use App\Services\Reports\MpdfAdapter;
+use App\Services\Pdf\MpdfAdapter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

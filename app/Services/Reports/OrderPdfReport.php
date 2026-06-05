@@ -3,7 +3,7 @@
 namespace App\Services\Reports;
 
 use App\Repositories\PaymentRepository;
-use App\Services\PdfService;
+use App\Services\Pdf\PdfService;
 use Illuminate\Database\Eloquent\Collection;
 
 class OrderPdfReport
@@ -25,10 +25,14 @@ class OrderPdfReport
 
     private function generateContent(Collection $payments): string
     {
-        $html = view(
+        return view(
             'reports.orders',
             ['payments' => $payments]
         )->render();
-        return $html;
+    }
+
+    public function filename(): string
+    {
+        return 'order_report.pdf';
     }
 }
