@@ -35,4 +35,19 @@ class ItauBoletoService implements BankSlipInterface
         // lógica para imprimir boleto do Banco do Brasil
         return "Boleto do Banco do Brasil impresso com ID: {$boletoId}";
     }
+
+    public function registerWebhook(array $data): array
+    {
+        return $this->apiBanco->registerWebhook($data);
+    }
+
+    public function getWebhooks(string $id_beneficiario): array
+    {
+        return $this->apiBanco->getWebhooks($id_beneficiario);
+    }
+
+    public function deleteWebhook(string $id_notificacao_boleto): array
+    {
+        return $this->apiBanco->deleteWebhook($id_notificacao_boleto);
+    }
 }
