@@ -18,7 +18,7 @@ class PersonTest extends TestCase
             'person_name' => fake()->name(),
             'person_mail' => fake()->email(),
             'person_phone' => fake()->phoneNumber(),
-            'person_document' => fake()->numerify('###########'),
+            'person_document' => "83274934003",
             'person_city' => fake()->city(),
             'person_state' => fake()->randomElement(['SP', 'RJ', 'MG', 'ES', 'PR']),
         ];
