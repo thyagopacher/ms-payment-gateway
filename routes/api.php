@@ -30,6 +30,9 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
 
     Route::resource('payment', PaymentController::class);
 
+    Route::get('/payments/report/pdf', [PaymentController::class, 'pdfReport']);
+    Route::get('/payments/report/csv', [PaymentController::class, 'csvReport']);
+
     Route::resource('city', CityController::class);
 
     Route::resource('state', StateController::class);

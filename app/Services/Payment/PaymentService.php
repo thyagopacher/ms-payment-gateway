@@ -116,4 +116,9 @@ class PaymentService
         return $this->paymentRepository->getPayments($filters);
     }
 
+    public function getTotalsPayments(array $filters = []): Collection
+    {
+        return $this->paymentRepository->getTotalsPayments($filters);
+    }
+
 }

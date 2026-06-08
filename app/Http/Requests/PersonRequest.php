@@ -45,6 +45,8 @@ class PersonRequest extends FormRequest
             'person_mail' => __('validation.attributes.person_mail'),
             'person_phone' => __('validation.attributes.person_phone'),
             'person_document' => __('validation.attributes.person_document'),
+            'person_city' => __('validation.attributes.person_city'),
+            'person_state' => __('validation.attributes.person_state'),
         ];
     }
 }

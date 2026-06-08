@@ -44,5 +44,4 @@ class PaymentTest extends TestCase
         return $jsonContent;
     }
 
-     
 }

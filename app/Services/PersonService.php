@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Dto\PersonDTO;
 use App\Models\Person;
 use App\Notifications\PersonCreated;
 use App\Repositories\PersonRepository;
+use App\ValueObject\Document;
+use Illuminate\Database\Eloquent\Collection;
 
 class PersonService
 {
@@ -15,22 +18,26 @@ class PersonService
 
     }
 
-    public function create(array $personData): int
+    public function create(PersonDTO $personData): int
     {
+
+        $person = $this->personRepository->findByDocument($personData->person_document);
+        if (!empty($person->id)) {
+            return $person->id;
+        }
 
         /**
          * @var Person $person
          */
-        $person = $this->personRepository->create($personData);
+        $person = $this->personRepository->create($personData->toArray());
         $person->notify(new PersonCreated($person));
 
         return $person->id;
     }
 
-    public function update(array $data, int $id)
+    public function update(PersonDTO $data, int $id)
     {
-        $res = $this->personRepository->update($id, $data);
-        return $res;
+        return $this->personRepository->update($id, $data->toArray());
     }
 
     public function delete(int $id)
@@ -41,14 +48,12 @@ class PersonService
 
     public function find(int $id)
     {
-        $person = $this->personRepository->find($id);
-        return $person;
+        return $this->personRepository->find($id);
     }
 
-    public function findAll()
+    public function findAll(): Collection
     {
-        $persons = $this->personRepository->all();
-        return $persons;
+        return $this->personRepository->all();
     }
 
 }

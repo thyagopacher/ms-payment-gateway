@@ -38,6 +38,13 @@ class PaymentRepository extends BaseRepository
             $query->where('status', $filters['status']);
         }
 
+        if (!empty($filters['dueDatePeriodStart'])) {
+            $query->where('due_date', '>=', $filters['dueDatePeriodStart']);
+        }
+        if (!empty($filters['dueDatePeriodEnd'])) {
+            $query->where('due_date', '<=', $filters['dueDatePeriodEnd']);
+        }
+
         if (isset($filters['person_id'])) {
             $query->where('person_id', $filters['person_id']);
         }
@@ -46,6 +53,35 @@ class PaymentRepository extends BaseRepository
             $query->limit($filters['limit']);
         }
 
+        return $query->get();
+    }
+
+    public function getTotalsPayments(array $filters = []): \Illuminate\Database\Eloquent\Collection
+    {
+        $query = $this->model->newQuery();
+
+        if (isset($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        if (!empty($filters['dueDatePeriodStart'])) {
+            $query->where('due_date', '>=', $filters['dueDatePeriodStart']);
+        }
+        if (!empty($filters['dueDatePeriodEnd'])) {
+            $query->where('due_date', '<=', $filters['dueDatePeriodEnd']);
+        }
+
+        if (isset($filters['person_id'])) {
+            $query->where('person_id', $filters['person_id']);
+        }
+
+        if (isset($filters['limit'])) {
+            $query->limit($filters['limit']);
+        }
+
+
+        $query->groupBy('status, payment_method')
+            ->selectRaw('status, payment_method, SUM(amount) as total_amount');
         return $query->get();
     }
 }

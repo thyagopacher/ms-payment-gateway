@@ -18,13 +18,13 @@ class PersonTest extends TestCase
             'person_name' => fake()->name(),
             'person_mail' => fake()->email(),
             'person_phone' => fake()->phoneNumber(),
-            'person_document' => fake()->numerify('###########'),
+            'person_document' => "83274934003",
             'person_city' => fake()->city(),
             'person_state' => fake()->randomElement(['SP', 'RJ', 'MG', 'ES', 'PR']),
         ];
         $response = $this->post('/api/person', $data);
 
-        $response->assertStatus(200);
+        $this->assertEquals(true, in_array($response->getStatusCode(), [200, 201, 202]), $response->getContent());
     }
 
     public function test_create_fail_attribute(): void

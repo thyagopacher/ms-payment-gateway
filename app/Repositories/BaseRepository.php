@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository
@@ -13,12 +14,12 @@ abstract class BaseRepository
         $this->model = $model;
     }
 
-    public function all(array $columns = ['*'])
+    public function all(array $columns = ['*']): Collection
     {
         return $this->model->newQuery()->get($columns);
     }
 
-    public function find(int $id)
+    public function find(int $id): Model
     {
         return $this->model->newQuery()->find($id);
     }

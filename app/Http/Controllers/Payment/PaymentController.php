@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Services\Payment\PaymentService;
+use App\Services\Reports\OrderCsvReport;
+use App\Services\Reports\OrderPdfReport;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -63,6 +65,40 @@ class PaymentController extends Controller
 
         $payments = $this->paymentService->getPayments($filters);
         return PaymentResource::collection($payments);
+    }
+
+    public function csvReport(
+        Request $request,
+        OrderCsvReport $report
+    ) {
+        $filters = $request->all();
+        $csvContent = $report->generate($filters);
+
+        return response(
+            $csvContent
+        )
+        ->header('Content-Type', 'text/csv')
+        ->header(
+            'Content-Disposition',
+            'attachment; filename="' . $report->filename() . '"'
+        );
+    }
+
+    public function pdfReport(
+        Request $request,
+        OrderPdfReport $report
+    ) {
+        $filters = $request->all();
+        $pdfContent = $report->generate($filters);
+
+        return response(
+            $pdfContent
+        )
+        ->header('Content-Type', 'application/pdf')
+        ->header(
+            'Content-Disposition',
+            'attachment; filename="' . $report->filename() . '"'
+        );
     }
 
 

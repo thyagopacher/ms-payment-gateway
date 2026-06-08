@@ -2,27 +2,28 @@
 
 namespace App\Dto;
 
+use App\ValueObject\City;
 use App\ValueObject\State;
 
 class CityDTO
 {
     public function __construct(
-        public string $name,
+        public City $city,
         public State $state
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
-            name: $data['name'],
-            state: State::fromString(strtoupper($data['state'])),
+            city: City::from($data['name']),
+            state: State::from(strtoupper($data['state'])),
         );
     }
 
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
+            'city' => $this->city->getValue(),
             'state' => $this->state->getValue()
         ];
     }

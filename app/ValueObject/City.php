@@ -4,18 +4,19 @@ namespace App\ValueObject;
 
 use InvalidArgumentException;
 
-class State
+class City
 {
 
     public function __construct(
         private string $value
     )
     {
-        if (strlen($value) !== 2) {
-            throw new InvalidArgumentException(__('validation.person_state'));
+        if (strlen($value) <= 2) {
+            throw new InvalidArgumentException(__('validation.person_city'));
         }
 
-        $this->value = $value;
+        $this->value = htmlspecialchars($value);
+        $this->value = strtoupper($this->value);
     }
 
     public static function from(string $value): self
