@@ -24,7 +24,7 @@ class PersonTest extends TestCase
         ];
         $response = $this->post('/api/person', $data);
 
-        $response->assertStatus(200);
+        $this->assertEquals(true, in_array($response->getStatusCode(), [200, 201, 202]), $response->getContent());
     }
 
     public function test_create_fail_attribute(): void

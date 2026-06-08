@@ -11,7 +11,7 @@ class NotFoundException extends NotFoundHttpException
     public function __construct(
         string $message = 'Recurso não encontrado.',
         ?\Throwable $previous = null,
-        int $code = 0,
+        int $code = 404,
         array $headers = []
     ) {
         parent::__construct($message, $previous, $code, $headers);

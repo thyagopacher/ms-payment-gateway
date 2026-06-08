@@ -21,7 +21,7 @@ class PersonRepository extends BaseRepository
 
     public function findByDocument(Document $document): ?Model
     {
-        return $this->model->newQuery()->where('document', $document->getValue())->first();
+        return $this->model->newQuery()->where('person_document', $document->getValue())->first();
     }
 
     public function getPersons(array $filters): Collection

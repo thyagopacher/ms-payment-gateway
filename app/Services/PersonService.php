@@ -6,6 +6,7 @@ use App\Dto\PersonDTO;
 use App\Models\Person;
 use App\Notifications\PersonCreated;
 use App\Repositories\PersonRepository;
+use App\ValueObject\Document;
 use Illuminate\Database\Eloquent\Collection;
 
 class PersonService
@@ -19,6 +20,11 @@ class PersonService
 
     public function create(PersonDTO $personData): int
     {
+
+        $person = $this->personRepository->findByDocument($personData->person_document);
+        if (!empty($person->id)) {
+            return $person->id;
+        }
 
         /**
          * @var Person $person

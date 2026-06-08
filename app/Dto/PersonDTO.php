@@ -31,7 +31,7 @@ class PersonDTO
             person_phone: $data['person_phone'],
             person_document: Document::from($data['person_document']),
             person_city: City::from($data['person_city']),
-            person_state: State::from($data['person_state'])
+            person_state: State::from($data['person_state'] ?? '')
         );
     }
 
