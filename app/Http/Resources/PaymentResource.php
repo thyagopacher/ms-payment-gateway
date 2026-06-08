@@ -14,6 +14,7 @@ class PaymentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         $person = $this->person;
 
         return [

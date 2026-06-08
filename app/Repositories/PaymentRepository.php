@@ -80,8 +80,8 @@ class PaymentRepository extends BaseRepository
         }
 
 
-        $query->groupBy($filters['groupBy'] ?? 'status')
-            ->selectRaw('status, SUM(amount) as total_amount');
+        $query->groupBy('status, payment_method')
+            ->selectRaw('status, payment_method, SUM(amount) as total_amount');
         return $query->get();
     }
 }

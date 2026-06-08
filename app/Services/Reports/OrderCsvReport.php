@@ -11,15 +11,19 @@ class OrderCsvReport
 {
     public function __construct(
         private CsvService $csvService,
-        private PaymentRepository $paymentRepository
+        private OrderDataReport $orderData
     ) {
 
     }
 
     public function generate(array $filters): string
     {
-        $payments = $this->paymentRepository->getPayments($filters);
-        $rows = PaymentResource::collection($payments)->resolve();
+        $payments = $this->orderData->find($filters);
+
+        $rows = $payments->toArray();
+        if (empty($filters['totals'])) {
+            $rows = PaymentResource::collection($payments)->resolve();
+        }
         if (empty($rows)) {
             throw new NotFoundException('Nenhum pagamento encontrado para os filtros fornecidos.');
         }

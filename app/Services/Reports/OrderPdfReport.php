@@ -10,7 +10,7 @@ class OrderPdfReport
 {
     public function __construct(
         private PdfService $pdfService,
-        private PaymentRepository $paymentRepository
+        private OrderDataReport $orderData
     ) {
 
     }
@@ -18,17 +18,14 @@ class OrderPdfReport
     public function generate(array $filters): string
     {
         $filename = 'order_report.pdf';
-        $payments = $this->paymentRepository->getPayments($filters);
-        $content = $this->generateContent($payments);
-        return $this->pdfService->generate($filename, $content);
-    }
+        $payments = $this->orderData->find($filters);
 
-    private function generateContent(Collection $payments): string
-    {
-        return view(
-            'reports.orders',
-            ['payments' => $payments]
-        )->render();
+        $content = view('reports.orders', ['payments' => $payments])->render();
+        if (!empty($filters['totals'])) {
+            $content = view('reports.orders_totals', ['payments' => $payments])->render();
+        }
+
+        return $this->pdfService->generate($filename, $content);
     }
 
     public function filename(): string
