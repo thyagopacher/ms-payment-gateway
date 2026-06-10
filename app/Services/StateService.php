@@ -40,9 +40,8 @@ class StateService
     }
 
     public function delete(int $id): bool
-     {
-        $res = $this->stateRepository->delete($id);
-        return $res;
+    {
+        return $this->stateRepository->delete($id);
     }
 
     public function getState(int $id): Model

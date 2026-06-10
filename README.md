@@ -136,6 +136,12 @@ Bank Clients
 - Expand observability metrics
 - Add contract testing for bank APIs
 
+## Swagger
+For update documentation swagger
+```shell
+php artisan l5-swagger:generate
+```
+
 ## License
 
 MIT

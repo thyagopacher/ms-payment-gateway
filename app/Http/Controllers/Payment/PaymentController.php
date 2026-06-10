@@ -10,6 +10,7 @@ use App\Services\Payment\PaymentService;
 use App\Services\Reports\OrderCsvReport;
 use App\Services\Reports\OrderPdfReport;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
 
 class PaymentController extends Controller
 {
@@ -19,6 +20,16 @@ class PaymentController extends Controller
 
     }
 
+    #[OA\Post(
+        path: "/api/payment",
+        summary: "Create new payment",
+        responses: [
+            new OA\Response(
+                response: 201,
+                description: 'Payment created successfully'
+            )
+        ]
+    )]
     public function store(PaymentRequest $request)
     {
         $data = $request->validated();
@@ -28,9 +39,19 @@ class PaymentController extends Controller
         return response()->json([
             'success' => true,
             'payment' => $payment
-        ]);
+        ], 201);
     }
 
+    #[OA\Put(
+        path: "/api/payment/{id}",
+        summary: "Update payment",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Payment updated successfully'
+            )
+        ]
+    )]
     public function update(PaymentRequest $request, int $id)
     {
         $data = $request->validated();
@@ -43,6 +64,16 @@ class PaymentController extends Controller
         ]);
     }
 
+    #[OA\Delete(
+        path: "/api/payment/{id}",
+        summary: "Delete payment",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Payment deleted successfully'
+            )
+        ]
+    )]
     public function destroy(int $id)
     {
         $res = $this->paymentService->delete($id);
@@ -53,12 +84,32 @@ class PaymentController extends Controller
         ]);
     }
 
+    #[OA\Get(
+        path: "/api/payment/{id}",
+        summary: "Get payment by ID",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Payment found successfully'
+            )
+        ]
+    )]
     public function show(int $id): PaymentResource
     {
         $res = $this->paymentService->getPayment($id);
         return new PaymentResource($res);
     }
 
+    #[OA\Get(
+        path: "/api/payment",
+        summary: "Get all payments with filters",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Payment found successfully'
+            )
+        ]
+    )]
     public function index(Request $request)
     {
         $filters = $request->all();
@@ -67,6 +118,16 @@ class PaymentController extends Controller
         return PaymentResource::collection($payments);
     }
 
+    #[OA\Get(
+        path: "/api/payments/report/csv",
+        summary: "Generate CSV report for payments with filters",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Payment found successfully'
+            )
+        ]
+    )]
     public function csvReport(
         Request $request,
         OrderCsvReport $report
@@ -84,6 +145,16 @@ class PaymentController extends Controller
         );
     }
 
+    #[OA\Get(
+        path: "/api/payments/report/pdf",
+        summary: "Generate PDF report for payments with filters",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Payment found successfully'
+            )
+        ]
+    )]
     public function pdfReport(
         Request $request,
         OrderPdfReport $report

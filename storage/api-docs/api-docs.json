@@ -1,0 +1,285 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gateway de Pagamentos API",
+        "description": "Documentação da API",
+        "contact": {
+            "name": "Swagger API Team"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/city": {
+            "get": {
+                "summary": "Get all cities with filters",
+                "operationId": "c2504917c4da1139bffc3dd1d5409f8f",
+                "responses": {
+                    "200": {
+                        "description": "City Found"
+                    },
+                    "404": {
+                        "description": "City Not Found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new city",
+                "operationId": "a8227d5bf6c485aeef4f403040f32ecc",
+                "responses": {
+                    "201": {
+                        "description": "City created successfully"
+                    }
+                }
+            }
+        },
+        "/api/city/{id}": {
+            "get": {
+                "summary": "Get city by ID",
+                "operationId": "5a7b6766b61b35c52ccb43edd7a33259",
+                "responses": {
+                    "200": {
+                        "description": "City Found"
+                    },
+                    "404": {
+                        "description": "City Not Found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update city",
+                "operationId": "d0af268d4633a5d5a5714dd23ecdec69",
+                "responses": {
+                    "200": {
+                        "description": "City updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete city",
+                "operationId": "20163308af9adc11a49d350825877375",
+                "responses": {
+                    "200": {
+                        "description": "City deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/health-check": {
+            "get": {
+                "summary": "Health check",
+                "operationId": "4a7f0cce114c657e73034b4c04d8dc29",
+                "responses": {
+                    "200": {
+                        "description": "Service is healthy"
+                    }
+                }
+            }
+        },
+        "/api/bank-slip/create": {
+            "post": {
+                "summary": "Generate bank slip for a given payment",
+                "operationId": "b3cfc32fe4ad03a022bdaac85b2e8a9f",
+                "responses": {
+                    "200": {
+                        "description": "Bank slip created successfully"
+                    }
+                }
+            }
+        },
+        "/api/bank-slip/print/{boletoId}": {
+            "get": {
+                "summary": "Generate PDF for a given boleto ID",
+                "operationId": "e95af3727061ed63149d5ab20e1cb37b",
+                "responses": {
+                    "200": {
+                        "description": "Bank slip found successfully"
+                    }
+                }
+            }
+        },
+        "/api/payment": {
+            "get": {
+                "summary": "Get all payments with filters",
+                "operationId": "a11dfd08c250d5119b80019b4fb53d85",
+                "responses": {
+                    "200": {
+                        "description": "Payment found successfully"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new payment",
+                "operationId": "7c22e3a6862e6155f10ebeec10338886",
+                "responses": {
+                    "201": {
+                        "description": "Payment created successfully"
+                    }
+                }
+            }
+        },
+        "/api/payment/{id}": {
+            "get": {
+                "summary": "Get payment by ID",
+                "operationId": "18baf8080dd467a5c59bb59df79e95c4",
+                "responses": {
+                    "200": {
+                        "description": "Payment found successfully"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update payment",
+                "operationId": "fa63605430e61eafdb1f2831d6ed0cb5",
+                "responses": {
+                    "200": {
+                        "description": "Payment updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete payment",
+                "operationId": "c50cdf22468f707a41ebc412175c74db",
+                "responses": {
+                    "200": {
+                        "description": "Payment deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/payments/report/csv": {
+            "get": {
+                "summary": "Generate CSV report for payments with filters",
+                "operationId": "c81c0c2ee2af0518ad905b1c15199906",
+                "responses": {
+                    "200": {
+                        "description": "Payment found successfully"
+                    }
+                }
+            }
+        },
+        "/api/payments/report/pdf": {
+            "get": {
+                "summary": "Generate PDF report for payments with filters",
+                "operationId": "f704e060eb345e9df2a3a33c9ba38e20",
+                "responses": {
+                    "200": {
+                        "description": "Payment found successfully"
+                    }
+                }
+            }
+        },
+        "/api/person": {
+            "get": {
+                "summary": "Get all persons with filters",
+                "operationId": "74d719561741d8f0cf67db2cd1664ca1",
+                "responses": {
+                    "200": {
+                        "description": "Person Found"
+                    },
+                    "404": {
+                        "description": "Person Not Found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create person",
+                "operationId": "e3fa321f1f16f618321269761b9dce45",
+                "responses": {
+                    "201": {
+                        "description": "Person created successfully"
+                    }
+                }
+            }
+        },
+        "/api/person/{id}": {
+            "get": {
+                "summary": "Get person by ID",
+                "operationId": "61b1d22e25fb2fecacff38a32de405fd",
+                "responses": {
+                    "200": {
+                        "description": "Person Found"
+                    },
+                    "404": {
+                        "description": "Person Not Found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update person",
+                "operationId": "1a7473b83a56b2325d2df07319dd3140",
+                "responses": {
+                    "200": {
+                        "description": "Person updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete person",
+                "operationId": "1156bbf997fc23486e709b48c8d83873",
+                "responses": {
+                    "200": {
+                        "description": "Person deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/state": {
+            "get": {
+                "summary": "Get all states with filters",
+                "operationId": "b6c9e514d74150c4a1babfb8ab1f990e",
+                "responses": {
+                    "200": {
+                        "description": "State Found"
+                    },
+                    "404": {
+                        "description": "State Not Found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create state",
+                "operationId": "38aee15c72e78bdcab919ebac4b27373",
+                "responses": {
+                    "200": {
+                        "description": "State created successfully"
+                    }
+                }
+            }
+        },
+        "/api/state/{id}": {
+            "get": {
+                "summary": "Get state by ID",
+                "operationId": "966d0c15788e3ffc99695dff7ad3bb7f",
+                "responses": {
+                    "200": {
+                        "description": "State Found"
+                    },
+                    "404": {
+                        "description": "State Not Found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update state",
+                "operationId": "2849cfc132ef57a7b793960b0776972b",
+                "responses": {
+                    "200": {
+                        "description": "State updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete state by ID",
+                "operationId": "75ae622b21b5f08f3478b1e6a4c565fd",
+                "responses": {
+                    "200": {
+                        "description": "State deleted successfully"
+                    },
+                    "404": {
+                        "description": "State Not Found"
+                    }
+                }
+            }
+        }
+    }
+}

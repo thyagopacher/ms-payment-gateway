@@ -7,6 +7,8 @@ use App\Http\Requests\PersonRequest;
 use App\Http\Resources\PersonResource;
 use App\Services\PersonService;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
+
 
 class PersonController extends Controller
 {
@@ -16,6 +18,16 @@ class PersonController extends Controller
 
     }
 
+    #[OA\Post(
+        path: "/api/person",
+        summary: "Create person",
+        responses: [
+            new OA\Response(
+                response: 201,
+                description: 'Person created successfully'
+            )
+        ]
+    )]
     public function store(PersonRequest $request)
     {
         $data = $request->validated();
@@ -24,19 +36,20 @@ class PersonController extends Controller
             'success' => true,
             'msg' => $res ? __('api.created_success') : __('api.created_error'),
             'id' => $res
-        ]);
+        ], 201);
     }
 
-    /**
-     * update function
-     *
-     * method PUT
-     *
-     * @param PersonRequest $request
-     * @param integer $id
-     * @return \Illuminate\Http\JsonResponse
-     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
-     */
+
+    #[OA\Put(
+        path: "/api/person/{id}",
+        summary: "Update person",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Person updated successfully'
+            )
+        ]
+    )]
     public function update(PersonRequest $request, int $id): \Illuminate\Http\JsonResponse
     {
         $data = $request->validated();
@@ -51,6 +64,16 @@ class PersonController extends Controller
 
     }
 
+    #[OA\Delete(
+        path: "/api/person/{id}",
+        summary: "Delete person",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Person deleted successfully'
+            )
+        ]
+    )]
     public function delete(int $id)
     {
 
@@ -61,12 +84,40 @@ class PersonController extends Controller
         ]);
     }
 
+    #[OA\Get(
+        path: "/api/person/{id}",
+        summary: "Get person by ID",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Person Found'
+            ),
+            new OA\Response(
+                response: 404,
+                description: 'Person Not Found'
+            )
+        ]
+    )]
     public function show(int $id)
     {
         $person = $this->personService->find($id);
         return new PersonResource($person);
     }
 
+    #[OA\Get(
+        path: "/api/person",
+        summary: "Get all persons with filters",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Person Found'
+            ),
+            new OA\Response(
+                response: 404,
+                description: 'Person Not Found'
+            )
+        ]
+    )]
     public function index()
     {
         return PersonResource::collection($this->personService->findAll());

@@ -9,7 +9,7 @@ jobs:
     # Define o Kafka como um serviço que roda ao lado do seu job
     services:
       kafka:
-        image: apache/kafka:latest
+        image: apache/kafka:4.2.1
         ports:
           - 9092:9092
         env:
@@ -47,9 +47,10 @@ jobs:
 
       - name: Rodar Migrations
         env:
+          APP_ENV: testing
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: php artisan migrate --force
+        run: php artisan migrate --seed --force
 
       - name: Rodar Testes Feature
         env:
