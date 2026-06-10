@@ -51,6 +51,12 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: php artisan migrate --force
 
+      - name: Rodar Seeds
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan db:seed
+
       - name: Rodar Testes Feature
         env:
           KAFKA_BROKERS: 127.0.0.1:9092
