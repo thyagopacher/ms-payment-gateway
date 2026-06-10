@@ -47,15 +47,10 @@ jobs:
 
       - name: Rodar Migrations
         env:
+          APP_ENV: testing
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: php artisan migrate --force
-
-      - name: Rodar Seeds
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-        run: php artisan db:seed
+        run: php artisan migrate --seed --force
 
       - name: Rodar Testes Feature
         env:
