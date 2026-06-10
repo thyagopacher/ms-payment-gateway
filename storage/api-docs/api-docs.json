@@ -1,0 +1,24 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gateway de Pagamentos API",
+        "description": "Documentação da API",
+        "contact": {
+            "name": "Swagger API Team"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/health-check": {
+            "get": {
+                "summary": "Health check",
+                "operationId": "0d4a4f147a79402a5eabd622317bc85a",
+                "responses": {
+                    "200": {
+                        "description": "Service is healthy"
+                    }
+                }
+            }
+        }
+    }
+}

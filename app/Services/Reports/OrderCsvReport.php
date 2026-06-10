@@ -4,7 +4,6 @@ namespace App\Services\Reports;
 
 use App\Exceptions\NotFoundException;
 use App\Http\Resources\PaymentResource;
-use App\Repositories\PaymentRepository;
 use App\Services\CsvService;
 
 class OrderCsvReport
