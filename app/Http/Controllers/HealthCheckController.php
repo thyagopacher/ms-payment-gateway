@@ -6,6 +6,7 @@ use App\Factories\BankFactory;
 use App\Services\KafkaService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use OpenApi\Attributes as OA;
 
 class HealthCheckController extends Controller
 {
@@ -42,6 +43,16 @@ class HealthCheckController extends Controller
         }
     }
 
+    #[OA\Get(
+        path: "/api/health-check",
+        summary: "Health check",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Service is healthy'
+            )
+        ]
+    )]
     public function getStatus()
     {
         $res = [

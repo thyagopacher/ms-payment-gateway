@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BankSlipRequest;
 use App\Services\Payment\BankSlipService;
+use OpenApi\Attributes as OA;
 
 class BankSlipController extends Controller
 {
@@ -15,6 +16,16 @@ class BankSlipController extends Controller
 
     }
 
+    #[OA\Post(
+        path: "/api/bank-slip/create",
+        summary: "Generate bank slip for a given payment",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Bank slip created successfully'
+            )
+        ]
+    )]
     public function generateBillingDocument(BankSlipRequest $request)
     {
         try {
@@ -31,6 +42,16 @@ class BankSlipController extends Controller
         }
     }
 
+    #[OA\Get(
+        path: "/api/bank-slip/print/{boletoId}",
+        summary: "Generate PDF for a given boleto ID",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Bank slip found successfully'
+            )
+        ]
+    )]
     public function printBillingDocument(int $boletoId)
     {
         try {

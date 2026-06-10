@@ -13,17 +13,4 @@ use OpenApi\Attributes as OA;
 class OpenApi
 {
 
-    #[OA\Get(
-        path: "/api/health-check",
-        summary: "Health check",
-        responses: [
-            new OA\Response(
-                response: 200,
-                description: 'Service is healthy'
-            )
-        ]
-    )]
-    public function healthCheck()
-    {
-    }
 }
