@@ -179,10 +179,119 @@
                 }
             }
         },
-        "/api/stripe/charges": {
+        "/api/stripe/charges/create": {
+            "post": {
+                "tags": [
+                    "Stripe"
+                ],
+                "summary": "Create a new charge",
+                "description": "Creates a new charge in Stripe.",
+                "operationId": "createCharge",
+                "requestBody": {
+                    "description": "Charge data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount",
+                                    "currency",
+                                    "source"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "description": "Amount in cents",
+                                        "type": "integer",
+                                        "example": 1000
+                                    },
+                                    "currency": {
+                                        "description": "ISO 4217 currency code",
+                                        "type": "string",
+                                        "example": "brl"
+                                    },
+                                    "source": {
+                                        "description": "Stripe payment source token",
+                                        "type": "string",
+                                        "example": "tok_visa"
+                                    },
+                                    "metadata": {
+                                        "description": "Additional metadata",
+                                        "type": "object",
+                                        "example": {
+                                            "order_id": "123",
+                                            "customer_id": "456"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Charge created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "ch_3MtwBwLkdIwHu7ix0snN0B15"
+                                        },
+                                        "amount": {
+                                            "type": "integer",
+                                            "example": 1000
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "example": "brl"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "succeeded"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/stripe/charges/{chargeId}/get": {
+            "get": {
+                "summary": "Return details of a specific charge",
+                "operationId": "db142cff4cee8737d0df0a3e90c6f378",
+                "parameters": [
+                    {
+                        "name": "chargeId",
+                        "in": "path",
+                        "description": "ID of the charge to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the charge"
+                    }
+                }
+            }
+        },
+        "/api/stripe/charges/{limit}/list": {
             "get": {
                 "summary": "List charges",
-                "operationId": "ae494e9b60c4192f1d456edf333483c9",
+                "operationId": "5ead7a1dfd39fcb2c9011197a0457034",
                 "parameters": [
                     {
                         "name": "limit",
@@ -198,6 +307,103 @@
                 "responses": {
                     "200": {
                         "description": "List of charges"
+                    }
+                }
+            }
+        },
+        "/api/stripe/charges/{chargeId}/capture": {
+            "post": {
+                "summary": "Capture a charge",
+                "operationId": "10742cab1426817bc2f6018f96bb6c73",
+                "parameters": [
+                    {
+                        "name": "chargeId",
+                        "in": "path",
+                        "description": "ID of the charge to capture",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the captured charge"
+                    }
+                }
+            }
+        },
+        "/api/stripe/charges/{chargeId}": {
+            "put": {
+                "summary": "Update charge details",
+                "operationId": "32b574becd601a3271beddeb655e5827",
+                "parameters": [
+                    {
+                        "name": "chargeId",
+                        "in": "path",
+                        "description": "ID of the charge to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the charge"
+                    }
+                }
+            }
+        },
+        "/api/stripe/refund/{chargeId}": {
+            "post": {
+                "summary": "Refund charge with total amount",
+                "operationId": "924027fbb240904c2281f94d9e07bece",
+                "parameters": [
+                    {
+                        "name": "chargeId",
+                        "in": "path",
+                        "description": "ID of the charge to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the charge"
+                    }
+                }
+            }
+        },
+        "/api/stripe/refund/{chargeId}/{amount}": {
+            "post": {
+                "summary": "Refund charge with specific amount",
+                "operationId": "232a4eaa308610074265348b032b63c8",
+                "parameters": [
+                    {
+                        "name": "chargeId",
+                        "in": "path",
+                        "description": "ID of the charge to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "amount",
+                        "in": "path",
+                        "description": "Amount to refund",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the charge"
                     }
                 }
             }
@@ -337,5 +543,11 @@
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Stripe",
+            "description": "Stripe"
+        }
+    ]
 }
