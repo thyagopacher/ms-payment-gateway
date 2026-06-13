@@ -10,9 +10,8 @@ class StripeApiClient
 
     private StripeClient $stripe;
 
-    public function __construct(
-        private string $apiKey
-    ) {
+    public function __construct() {
+        $apiKey = config('services.stripe.secret');
         $this->stripe = new \Stripe\StripeClient($apiKey);
     }
 

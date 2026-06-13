@@ -168,6 +168,62 @@
                 }
             }
         },
+        "/api/pix": {
+            "post": {
+                "summary": "Create new payment pix",
+                "operationId": "2aa83ec466cfa7ccca68f8c87a229f03",
+                "responses": {
+                    "201": {
+                        "description": "Pix Payment created successfully"
+                    }
+                }
+            }
+        },
+        "/api/stripe/charges": {
+            "get": {
+                "summary": "List charges",
+                "operationId": "ae494e9b60c4192f1d456edf333483c9",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Maximum number of charges",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of charges"
+                    }
+                }
+            }
+        },
+        "/api/stripe/refunds/{refundId}": {
+            "get": {
+                "summary": "Get refund details",
+                "operationId": "8398104d2b58e4942c968dd52d833b12",
+                "parameters": [
+                    {
+                        "name": "refundId",
+                        "in": "path",
+                        "description": "ID of the refund to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the refund"
+                    }
+                }
+            }
+        },
         "/api/person": {
             "get": {
                 "summary": "Get all persons with filters",
