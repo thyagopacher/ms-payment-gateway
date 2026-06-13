@@ -6,6 +6,7 @@ use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Payment\BankSlipController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\PixController;
+use App\Http\Controllers\Payment\StripeController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\StateController;
 use App\Http\Middleware\JwtMiddleware;
@@ -23,7 +24,7 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
     });
 
     Route::prefix('pix')->group(function () {
-        Route::post('/qrcode', [PixController::class, 'create']);
+        Route::post('/', [PixController::class, 'create']);
     });
 
     Route::resource('person', PersonController::class);
@@ -36,4 +37,47 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
     Route::resource('city', CityController::class);
 
     Route::resource('state', StateController::class);
+
+    Route::prefix('stripe')->group(function () {
+        Route::post(
+            '/api/stripe/charges/create',
+            [StripeController::class, 'createCharge']
+        );
+
+        Route::get(
+            '/api/stripe/charges/{chargeId}/get',
+            [StripeController::class, 'getCharge']
+        );
+
+        Route::get(
+            '/api/stripe/charges/{limit}/list',
+            [StripeController::class, 'listCharges']
+        );
+
+        Route::post(
+            '/api/stripe/charges/{chargeId}/capture',
+            [StripeController::class, 'captureCharge']
+        );
+
+        Route::put(
+            '/api/stripe/charges/{chargeId}',
+            [StripeController::class, 'updateCharge']
+        );
+
+        Route::post(
+            '/api/stripe/refund/{chargeId}',
+            [StripeController::class, 'refundCharge']
+        );
+
+        Route::post(
+            '/api/stripe/refund/{chargeId}/{amount}',
+            [StripeController::class, 'partialRefundCharge']
+        );
+
+        Route::get(
+            '/api/stripe/refunds/{refundId}',
+            [StripeController::class, 'getRefund']
+        );
+
+    });
 });
