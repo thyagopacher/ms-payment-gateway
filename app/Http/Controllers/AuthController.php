@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Firebase\JWT\JWT;
+use OpenApi\Attributes as OA;
 
 class AuthController extends Controller
 {
@@ -13,6 +14,20 @@ class AuthController extends Controller
 
     }
 
+    #[OA\Post(
+        path: "/api/auth",
+        summary: "Auth API",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Auth API'
+            ),
+            new OA\Response(
+                response: 422,
+                description: 'Error in auth API'
+            )
+        ]
+    )]
     public function auth()
     {
         $key = config('jwt.secret');

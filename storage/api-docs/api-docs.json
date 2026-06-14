@@ -9,6 +9,20 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/auth": {
+            "post": {
+                "summary": "Auth API",
+                "operationId": "ed6f4db6905483a8ab23a2f1da10212c",
+                "responses": {
+                    "200": {
+                        "description": "Auth API"
+                    },
+                    "422": {
+                        "description": "Error in auth API"
+                    }
+                }
+            }
+        },
         "/api/city": {
             "get": {
                 "tags": [
@@ -75,6 +89,57 @@
                 "responses": {
                     "200": {
                         "description": "City deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/email/create": {
+            "post": {
+                "tags": [
+                    "Email"
+                ],
+                "summary": "Create to email",
+                "operationId": "1e406c76059a6ffea9d332f890740a49",
+                "responses": {
+                    "200": {
+                        "description": "Create Email"
+                    },
+                    "422": {
+                        "description": "Error in creat Email"
+                    }
+                }
+            }
+        },
+        "/api/email/send": {
+            "post": {
+                "tags": [
+                    "Email"
+                ],
+                "summary": "Send to email",
+                "operationId": "96d3151956f99719d9f3385b1aff19e3",
+                "responses": {
+                    "200": {
+                        "description": "Send Email"
+                    },
+                    "404": {
+                        "description": "Error in send Email"
+                    }
+                }
+            }
+        },
+        "/api/email/open/{id}": {
+            "get": {
+                "tags": [
+                    "Email"
+                ],
+                "summary": "Mark email opened",
+                "operationId": "510bb319715f972a7c1aeea15f965d51",
+                "responses": {
+                    "200": {
+                        "description": "Email is marked"
+                    },
+                    "404": {
+                        "description": "Email is Not Found"
                     }
                 }
             }
@@ -644,6 +709,10 @@
         {
             "name": "City",
             "description": "City"
+        },
+        {
+            "name": "Email",
+            "description": "Email"
         },
         {
             "name": "BankSlip",
