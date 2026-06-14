@@ -54,6 +54,14 @@ class EmailService
         return $email->id;
     }
 
+    /**
+     * storeEmailAttachments function
+     *
+     * @param integer $emailId
+     * @param array $attachments - rows of $attachment [file_name, file_path, file_type]
+     * @return boolean
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
     private function storeEmailAttachments(int $emailId, array $attachments): bool
     {
         if (empty($attachments)) {
@@ -75,33 +83,43 @@ class EmailService
         return true;
     }
 
-
     private function storeLogEmailResponse(
         int $emailId,
-        string $to,
-        string $subject,
-        string $body,
-        string $from,
-        bool $isHtml = false,
-        array $attachments = [],
-        string $status = SendEmail::FINISHED->value
+        int $statusCode,
+        string $responseBody,
+        string $successText = SendEmail::FINISHED->value,
     ): bool {
 
         $dataSending = [
-            'to' => $to,
-            'subject' => $subject,
-            'body' => $body,
-            'from' => $from,
-            'isHtml' => $isHtml,
-            'attachments' => $attachments,
-            'status' => $status
+            'statusCode' => $statusCode,
+            'responseBody' => $responseBody,
+            'successText' => $successText
         ];
 
         Log::info("Response to Send email to: ", $dataSending);
 
-        $email = $this->emailRepository->update($emailId, $dataSending);
+        $email = $this->emailRepository->update($emailId, [
+            'status' => $successText,
+        ]);
 
         return !empty($email->id);
+    }
+
+    private function addAttachments(Mail $email, array $attachments): bool
+    {
+        if (empty($attachments)) {
+            return false;
+        }
+
+        foreach ($attachments as $attachment) {
+            $email->addAttachment(
+                file_get_contents($attachment['file_path']),
+                $attachment['file_type'],
+                $attachment['file_name']
+            );
+        }
+
+        return true;
     }
 
     public function sendEmail (
@@ -128,13 +146,15 @@ class EmailService
         $formatContent = $isHtml ? 'text/html' : 'text/plain';
         $email->addContent($formatContent, $body);
 
+        $this->addAttachments($email, $attachments);
+
         $sendGrid = new SendGrid($this->apiKey);
 
         $response = $sendGrid->send($email);
         $successSend = $response->statusCode() === 202;
         $successText = $successSend ? SendEmail::FINISHED->value : SendEmail::FAILED->value;
-        $this->storeLogEmailResponse($emailId, $to, $subject, $body, $from, $isHtml, $attachments, $successText);
+        $this->storeLogEmailResponse($emailId, $response->statusCode(), $response->body(), $successText);
 
-        return $response->statusCode() >= 200 && $response->statusCode() < 300;
+        return $successSend;
     }
 }
