@@ -12,6 +12,10 @@ class StripeApiClient
 
     public function __construct() {
         $apiKey = config('services.stripe.secret');
+        if (empty($apiKey)) {
+            throw new \InvalidArgumentException('Stripe API key is not configured.', 422);
+        }
+
         $this->stripe = new \Stripe\StripeClient($apiKey);
     }
 

@@ -16,6 +16,49 @@ Route::post('/auth', [AuthController::class, 'auth']);
 
 Route::get('/health-check', [HealthCheckController::class, 'getStatus']);
 
+// Stripe routes (for testing purposes - accessible without JWT)
+Route::prefix('stripe')->group(function () {
+    Route::post(
+        '/charges/create',
+        [StripeController::class, 'createCharge']
+    );
+
+    Route::get(
+        '/charges/{chargeId}/get',
+        [StripeController::class, 'getCharge']
+    );
+
+    Route::get(
+        '/charges/{limit}/list',
+        [StripeController::class, 'listCharges']
+    );
+
+    Route::post(
+        '/charges/{chargeId}/capture',
+        [StripeController::class, 'captureCharge']
+    );
+
+    Route::put(
+        '/charges/{chargeId}',
+        [StripeController::class, 'updateCharge']
+    );
+
+    Route::post(
+        '/refund/{chargeId}',
+        [StripeController::class, 'refundCharge']
+    );
+
+    Route::post(
+        '/refund/{chargeId}/{amount}',
+        [StripeController::class, 'partialRefundCharge']
+    );
+
+    Route::get(
+        '/refunds/{refundId}',
+        [StripeController::class, 'getRefund']
+    );
+});
+
 Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
 
     Route::prefix('bank-slip')->group(function () {
@@ -37,47 +80,4 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
     Route::resource('city', CityController::class);
 
     Route::resource('state', StateController::class);
-
-    Route::prefix('stripe')->group(function () {
-        Route::post(
-            '/api/stripe/charges/create',
-            [StripeController::class, 'createCharge']
-        );
-
-        Route::get(
-            '/api/stripe/charges/{chargeId}/get',
-            [StripeController::class, 'getCharge']
-        );
-
-        Route::get(
-            '/api/stripe/charges/{limit}/list',
-            [StripeController::class, 'listCharges']
-        );
-
-        Route::post(
-            '/api/stripe/charges/{chargeId}/capture',
-            [StripeController::class, 'captureCharge']
-        );
-
-        Route::put(
-            '/api/stripe/charges/{chargeId}',
-            [StripeController::class, 'updateCharge']
-        );
-
-        Route::post(
-            '/api/stripe/refund/{chargeId}',
-            [StripeController::class, 'refundCharge']
-        );
-
-        Route::post(
-            '/api/stripe/refund/{chargeId}/{amount}',
-            [StripeController::class, 'partialRefundCharge']
-        );
-
-        Route::get(
-            '/api/stripe/refunds/{refundId}',
-            [StripeController::class, 'getRefund']
-        );
-
-    });
 });

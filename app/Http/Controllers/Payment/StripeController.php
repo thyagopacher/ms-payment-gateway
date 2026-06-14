@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Payment;
 
 use App\DTO\CreateChargeDTO;
+use App\Http\Requests\StripeRequest;
 use App\Services\Payment\StripeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -97,8 +98,8 @@ class StripeController
             )
         ]
     )]
-    public function createCharge(Request $request): object {
-        $params = $request->all();
+    public function createCharge(StripeRequest $request): object {
+        $params = $request->validated();
         $charge = $this->stripeService->createCharge(
             CreateChargeDTO::fromArray($params)
         );
