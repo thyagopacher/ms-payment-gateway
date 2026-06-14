@@ -23,6 +23,7 @@ class PaymentController extends Controller
     #[OA\Post(
         path: "/api/payment",
         summary: "Create new payment",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 201,
@@ -45,6 +46,7 @@ class PaymentController extends Controller
     #[OA\Put(
         path: "/api/payment/{id}",
         summary: "Update payment",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -67,6 +69,7 @@ class PaymentController extends Controller
     #[OA\Delete(
         path: "/api/payment/{id}",
         summary: "Delete payment",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -87,6 +90,7 @@ class PaymentController extends Controller
     #[OA\Get(
         path: "/api/payment/{id}",
         summary: "Get payment by ID",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -103,6 +107,7 @@ class PaymentController extends Controller
     #[OA\Get(
         path: "/api/payment",
         summary: "Get all payments with filters",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -121,6 +126,7 @@ class PaymentController extends Controller
     #[OA\Get(
         path: "/api/payments/report/csv",
         summary: "Generate CSV report for payments with filters",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -148,6 +154,7 @@ class PaymentController extends Controller
     #[OA\Get(
         path: "/api/payments/report/pdf",
         summary: "Generate PDF report for payments with filters",
+        tags: ['Payment'],
         responses: [
             new OA\Response(
                 response: 200,

@@ -11,6 +11,9 @@
     "paths": {
         "/api/city": {
             "get": {
+                "tags": [
+                    "City"
+                ],
                 "summary": "Get all cities with filters",
                 "operationId": "c2504917c4da1139bffc3dd1d5409f8f",
                 "responses": {
@@ -23,6 +26,9 @@
                 }
             },
             "post": {
+                "tags": [
+                    "City"
+                ],
                 "summary": "Create new city",
                 "operationId": "a8227d5bf6c485aeef4f403040f32ecc",
                 "responses": {
@@ -34,6 +40,9 @@
         },
         "/api/city/{id}": {
             "get": {
+                "tags": [
+                    "City"
+                ],
                 "summary": "Get city by ID",
                 "operationId": "5a7b6766b61b35c52ccb43edd7a33259",
                 "responses": {
@@ -46,6 +55,9 @@
                 }
             },
             "put": {
+                "tags": [
+                    "City"
+                ],
                 "summary": "Update city",
                 "operationId": "d0af268d4633a5d5a5714dd23ecdec69",
                 "responses": {
@@ -55,6 +67,9 @@
                 }
             },
             "delete": {
+                "tags": [
+                    "City"
+                ],
                 "summary": "Delete city",
                 "operationId": "20163308af9adc11a49d350825877375",
                 "responses": {
@@ -77,6 +92,9 @@
         },
         "/api/bank-slip/create": {
             "post": {
+                "tags": [
+                    "BankSlip"
+                ],
                 "summary": "Generate bank slip for a given payment",
                 "operationId": "b3cfc32fe4ad03a022bdaac85b2e8a9f",
                 "responses": {
@@ -88,6 +106,9 @@
         },
         "/api/bank-slip/print/{boletoId}": {
             "get": {
+                "tags": [
+                    "BankSlip"
+                ],
                 "summary": "Generate PDF for a given boleto ID",
                 "operationId": "e95af3727061ed63149d5ab20e1cb37b",
                 "responses": {
@@ -99,6 +120,9 @@
         },
         "/api/payment": {
             "get": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Get all payments with filters",
                 "operationId": "a11dfd08c250d5119b80019b4fb53d85",
                 "responses": {
@@ -108,6 +132,9 @@
                 }
             },
             "post": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Create new payment",
                 "operationId": "7c22e3a6862e6155f10ebeec10338886",
                 "responses": {
@@ -119,6 +146,9 @@
         },
         "/api/payment/{id}": {
             "get": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Get payment by ID",
                 "operationId": "18baf8080dd467a5c59bb59df79e95c4",
                 "responses": {
@@ -128,6 +158,9 @@
                 }
             },
             "put": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Update payment",
                 "operationId": "fa63605430e61eafdb1f2831d6ed0cb5",
                 "responses": {
@@ -137,6 +170,9 @@
                 }
             },
             "delete": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Delete payment",
                 "operationId": "c50cdf22468f707a41ebc412175c74db",
                 "responses": {
@@ -148,6 +184,9 @@
         },
         "/api/payments/report/csv": {
             "get": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Generate CSV report for payments with filters",
                 "operationId": "c81c0c2ee2af0518ad905b1c15199906",
                 "responses": {
@@ -159,6 +198,9 @@
         },
         "/api/payments/report/pdf": {
             "get": {
+                "tags": [
+                    "Payment"
+                ],
                 "summary": "Generate PDF report for payments with filters",
                 "operationId": "f704e060eb345e9df2a3a33c9ba38e20",
                 "responses": {
@@ -170,6 +212,9 @@
         },
         "/api/pix": {
             "post": {
+                "tags": [
+                    "Pix"
+                ],
                 "summary": "Create new payment pix",
                 "operationId": "2aa83ec466cfa7ccca68f8c87a229f03",
                 "responses": {
@@ -268,6 +313,9 @@
         },
         "/api/stripe/charges/{chargeId}/get": {
             "get": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "Return details of a specific charge",
                 "operationId": "db142cff4cee8737d0df0a3e90c6f378",
                 "parameters": [
@@ -290,6 +338,9 @@
         },
         "/api/stripe/charges/{limit}/list": {
             "get": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "List charges",
                 "operationId": "5ead7a1dfd39fcb2c9011197a0457034",
                 "parameters": [
@@ -313,6 +364,9 @@
         },
         "/api/stripe/charges/{chargeId}/capture": {
             "post": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "Capture a charge",
                 "operationId": "10742cab1426817bc2f6018f96bb6c73",
                 "parameters": [
@@ -335,6 +389,9 @@
         },
         "/api/stripe/charges/{chargeId}": {
             "put": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "Update charge details",
                 "operationId": "32b574becd601a3271beddeb655e5827",
                 "parameters": [
@@ -357,6 +414,9 @@
         },
         "/api/stripe/refund/{chargeId}": {
             "post": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "Refund charge with total amount",
                 "operationId": "924027fbb240904c2281f94d9e07bece",
                 "parameters": [
@@ -379,6 +439,9 @@
         },
         "/api/stripe/refund/{chargeId}/{amount}": {
             "post": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "Refund charge with specific amount",
                 "operationId": "232a4eaa308610074265348b032b63c8",
                 "parameters": [
@@ -410,6 +473,9 @@
         },
         "/api/stripe/refunds/{refundId}": {
             "get": {
+                "tags": [
+                    "Stripe"
+                ],
                 "summary": "Get refund details",
                 "operationId": "8398104d2b58e4942c968dd52d833b12",
                 "parameters": [
@@ -432,6 +498,9 @@
         },
         "/api/person": {
             "get": {
+                "tags": [
+                    "Person"
+                ],
                 "summary": "Get all persons with filters",
                 "operationId": "74d719561741d8f0cf67db2cd1664ca1",
                 "responses": {
@@ -444,6 +513,9 @@
                 }
             },
             "post": {
+                "tags": [
+                    "Person"
+                ],
                 "summary": "Create person",
                 "operationId": "e3fa321f1f16f618321269761b9dce45",
                 "responses": {
@@ -455,6 +527,9 @@
         },
         "/api/person/{id}": {
             "get": {
+                "tags": [
+                    "Person"
+                ],
                 "summary": "Get person by ID",
                 "operationId": "61b1d22e25fb2fecacff38a32de405fd",
                 "responses": {
@@ -467,6 +542,9 @@
                 }
             },
             "put": {
+                "tags": [
+                    "Person"
+                ],
                 "summary": "Update person",
                 "operationId": "1a7473b83a56b2325d2df07319dd3140",
                 "responses": {
@@ -476,6 +554,9 @@
                 }
             },
             "delete": {
+                "tags": [
+                    "Person"
+                ],
                 "summary": "Delete person",
                 "operationId": "1156bbf997fc23486e709b48c8d83873",
                 "responses": {
@@ -487,6 +568,9 @@
         },
         "/api/state": {
             "get": {
+                "tags": [
+                    "State"
+                ],
                 "summary": "Get all states with filters",
                 "operationId": "b6c9e514d74150c4a1babfb8ab1f990e",
                 "responses": {
@@ -499,6 +583,9 @@
                 }
             },
             "post": {
+                "tags": [
+                    "State"
+                ],
                 "summary": "Create state",
                 "operationId": "38aee15c72e78bdcab919ebac4b27373",
                 "responses": {
@@ -510,6 +597,9 @@
         },
         "/api/state/{id}": {
             "get": {
+                "tags": [
+                    "State"
+                ],
                 "summary": "Get state by ID",
                 "operationId": "966d0c15788e3ffc99695dff7ad3bb7f",
                 "responses": {
@@ -522,6 +612,9 @@
                 }
             },
             "put": {
+                "tags": [
+                    "State"
+                ],
                 "summary": "Update state",
                 "operationId": "2849cfc132ef57a7b793960b0776972b",
                 "responses": {
@@ -531,6 +624,9 @@
                 }
             },
             "delete": {
+                "tags": [
+                    "State"
+                ],
                 "summary": "Delete state by ID",
                 "operationId": "75ae622b21b5f08f3478b1e6a4c565fd",
                 "responses": {
@@ -546,8 +642,32 @@
     },
     "tags": [
         {
+            "name": "City",
+            "description": "City"
+        },
+        {
+            "name": "BankSlip",
+            "description": "BankSlip"
+        },
+        {
+            "name": "Payment",
+            "description": "Payment"
+        },
+        {
+            "name": "Pix",
+            "description": "Pix"
+        },
+        {
             "name": "Stripe",
             "description": "Stripe"
+        },
+        {
+            "name": "Person",
+            "description": "Person"
+        },
+        {
+            "name": "State",
+            "description": "State"
         }
     ]
 }

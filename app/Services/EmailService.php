@@ -25,7 +25,7 @@ class EmailService
         string $to,
         string $subject,
         string $body,
-        string $from,
+        array $from,
         bool $isHtml = false,
         array $attachments = [],
         string $status = SendEmail::PENDING->value
@@ -35,7 +35,7 @@ class EmailService
             'to' => $to,
             'subject' => $subject,
             'body' => $body,
-            'from' => $from,
+            'from' => json_encode($from),
             'isHtml' => $isHtml,
             'attachments' => $attachments,
             'status' => $status
@@ -126,22 +126,42 @@ class EmailService
         return true;
     }
 
+    /**
+     * sendEmail function
+     *
+     * @param string $to
+     * @param string $subject
+     * @param string $body
+     * @param array $from - [from_email, from_name]
+     * @param boolean $isHtml
+     * @param array $attachments
+     *
+     * @return boolean
+     *
+     * @author Thyago Henrique Pacher <thyago.pacher@gmail.com.br>
+     */
     public function sendEmail (
         string $to,
         string $subject,
         string $body,
-        string $from,
+        array $from = [],
         bool $isHtml = false,
         array $attachments = []
     ): bool {
 
+        Log::info("Preparing to send email to: " . $to);
+
+        if (empty($from)) {
+            $from['from_email'] = config('services.sendgrid.from_email');
+            $from['from_name'] = config('services.sendgrid.from_name');
+        }
         $emailId = $this->storeLogEmail($to, $subject, $body, $from, $isHtml, $attachments);
 
         $email = new Mail();
 
         $email->setFrom(
-            config('services.sendgrid.from_email'),
-            config('services.sendgrid.from_name')
+            $from['from_email'],
+            $from['from_name']
         );
 
         $email->setSubject($subject);
@@ -158,6 +178,12 @@ class EmailService
         $successSend = $response->statusCode() === 202;
         $successText = $successSend ? SendEmail::FINISHED->value : SendEmail::FAILED->value;
         $this->storeLogEmailResponse($emailId, $response->statusCode(), $response->body(), $successText);
+
+        Log::info("Response to send email to: " . $to, [
+            'statusCode' => $response->statusCode(),
+            'responseBody' => $response->body(),
+            'success' => $successSend
+        ]);
 
         return $successSend;
     }

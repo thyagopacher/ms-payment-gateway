@@ -19,6 +19,7 @@ class PixController extends Controller
     #[OA\Post(
         path: "/api/pix",
         summary: "Create new payment pix",
+        tags: ['Pix'],
         responses: [
             new OA\Response(
                 response: 201,

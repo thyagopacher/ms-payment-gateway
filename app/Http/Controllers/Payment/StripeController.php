@@ -110,6 +110,7 @@ class StripeController
     #[OA\Get(
         path: "/api/stripe/charges/{chargeId}/get",
         summary: "Return details of a specific charge",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "chargeId",
@@ -136,6 +137,7 @@ class StripeController
     #[OA\Get(
         path: "/api/stripe/charges/{limit}/list",
         summary: "List charges",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "limit",
@@ -163,6 +165,7 @@ class StripeController
     #[OA\Post(
         path: "/api/stripe/charges/{chargeId}/capture",
         summary: "Capture a charge",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "chargeId",
@@ -189,6 +192,7 @@ class StripeController
     #[OA\Put(
         path: "/api/stripe/charges/{chargeId}",
         summary: "Update charge details",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "chargeId",
@@ -221,6 +225,7 @@ class StripeController
     #[OA\Post(
         path: "/api/stripe/refund/{chargeId}",
         summary: "Refund charge with total amount",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "chargeId",
@@ -247,6 +252,7 @@ class StripeController
     #[OA\Post(
         path: "/api/stripe/refund/{chargeId}/{amount}",
         summary: "Refund charge with specific amount",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "chargeId",
@@ -284,6 +290,7 @@ class StripeController
     #[OA\Get(
         path: "/api/stripe/refunds/{refundId}",
         summary: "Get refund details",
+        tags: ['Stripe'],
         parameters: [
             new OA\Parameter(
                 name: "refundId",
