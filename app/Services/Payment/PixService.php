@@ -3,6 +3,7 @@
 namespace App\Services\Payment;
 
 use App\Contracts\PaymentMethodInterface;
+use App\Enums\PixStatus;
 use App\Factories\BankFactory;
 
 class PixService implements PaymentMethodInterface
@@ -21,8 +22,7 @@ class PixService implements PaymentMethodInterface
 
     public function getStatus(array $filters): array
     {
-        // Implementação da obtenção do status do pagamento com cartão de crédito
-        return ['status' => 'pending']; // Retorna um array com o status do pagamento
+        return ['status' => PixStatus::PENDING->value]; // Retorna um array com o status do pagamento
     }
 
     public function cancel(array $data): array
