@@ -20,6 +20,7 @@ class StateController extends Controller
     #[OA\Post(
         path: "/api/state",
         summary: "Create state",
+        tags: ['State'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -38,6 +39,7 @@ class StateController extends Controller
     #[OA\Put(
         path: "/api/state/{id}",
         summary: "Update state",
+        tags: ['State'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -60,6 +62,7 @@ class StateController extends Controller
     #[OA\Delete(
         path: "/api/state/{id}",
         summary: "Delete state by ID",
+        tags: ['State'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -84,6 +87,7 @@ class StateController extends Controller
     #[OA\Get(
         path: "/api/state/{id}",
         summary: "Get state by ID",
+        tags: ['State'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -104,6 +108,7 @@ class StateController extends Controller
     #[OA\Get(
         path: "/api/state",
         summary: "Get all states with filters",
+        tags: ['State'],
         responses: [
             new OA\Response(
                 response: 200,

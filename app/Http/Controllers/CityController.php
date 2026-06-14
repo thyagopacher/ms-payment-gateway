@@ -20,6 +20,7 @@ class CityController extends Controller
     #[OA\Post(
         path: "/api/city",
         summary: "Create new city",
+        tags: ['City'],
         responses: [
             new OA\Response(
                 response: 201,
@@ -38,6 +39,7 @@ class CityController extends Controller
     #[OA\Put(
         path: "/api/city/{id}",
         summary: "Update city",
+        tags: ['City'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -60,6 +62,7 @@ class CityController extends Controller
     #[OA\Delete(
         path: "/api/city/{id}",
         summary: "Delete city",
+        tags: ['City'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -80,6 +83,7 @@ class CityController extends Controller
     #[OA\Get(
         path: "/api/city/{id}",
         summary: "Get city by ID",
+        tags: ['City'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -100,6 +104,7 @@ class CityController extends Controller
     #[OA\Get(
         path: "/api/city",
         summary: "Get all cities with filters",
+        tags: ['City'],
         responses: [
             new OA\Response(
                 response: 200,

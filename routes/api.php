@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Payment\BankSlipController;
 use App\Http\Controllers\Payment\PaymentController;
@@ -16,43 +17,35 @@ Route::post('/auth', [AuthController::class, 'auth']);
 
 Route::get('/health-check', [HealthCheckController::class, 'getStatus']);
 
-// Stripe routes (for testing purposes - accessible without JWT)
 Route::prefix('stripe')->group(function () {
     Route::post(
         '/charges/create',
         [StripeController::class, 'createCharge']
     );
-
     Route::get(
         '/charges/{chargeId}/get',
         [StripeController::class, 'getCharge']
     );
-
     Route::get(
         '/charges/{limit}/list',
         [StripeController::class, 'listCharges']
     );
-
     Route::post(
         '/charges/{chargeId}/capture',
         [StripeController::class, 'captureCharge']
     );
-
     Route::put(
         '/charges/{chargeId}',
         [StripeController::class, 'updateCharge']
     );
-
     Route::post(
         '/refund/{chargeId}',
         [StripeController::class, 'refundCharge']
     );
-
     Route::post(
         '/refund/{chargeId}/{amount}',
         [StripeController::class, 'partialRefundCharge']
     );
-
     Route::get(
         '/refunds/{refundId}',
         [StripeController::class, 'getRefund']
@@ -80,4 +73,14 @@ Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
     Route::resource('city', CityController::class);
 
     Route::resource('state', StateController::class);
+
+    Route::prefix('email')->group(function () {
+        Route::post('/send', [EmailController::class, 'send']);
+        Route::post('/create', [EmailController::class, 'create']);
+
+        Route::get(
+            '/open/{emailId}',
+            [EmailController::class, 'markAsOpened']
+        );
+    });
 });

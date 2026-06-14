@@ -21,6 +21,7 @@ class PersonController extends Controller
     #[OA\Post(
         path: "/api/person",
         summary: "Create person",
+        tags: ['Person'],
         responses: [
             new OA\Response(
                 response: 201,
@@ -43,6 +44,7 @@ class PersonController extends Controller
     #[OA\Put(
         path: "/api/person/{id}",
         summary: "Update person",
+        tags: ['Person'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -67,6 +69,7 @@ class PersonController extends Controller
     #[OA\Delete(
         path: "/api/person/{id}",
         summary: "Delete person",
+        tags: ['Person'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -87,6 +90,7 @@ class PersonController extends Controller
     #[OA\Get(
         path: "/api/person/{id}",
         summary: "Get person by ID",
+        tags: ['Person'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -107,6 +111,7 @@ class PersonController extends Controller
     #[OA\Get(
         path: "/api/person",
         summary: "Get all persons with filters",
+        tags: ['Person'],
         responses: [
             new OA\Response(
                 response: 200,

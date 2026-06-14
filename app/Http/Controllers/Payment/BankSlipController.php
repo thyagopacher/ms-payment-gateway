@@ -19,6 +19,7 @@ class BankSlipController extends Controller
     #[OA\Post(
         path: "/api/bank-slip/create",
         summary: "Generate bank slip for a given payment",
+        tags: ['BankSlip'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -45,6 +46,7 @@ class BankSlipController extends Controller
     #[OA\Get(
         path: "/api/bank-slip/print/{boletoId}",
         summary: "Generate PDF for a given boleto ID",
+        tags: ['BankSlip'],
         responses: [
             new OA\Response(
                 response: 200,
