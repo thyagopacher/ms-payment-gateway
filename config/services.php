@@ -40,6 +40,12 @@ return [
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],
 
+    'sendgrid' => [
+        'api_key' => env('SENDGRID_API_KEY'),
+        'from_email' => env('SENDGRID_FROM_EMAIL'),
+        'from_name' => env('SENDGRID_FROM_NAME'),
+    ],
+
     'boleto' => [
         'cert_pass' => env('SENHA_CERTIFICADO'),
         'itau' => [
