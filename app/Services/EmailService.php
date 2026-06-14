@@ -104,8 +104,14 @@ class EmailService
         return !empty($email->id);
     }
 
-    public function sendEmail(string $to, string $subject, string $body, string $from, bool $isHtml = false, array $attachments = []): bool
-    {
+    public function sendEmail (
+        string $to,
+        string $subject,
+        string $body,
+        string $from,
+        bool $isHtml = false,
+        array $attachments = []
+    ): bool {
 
         $emailId = $this->storeLogEmail($to, $subject, $body, $from, $isHtml, $attachments);
 
@@ -126,7 +132,8 @@ class EmailService
 
         $response = $sendGrid->send($email);
         $successSend = $response->statusCode() === 202;
-        $this->storeLogEmailResponse($emailId, $to, $subject, $body, $from, $isHtml, $attachments, $successSend ? SendEmail::FINISHED->value : SendEmail::FAILED->value);
+        $successText = $successSend ? SendEmail::FINISHED->value : SendEmail::FAILED->value;
+        $this->storeLogEmailResponse($emailId, $to, $subject, $body, $from, $isHtml, $attachments, $successText);
 
         return $response->statusCode() >= 200 && $response->statusCode() < 300;
     }
