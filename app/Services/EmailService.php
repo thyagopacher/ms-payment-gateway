@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\SendEmail;
 use App\Repositories\EmailAttachmentRepository;
 use App\Repositories\EmailRepository;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +28,7 @@ class EmailService
         string $from,
         bool $isHtml = false,
         array $attachments = [],
-        string $status = 'pending'
+        string $status = SendEmail::PENDING->value
     ): int {
 
         $dataSending = [
@@ -83,7 +84,7 @@ class EmailService
         string $from,
         bool $isHtml = false,
         array $attachments = [],
-        string $status = 'finished'
+        string $status = SendEmail::FINISHED->value
     ): bool {
 
         $dataSending = [
@@ -125,7 +126,7 @@ class EmailService
 
         $response = $sendGrid->send($email);
         $successSend = $response->statusCode() === 202;
-        $this->storeLogEmailResponse($emailId, $to, $subject, $body, $from, $isHtml, $attachments, $successSend ? 'sent' : 'failed');
+        $this->storeLogEmailResponse($emailId, $to, $subject, $body, $from, $isHtml, $attachments, $successSend ? SendEmail::FINISHED->value : SendEmail::FAILED->value);
 
         return $response->statusCode() >= 200 && $response->statusCode() < 300;
     }
