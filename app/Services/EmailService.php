@@ -21,6 +21,16 @@ class EmailService
         $this->apiKey = config('services.sendgrid.api_key');
     }
 
+    public function create(array $data)
+    {
+        return $this->emailRepository->create($data);
+    }
+
+    public function update(int $id, array $data)
+    {
+        return $this->emailRepository->update($id, $data);
+    }
+
     private function storeLogEmail(
         string $to,
         string $subject,
