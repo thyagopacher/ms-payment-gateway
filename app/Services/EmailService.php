@@ -107,11 +107,15 @@ class EmailService
 
     private function addAttachments(Mail $email, array $attachments): bool
     {
+        Log::info("Adding attachments to email: ");
+
         if (empty($attachments)) {
+            Log::info("No attachments to add.");
             return false;
         }
 
         foreach ($attachments as $attachment) {
+            Log::info("Adding attachment: ", $attachment);
             $email->addAttachment(
                 file_get_contents($attachment['file_path']),
                 $attachment['file_type'],
