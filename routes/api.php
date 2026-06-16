@@ -13,46 +13,48 @@ use App\Http\Controllers\StateController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/auth', [AuthController::class, 'auth']);
+Route::post('/user/auth', [AuthController::class, 'auth']);
 
 Route::get('/health-check', [HealthCheckController::class, 'getStatus']);
 
-Route::prefix('stripe')->group(function () {
-    Route::post(
-        '/charges/create',
-        [StripeController::class, 'createCharge']
-    );
-    Route::get(
-        '/charges/{chargeId}/get',
-        [StripeController::class, 'getCharge']
-    );
-    Route::get(
-        '/charges/{limit}/list',
-        [StripeController::class, 'listCharges']
-    );
-    Route::post(
-        '/charges/{chargeId}/capture',
-        [StripeController::class, 'captureCharge']
-    );
-    Route::put(
-        '/charges/{chargeId}',
-        [StripeController::class, 'updateCharge']
-    );
-    Route::post(
-        '/refund/{chargeId}',
-        [StripeController::class, 'refundCharge']
-    );
-    Route::post(
-        '/refund/{chargeId}/{amount}',
-        [StripeController::class, 'partialRefundCharge']
-    );
-    Route::get(
-        '/refunds/{refundId}',
-        [StripeController::class, 'getRefund']
-    );
-});
-
 Route::middleware(['throttle:60,1', JwtMiddleware::class])->group(function () {
+
+    Route::prefix('stripe')->group(function () {
+        Route::post(
+            '/charges/create',
+            [StripeController::class, 'createCharge']
+        );
+        Route::get(
+            '/charges/{chargeId}/get',
+            [StripeController::class, 'getCharge']
+        );
+        Route::get(
+            '/charges/{limit}/list',
+            [StripeController::class, 'listCharges']
+        );
+        Route::post(
+            '/charges/{chargeId}/capture',
+            [StripeController::class, 'captureCharge']
+        );
+        Route::put(
+            '/charges/{chargeId}',
+            [StripeController::class, 'updateCharge']
+        );
+        Route::post(
+            '/refund/{chargeId}',
+            [StripeController::class, 'refundCharge']
+        );
+        Route::post(
+            '/refund/{chargeId}/{amount}',
+            [StripeController::class, 'partialRefundCharge']
+        );
+        Route::get(
+            '/refunds/{refundId}',
+            [StripeController::class, 'getRefund']
+        );
+    });
+
+    Route::post('/user/register', [AuthController::class, 'register']);
 
     Route::prefix('bank-slip')->group(function () {
         Route::post('/create', [BankSlipController::class, 'generateBillingDocument']);

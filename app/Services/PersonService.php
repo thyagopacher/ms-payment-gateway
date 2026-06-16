@@ -6,7 +6,6 @@ use App\Dto\PersonDTO;
 use App\Models\Person;
 use App\Notifications\PersonCreated;
 use App\Repositories\PersonRepository;
-use App\ValueObject\Document;
 use Illuminate\Database\Eloquent\Collection;
 
 class PersonService
